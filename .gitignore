@@ -1,0 +1,6 @@
+assets/*
+*.o
+*.a
+vgcore*
+.vscode
+my_defender
