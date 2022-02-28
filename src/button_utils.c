@@ -25,16 +25,18 @@ void button_set_position(button *bouton, sfVector2f pos)
     center_button_text(bouton);
 }
 
-void display_button(sfRenderWindow *window, button bouton)
+void display_button(sfRenderWindow *window, button bouton, int *keys)
 {
     sfVector2u size = sfTexture_getSize(bouton.texture);
     sfVector2f mouse_pos = get_true_mouse_pos(window);
+    sfFloatRect rect = sfSprite_getGlobalBounds(bouton.sprite);
 
-    sfSprite_setTextureRect(bouton.sprite, create_rect(0, 0, size.x / 3, size.y));
-/*     if (bouton.is_hovered == sfTrue && bouton.is_clicked == sfFalse)
+    if (pos_in_square(mouse_pos, rect) == sfFalse)
+        sfSprite_setTextureRect(bouton.sprite, create_rect(0, 0, size.x / 3, size.y));
+    if (pos_in_square(mouse_pos, rect) == sfTrue && (keys[leftMouse] == 0 || keys[leftMouse] == 3))
         sfSprite_setTextureRect(bouton.sprite, create_rect(size.x / 3, 0, size.x / 3, size.y));
-    if (bouton.is_clicked == sfTrue)
-        sfSprite_setTextureRect(bouton.sprite, create_rect((size.x / 3) * 2 , 0, size.x / 3, size.y)); */
+    if (pos_in_square(mouse_pos, rect) == sfTrue && (keys[leftMouse] == 1 || keys[leftMouse] == 2))
+        sfSprite_setTextureRect(bouton.sprite, create_rect((size.x / 3) * 2 , 0, size.x / 3, size.y));
     sfRenderWindow_drawSprite(window, bouton.sprite, NULL);
     if (bouton.text.to_display == sfTrue)
         sfRenderWindow_drawText(window, bouton.text.text, NULL);

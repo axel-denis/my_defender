@@ -17,6 +17,6 @@ void setup_button_texture(button *, sfIntRect *, char *);
 
 void button_set_position(button *, sfVector2f);
 void center_button_text(button *);
-void display_button(sfRenderWindow *, button);
+void display_button(sfRenderWindow *, button, int*);
 
 #endif /* !BUTTON_H_ */

@@ -31,7 +31,7 @@ int main(int ac, char **av)
     while (sfRenderWindow_isOpen(window) && close == 1) {
         sfRenderWindow_clear(window, sfBlack);
         close = !get_events(window, keys)[sfKeyEscape];
-        display_button(window, button);
+        display_button(window, button, keys);
         update_mouse_cursor(window, mouse);
         sfRenderWindow_display(window);
     }

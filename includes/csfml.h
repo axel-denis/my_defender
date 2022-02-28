@@ -30,7 +30,8 @@
     #define WINDOW_WIDTH 1920
     #define WINDOW_HEIGHT 1080
 
-sfIntRect create_rect(int left, int top, int width, int height);
-sfVector2f itofv2(sfVector2i vector);
+sfIntRect create_rect(int, int, int, int);
+sfVector2f itofv2(sfVector2i);
+sfBool pos_in_square(sfVector2f, sfFloatRect);
 
 #endif
