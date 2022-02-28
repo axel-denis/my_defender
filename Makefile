@@ -5,11 +5,12 @@
 ## Makefile
 ##
 
-MAIN		=	src/main.c \
-				src/button_setup.c \
-				src/button_utils.c \
-				src/csfml_utils.c \
+MAIN		=	src/main.c 			\
+				src/button_setup.c 	\
+				src/button_utils.c 	\
+				src/csfml_utils.c 	\
 				src/mouse_manager.c \
+				src/events.c		\
 
 SRC			=		\
 
@@ -33,6 +34,10 @@ $(NAME):		$(MAINOBJ) $(OBJ)
 				gcc -o $(NAME) $(MAINOBJ) $(OBJ) $(CFLAGS) $(LIB)
 
 all:			$(NAME)
+
+c:				$(NAME)
+				./$(NAME)
+				mr_clean
 
 clean:
 				rm -f $(OBJ) $(MAINOBJ)

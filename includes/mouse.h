@@ -10,6 +10,13 @@
 
     #include "csfml.h"
     #include "structs.h"
+    #define leftMouse 101
+    #define rightMouse 102
+    #define press 1
+    #define hold 2
+    #define release 3
+    #define evntMousePressed event.type == sfEvtMouseButtonPressed
+    #define evntMouseReleased event.type == sfEvtMouseButtonReleased
 
 object setup_button(char *, sfVector2f);
 void update_mouse_cursor(sfRenderWindow *, object);

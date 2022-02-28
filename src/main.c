@@ -10,23 +10,11 @@
 #include "structs.h"
 #include "mouse.h"
 #include "button.h"
-
-int *get_events(sfRenderWindow *window, int *keys)
-{
-    sfEvent event;
-
-    while (sfRenderWindow_pollEvent(window, &event)) {
-        if (event.type == sfEvtClosed)
-            sfRenderWindow_close(window);
-        for (int i = 0; i < sfKeyCount; i++)
-            keys[i] = sfKeyboard_isKeyPressed(i) == sfTrue;
-    }
-    return keys;
-}
+#include "events.h"
 
 int main(int ac, char **av)
 {
-    int *keys = malloc(sizeof(int) * sfKeyCount + 2);
+    int *keys = malloc(sizeof(int) * (sfKeyCount + 2));
     sfRenderWindow *window;
     int close = 1;
     sfVideoMode main_w = {1920, 1080, 64};
