@@ -14,8 +14,8 @@ void center_button_text(button *bouton)
     sfFloatRect ownscale = sfText_getGlobalBounds((*bouton).text.text);
     int si = sfText_getCharacterSize((*bouton).text.text);
 
-    pos = VC{pos.x + scale.width / 2 , pos.y + scale.height / 2 };
-    pos = VC{pos.x - ownscale.width / 2 , pos.y - ownscale.height / 2 - si / 2};
+    pos = VC{pos.x + scale.width / 2 , pos.y + scale.height / 2};
+    pos = VC{pos.x - ownscale.width / 2 , pos.y - ownscale.height};
     sfText_setPosition((*bouton).text.text, pos);
 }
 
