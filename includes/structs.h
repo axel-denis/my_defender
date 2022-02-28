@@ -10,6 +10,8 @@
 
     #include "csfml.h"
 
+    #define VC (sfVector2f)
+
 typedef struct object_s {
     sfSprite *sprite;
     sfTexture *texture;
@@ -56,8 +58,6 @@ typedef struct text_s {
 typedef struct button_s {
     sfSprite *sprite;
     sfTexture *texture;
-    sfVector2f position;
-    sfVector2f size;
     text text;
     sfBool is_hovered;
     sfBool is_clicked;

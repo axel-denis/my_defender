@@ -5,7 +5,10 @@
 ## Makefile
 ##
 
-MAIN		=	src/main.c			\
+MAIN		=	src/main.c \
+				src/button_setup.c \
+				src/button_utils.c \
+				src/csfml_utils.c \
 
 SRC			=		\
 
@@ -22,7 +25,7 @@ LIB			= 	-L. ./lib/lib.a \
 
 
 CPPFLAGS	+=	-I includes/
-CFLAGS		+=	-Wall -Wextra #-ggdb3
+CFLAGS		+=	-Wall -Wextra -g3 #-ggdb3
 
 $(NAME):		$(MAINOBJ) $(OBJ)
 				make -C lib/

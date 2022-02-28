@@ -26,4 +26,8 @@
     #include <fcntl.h>
     #include <sys/types.h>
     #include <sys/stat.h>
+
+sfIntRect create_rect(int left, int top, int width, int height);
+sfVector2f itofv2(sfVector2i vector);
+
 #endif

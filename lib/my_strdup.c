@@ -5,6 +5,8 @@
 ** my_strdup.c
 */
 
+#include <stdlib.h>
+
 int my_strlen(char const *str);
 
 char *my_strdup(char *str)
