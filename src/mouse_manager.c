@@ -22,6 +22,8 @@ void update_mouse_cursor(sfRenderWindow *window, object mouse)
 {
     sfVector2f mouse_pos = itofv2(sfMouse_getPositionRenderWindow(window));
 
+    mouse_pos.x = mouse_pos.x / sfRenderWindow_getSize(window).x * 1920;
+    mouse_pos.y = mouse_pos.y / sfRenderWindow_getSize(window).y * 1080;
     sfSprite_setPosition(mouse.sprite, mouse_pos);
     sfRenderWindow_drawSprite(window, mouse.sprite, NULL);
 }

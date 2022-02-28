@@ -59,8 +59,6 @@ typedef struct button_s {
     sfSprite *sprite;
     sfTexture *texture;
     text text;
-    sfBool is_hovered;
-    sfBool is_clicked;
     // peut être faire un pointeur sur fonction
 } button;
 

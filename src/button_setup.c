@@ -11,8 +11,6 @@ button create_button(sfVector2f size, sfVector2f position, sfBool display_text)
 {
     button bouton;
 
-    bouton.is_clicked = sfFalse;
-    bouton.is_hovered = sfFalse;
     bouton.text.to_display = display_text;
     bouton.sprite = sfSprite_create();
     sfSprite_setPosition(bouton.sprite, position);
