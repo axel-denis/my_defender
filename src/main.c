@@ -41,9 +41,9 @@ int main(int ac, char **av)
     setup_button_text(&button, "Resume", "font/Absolute-Xero.ttf", 40);
     while (sfRenderWindow_isOpen(window) && close == 1) {
         sfRenderWindow_clear(window, sfBlack);
+        close = get_events(window);
         display_button(window, button);
         update_mouse_cursor(window, mouse);
-        close = get_events(window);
         sfRenderWindow_display(window);
     }
     return (0);

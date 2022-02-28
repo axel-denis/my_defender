@@ -32,6 +32,7 @@ button create_button(sfVector2f size, sfVector2f position, sfBool display_text)
 
 void setup_button_texture(button *bouton, sfIntRect *size, char *file_name)
 {
-    (*bouton).texture = sfTexture_createFromFile(file_name, size);
+    (*bouton).texture = sfTexture_createFromFile(file_name, NULL);
     sfSprite_setTexture((*bouton).sprite, (*bouton).texture, sfFalse);
+    sfSprite_setTextureRect((*bouton).sprite, *size);
 }
