@@ -14,7 +14,7 @@
 
 int main(int ac, char **av)
 {
-    int *keys = malloc(sizeof(int) * (sfKeyCount + 2));
+    int *keys = init_keys();
     sfRenderWindow *window;
     int close = 1;
     sfVideoMode main_w = {1920, 1080, 64};

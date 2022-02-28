@@ -13,5 +13,6 @@
     void evolve_mouse(int *keys);
     void print_events(int *keys);
     int *get_events(sfRenderWindow *window, int *keys);
+    int *init_keys(void);
 
 #endif

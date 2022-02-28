@@ -11,6 +11,15 @@
 #include "mouse.h"
 #include "button.h"
 
+int *init_keys(void)
+{
+    int *keys = malloc(sizeof(int) * (sfKeyCount + 2));
+
+    for (int i = 0; i < sfKeyCount + 2; i++)
+        keys[i] = 0;
+    return keys;
+}
+
 void evolve_mouse(int *keys)
 {
     if (keys[leftMouse] == press || keys[leftMouse] == release)
