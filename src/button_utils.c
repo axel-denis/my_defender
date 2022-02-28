@@ -6,6 +6,7 @@
 */
 
 #include "button.h"
+#include "mouse.h"
 
 void center_button_text(button *bouton)
 {
@@ -27,7 +28,7 @@ void button_set_position(button *bouton, sfVector2f pos)
 void display_button(sfRenderWindow *window, button bouton)
 {
     sfVector2u size = sfTexture_getSize(bouton.texture);
-    sfVector2i mouse_pos = sfMouse_getPositionRenderWindow(window);
+    sfVector2f mouse_pos = get_true_mouse_pos(window);
 
     sfSprite_setTextureRect(bouton.sprite, create_rect(0, 0, size.x / 3, size.y));
 /*     if (bouton.is_hovered == sfTrue && bouton.is_clicked == sfFalse)

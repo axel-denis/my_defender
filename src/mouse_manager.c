@@ -18,12 +18,20 @@ object setup_button(char *filename, sfVector2f scale)
     return (mouse);
 }
 
-void update_mouse_cursor(sfRenderWindow *window, object mouse)
+sfVector2f get_true_mouse_pos(sfRenderWindow *window)
 {
     sfVector2f mouse_pos = itofv2(sfMouse_getPositionRenderWindow(window));
+    sfVector2u screen_size = sfRenderWindow_getSize(window);
 
-    mouse_pos.x = mouse_pos.x / sfRenderWindow_getSize(window).x * 1920;
-    mouse_pos.y = mouse_pos.y / sfRenderWindow_getSize(window).y * 1080;
+    mouse_pos.x = mouse_pos.x / screen_size.x * WINDOW_WIDTH;
+    mouse_pos.y = mouse_pos.y / screen_size.y * WINDOW_HEIGHT;
+    return (mouse_pos);
+}
+
+void update_mouse_cursor(sfRenderWindow *window, object mouse)
+{
+    sfVector2f mouse_pos = get_true_mouse_pos(window);
+
     sfSprite_setPosition(mouse.sprite, mouse_pos);
     sfRenderWindow_drawSprite(window, mouse.sprite, NULL);
 }
