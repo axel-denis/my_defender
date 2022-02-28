@@ -11,21 +11,22 @@
 #include "mouse.h"
 #include "button.h"
 
-int get_events(sfRenderWindow *window)
+int *get_events(sfRenderWindow *window, int *keys)
 {
     sfEvent event;
 
     while (sfRenderWindow_pollEvent(window, &event)) {
         if (event.type == sfEvtClosed)
             sfRenderWindow_close(window);
-        if (sfKeyboard_isKeyPressed(sfKeyEscape) == sfTrue)
-            return (0);
+        for (int i = 0; i < sfKeyCount; i++)
+            keys[i] = sfKeyboard_isKeyPressed(i) == sfTrue;
     }
-    return (1);
+    return keys;
 }
 
 int main(int ac, char **av)
 {
+    int *keys = malloc(sizeof(int) * sfKeyCount + 2);
     sfRenderWindow *window;
     int close = 1;
     sfVideoMode main_w = {1920, 1080, 64};
@@ -41,7 +42,7 @@ int main(int ac, char **av)
     setup_button_text(&button, "Resume", "font/Absolute-Xero.ttf", 40);
     while (sfRenderWindow_isOpen(window) && close == 1) {
         sfRenderWindow_clear(window, sfBlack);
-        close = get_events(window);
+        close = !get_events(window, keys)[sfKeyEscape];
         display_button(window, button);
         update_mouse_cursor(window, mouse);
         sfRenderWindow_display(window);
