@@ -24,5 +24,6 @@ int my_str_isalpha(char const *str);
 int my_strcmp(char const *s1, char const *s2);
 char *my_strcpy(char *dest, char const *src);
 char *my_strdup(char *str);
+char *max_strdup(char *str, int max);
 
 #endif
