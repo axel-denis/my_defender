@@ -33,11 +33,21 @@ void display_button(sfRenderWindow *window, button bouton, int *keys)
 
     if (pos_in_square(mouse_pos, rect) == sfFalse)
         sfSprite_setTextureRect(bouton.sprite, create_rect(0, 0, size.x / 3, size.y));
-    if (pos_in_square(mouse_pos, rect) == sfTrue && (keys[leftMouse] == 0 || keys[leftMouse] == 3))
+    if (pos_in_square(mouse_pos, rect) == sfTrue
+    && (keys[leftMouse] == 0 || keys[leftMouse] == 3))
         sfSprite_setTextureRect(bouton.sprite, create_rect(size.x / 3, 0, size.x / 3, size.y));
-    if (pos_in_square(mouse_pos, rect) == sfTrue && (keys[leftMouse] == 1 || keys[leftMouse] == 2))
+    if (pos_in_square(mouse_pos, rect) == sfTrue
+    && (keys[leftMouse] == 1 || keys[leftMouse] == 2))
         sfSprite_setTextureRect(bouton.sprite, create_rect((size.x / 3) * 2 , 0, size.x / 3, size.y));
     sfRenderWindow_drawSprite(window, bouton.sprite, NULL);
     if (bouton.text.to_display == sfTrue)
         sfRenderWindow_drawText(window, bouton.text.text, NULL);
+}
+
+void destroy_button(button bouton)
+{
+    sfSprite_destroy(bouton.sprite);
+    sfTexture_destroy(bouton.texture);
+    sfText_destroy(bouton.text.text);
+    sfFont_destroy(bouton.text.font);
 }

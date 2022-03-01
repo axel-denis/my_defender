@@ -25,7 +25,7 @@ int main(int ac, char **av)
     window = sfRenderWindow_create(main_w, "My defender", sfDefaultStyle, NULL);
     sfRenderWindow_setFramerateLimit(window, 60);
     sfRenderWindow_setMouseCursorVisible(window, sfFalse);
-    object mouse = setup_button("img/cursor.png", VC{0.05, 0.05});
+    object mouse = setup_mouse("img/cursor.png", VC{0.05, 0.05});
     setup_button_texture(&button, &square, "img/Blue_button.png");
     setup_button_text(&button, "Resume", "font/Absolute-Xero.ttf", 40);
     while (sfRenderWindow_isOpen(window) && close == 1) {
@@ -35,5 +35,7 @@ int main(int ac, char **av)
         update_mouse_cursor(window, mouse);
         sfRenderWindow_display(window);
     }
+    destroy_button(button);
+    destroy_object(mouse);
     return (0);
 }

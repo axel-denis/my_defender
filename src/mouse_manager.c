@@ -7,7 +7,7 @@
 
 #include "mouse.h"
 
-object setup_button(char *filename, sfVector2f scale)
+object setup_mouse(char *filename, sfVector2f scale)
 {
     object mouse;
 

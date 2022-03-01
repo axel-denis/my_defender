@@ -6,6 +6,7 @@
 */
 
 #include "csfml.h"
+#include "structs.h"
 
 sfIntRect create_rect(int left, int top, int width, int height)
 {
@@ -33,4 +34,10 @@ sfBool pos_in_square(sfVector2f pos, sfFloatRect rect)
         if (pos.y > rect.top && pos.y < rect.top + rect.height)
             return (sfTrue);
     return (sfFalse);
+}
+
+void destroy_object(object object)
+{
+    sfSprite_destroy(object.sprite);
+    sfTexture_destroy(object.texture);
 }

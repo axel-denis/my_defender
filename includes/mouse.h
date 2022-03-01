@@ -18,7 +18,7 @@
     #define evntMousePressed event.type == sfEvtMouseButtonPressed
     #define evntMouseReleased event.type == sfEvtMouseButtonReleased
 
-object setup_button(char *, sfVector2f);
+object setup_mouse(char *, sfVector2f);
 void update_mouse_cursor(sfRenderWindow *, object);
 sfVector2f get_true_mouse_pos(sfRenderWindow *);
 
