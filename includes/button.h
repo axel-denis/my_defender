@@ -19,5 +19,6 @@ void button_set_position(button *, sfVector2f);
 void center_button_text(button *);
 void display_button(sfRenderWindow *, button, int*);
 void destroy_button(button);
+sfBool is_pressed(button, sfRenderWindow *, int *);
 
 #endif /* !BUTTON_H_ */

@@ -19,6 +19,17 @@ void center_button_text(button *bouton)
     sfText_setPosition((*bouton).text.text, pos);
 }
 
+sfBool is_pressed(button bouton, sfRenderWindow *window, int *keys)
+{
+    sfVector2f mouse_pos = get_true_mouse_pos(window);
+    sfFloatRect rect = sfSprite_getGlobalBounds(bouton.sprite);
+
+    if (pos_in_square(mouse_pos, rect) == sfTrue
+    && (keys[leftMouse] == 1 || keys[leftMouse] == 2))
+        return (sfTrue);
+    return (sfFalse);
+}
+
 void button_set_position(button *bouton, sfVector2f pos)
 {
     sfSprite_setPosition((*bouton).sprite, pos);
