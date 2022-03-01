@@ -42,14 +42,14 @@ void destroy_object(object object)
     sfTexture_destroy(object.texture);
 }
 
-void setup_text(char *string, char *font, int char_size)
+text setup_text(char *string, char *font, int char_size)
 {
-    text text;
+    text texte;
 
-    text.text = sfText_create();
-    text.font = sfFont_createFromFile(font);
-    sfText_setFont(text.text, text.font);
-    sfText_setString(text.text, string);
-    sfText_setCharacterSize(text.text, char_size);
-    return (text);
+    texte.text = sfText_create();
+    texte.font = sfFont_createFromFile(font);
+    sfText_setFont(texte.text, texte.font);
+    sfText_setString(texte.text, string);
+    sfText_setCharacterSize(texte.text, char_size);
+    return (texte);
 }

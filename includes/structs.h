@@ -53,7 +53,7 @@ typedef struct text_s {
     sfBool to_display;
     sfText *text;
     sfFont *font;
-}text;
+} text;
 
 typedef struct button_s {
     sfSprite *sprite;
@@ -76,7 +76,7 @@ typedef struct game_data_s {
 
 typedef struct env_s {
     int score;
-    game_data *data;
-} env;
+    game_data data;
+} env_t;
 
 #endif /* !STRUCT_H_ */

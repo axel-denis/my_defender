@@ -36,6 +36,6 @@ sfIntRect create_rect(int, int, int, int);
 sfVector2f itofv2(sfVector2i);
 sfBool pos_in_square(sfVector2f, sfFloatRect);
 void destroy_object(object);
-void setup_text(char *, char *, int);
+text setup_text(char *, char *, int);
 
 #endif

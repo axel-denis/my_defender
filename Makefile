@@ -6,24 +6,26 @@
 ##
 
 MAIN		=	src/main.c 			\
+				src/main_menu.c		\
 				src/button_setup.c 	\
 				src/button_utils.c 	\
 				src/csfml_utils.c 	\
 				src/mouse_manager.c \
 				src/events.c		\
+				src/map_reader.c	\
 
-SRC			=		\
+SRC			=						\
 
 MAINOBJ		=	$(MAIN:.c=.o)
 OBJ			=	$(SRC:.c=.o)
 
 NAME		=	my_defender
 
-LIB			= 	-L. ./lib/lib.a \
-				-lcsfml-graphics \
-				-lcsfml-system \
-				-lcsfml-audio \
-				-lcsfml-window \
+LIB			= 	-L. ./lib/lib.a 	\
+				-lcsfml-graphics 	\
+				-lcsfml-system 		\
+				-lcsfml-audio 		\
+				-lcsfml-window 		\
 
 
 CPPFLAGS	+=	-I includes/
