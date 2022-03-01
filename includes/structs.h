@@ -62,4 +62,21 @@ typedef struct button_s {
     // peut être faire un pointeur sur fonction
 } button;
 
+typedef struct map_block_s {
+    int type;
+    sfVector2f next_path;
+    sfSprite *sprite;
+    turret *turret;
+} map_block;
+
+typedef struct game_data_s {
+    sfTexture *ground_texture;
+    sfTexture *path_texture;
+} game_data;
+
+typedef struct env_s {
+    int score;
+    game_data *data;
+} env;
+
 #endif /* !STRUCT_H_ */

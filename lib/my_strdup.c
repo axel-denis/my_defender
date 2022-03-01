@@ -25,7 +25,7 @@ char *max_strdup(char *str, int max)
     int len = my_strlen(str);
     char *output = malloc(sizeof(char) * len + 1);
 
-    output[len] = '\0';
+    output[len < max ? len : max] = '\0';
     for (int i = 0; i < len && i < max; i++)
         output[i] = str[i];
     return output;
