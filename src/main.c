@@ -29,30 +29,67 @@ button *create_buttons_menu(void)
     return (buttons);
 }
 
-int main(int ac, char **av)
+void options(sfRenderWindow *window, object mouse, int *keys)
 {
-    int *keys = init_keys();
-    sfRenderWindow *window;
     int open = 1;
-    sfVideoMode main_w = {1920, 1080, 64};
-    object mouse = setup_mouse("img/cursor.png", VC{0.05, 0.05});
-    button *buttons = create_buttons_menu();
 
-    window = sfRenderWindow_create(main_w, "My defender", sfDefaultStyle, NULL);
-    sfRenderWindow_setFramerateLimit(window, 60);
-    sfRenderWindow_setMouseCursorVisible(window, sfFalse);
+    while (sfRenderWindow_isOpen(window) && open) {
+        sfRenderWindow_clear(window, sfBlack);
+        open = !get_events(window, keys)[sfKeyEscape];
+        update_mouse_cursor(window, mouse);
+        sfRenderWindow_display(window);
+    }
+    keys[sfKeyEscape] = 0;
+}
+
+void game(sfRenderWindow *window, object mouse, int *keys)
+{
+    int open = 1;
+
+    while (sfRenderWindow_isOpen(window) && open) {
+        sfRenderWindow_clear(window, sfBlack);
+        open = !get_events(window, keys)[sfKeyEscape];
+        update_mouse_cursor(window, mouse);
+        sfRenderWindow_display(window);
+    }
+    keys[sfKeyEscape] = 0;
+}
+
+void main_menu(sfRenderWindow *window, object mouse, int *keys)
+{
+    button *buttons = create_buttons_menu();
+    int open = 1;
+    text text = setup_text("my_defender", "font/oceanicdriftlaser.ttf", 30);
+
     while (sfRenderWindow_isOpen(window) && open) {
         sfRenderWindow_clear(window, sfBlack);
         open = !get_events(window, keys)[sfKeyEscape];
         for (int i = 0; i < 3; i++)
             display_button(window, buttons[i], keys);
         update_mouse_cursor(window, mouse);
+        if (is_pressed(buttons[0], window, keys) == sfTrue)
+            game(window, mouse, keys);
+        if (is_pressed(buttons[1], window, keys) == sfTrue)
+            options(window, mouse, keys);
         if (is_pressed(buttons[2], window, keys) == sfTrue)
             open = 0;
         sfRenderWindow_display(window);
     }
     for (int i = 0; i < 3; i++)
         destroy_button(buttons[i]);
+}
+
+int main(int ac, char **av)
+{
+    int *keys = init_keys();
+    sfVideoMode main_w = {1920, 1080, 64};
+    sfRenderWindow *window;
+    object mouse = setup_mouse("img/cursor.png", VC{0.05, 0.05});
+
+    window = sfRenderWindow_create(main_w, "My defender", sfDefaultStyle, NULL);
+    sfRenderWindow_setFramerateLimit(window, 60);
+    sfRenderWindow_setMouseCursorVisible(window, sfFalse);
+    main_menu(window, mouse, keys);
     destroy_object(mouse);
     return (0);
 }

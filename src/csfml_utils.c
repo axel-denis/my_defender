@@ -41,3 +41,15 @@ void destroy_object(object object)
     sfSprite_destroy(object.sprite);
     sfTexture_destroy(object.texture);
 }
+
+void setup_text(char *string, char *font, int char_size)
+{
+    text text;
+
+    text.text = sfText_create();
+    text.font = sfFont_createFromFile(font);
+    sfText_setFont(text.text, text.font);
+    sfText_setString(text.text, string);
+    sfText_setCharacterSize(text.text, char_size);
+    return (text);
+}
