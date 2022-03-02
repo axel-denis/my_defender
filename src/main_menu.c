@@ -18,9 +18,9 @@ button *create_buttons_menu(void)
     button *buttons = malloc(sizeof(button) * 3);
     sfIntRect square = create_rect(0, 0, 6065 / 3, 833);
 
-    buttons[0] = create_button(VC{0.2, 0.2}, VC{1920 / 2 - ((6065 / 3) / 2) * 0.2 + 500, 1080 / 2 - 200}, sfTrue);
-    buttons[1] = create_button(VC{0.2, 0.2}, VC{1920 / 2 - ((6065 / 3) / 2) * 0.2 + 500, 1080 / 2}, sfTrue);
-    buttons[2] = create_button(VC{0.2, 0.2}, VC{1920 / 2 - ((6065 / 3) / 2) * 0.2 + 500, 1080 / 2 + 200}, sfTrue);
+    buttons[0] = create_button(VC{0.2, 0.2}, VC{WINDOW_WIDTH / 2 - ((6065 / 3) / 2) * 0.2 + 500, WINDOW_HEIGHT / 2 - 150}, sfTrue);
+    buttons[1] = create_button(VC{0.2, 0.2}, VC{WINDOW_WIDTH / 2 - ((6065 / 3) / 2) * 0.2 + 500, WINDOW_HEIGHT / 2 + 50}, sfTrue);
+    buttons[2] = create_button(VC{0.2, 0.2}, VC{WINDOW_WIDTH / 2 - ((6065 / 3) / 2) * 0.2 + 500, WINDOW_HEIGHT / 2 + 250}, sfTrue);
     setup_button_texture(&(buttons[0]), &square, "img/Blue_button.png");
     setup_button_texture(&(buttons[1]), &square, "img/Blue_button.png");
     setup_button_texture(&(buttons[2]), &square, "img/Blue_button.png");
@@ -41,7 +41,7 @@ void main_menu(sfRenderWindow *window, object mouse, int *keys, env_t *env)
     text texte = setup_text("  Defend\nhomeland", "font/oceanicdriftbold.ttf", 150);
     sfFloatRect ownscale = sfText_getGlobalBounds(texte.text);
 
-    sfText_setPosition(texte.text, VC{WINDOW_WIDTH / 2 - ownscale.width / 2 + 500, WINDOW_HEIGHT / 2 - 540});
+    sfText_setPosition(texte.text, VC{WINDOW_WIDTH / 2 - ownscale.width / 2 + 500, WINDOW_HEIGHT / 2 - 490});
     while (sfRenderWindow_isOpen(window) && open) {
         sfRenderWindow_clear(window, sfBlack);
         sfRenderWindow_drawSprite(window, background.sprite, NULL);
