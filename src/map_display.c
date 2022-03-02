@@ -17,6 +17,9 @@ sfSprite *get_case_from_mouse(env_t *env, sfVector2f mouse_pos)
 {
     sfVector2i case_pos = get_case_coords(mouse_pos);
 
+    if (case_pos.y < 0 || case_pos.x < 0
+    || case_pos.y >= 18 || case_pos.x >= 32)
+        return NULL;
     return env->map[case_pos.y][case_pos.x].sprite;
 }
 
@@ -28,7 +31,7 @@ sfVector2i get_case_coords(sfVector2f position)
     return (sfVector2i) {x, y};
 }
 
-void setmap_opacity(env_t *env, sfRenderWindow *window)
+void setmap_opacity(env_t *env)
 {
     for (int i = 0; i < 18; i++) {
         for (int j = 0; j < 32; j++) {

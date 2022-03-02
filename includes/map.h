@@ -18,7 +18,7 @@
     #define DATABLOCK 6
 
 int read_map(env_t *game, char *path);
-void setmap_opacity(env_t *env, sfRenderWindow *window);
+void setmap_opacity(env_t *env);
 void display_map(env_t *env, sfRenderWindow *window);
 sfSprite *get_case_from_mouse(env_t *env, sfVector2f mouse_pos);
 sfVector2i get_case_coords(sfVector2f position);

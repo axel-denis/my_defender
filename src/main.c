@@ -34,11 +34,14 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
     object planet = create_object("img/planet.png", VC{2300, 980}, VC{.4, .4});
     object planet2 = create_object("img/planet2.png", VC{300, 700}, VC{.3, .3});
     object milkeyway = create_object("img/milkey_way.png", VC{0, 0}, VC{1, 1});
+    object epsilon = create_object("img/Epsilon.png", VC{0, 0}, VC{.1, .1});
+    object stats = create_object("img/wide_blue_display.png", VC{0, 0}, VC{.7, .3});
 
-    sfSprite_setColor(planet2.sprite, sfColor_fromRGB(150, 150, 150));
+    sfSprite_setColor(planet2.sprite, sfColor_fromRGB(175, 175, 175));
+    sfSprite_setColor(planet.sprite, sfColor_fromRGB(150, 150, 150));
     sfSprite_setRotation(planet.sprite, 180);
     sfSprite_setRotation(planet2.sprite, -100);
-    setmap_opacity(env, window);
+    setmap_opacity(env);
     while (sfRenderWindow_isOpen(window) && open) {
         sfRenderWindow_clear(window, sfBlack);
         open = !get_events(window, keys)[sfKeyEscape];
@@ -46,7 +49,9 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
         sfRenderWindow_drawSprite(window, milkeyway.sprite, NULL);
         sfRenderWindow_drawSprite(window, planet.sprite, NULL);
         sfRenderWindow_drawSprite(window, planet2.sprite, NULL);
+        sfRenderWindow_drawSprite(window, epsilon.sprite, NULL);
         display_map(env, window);
+        sfRenderWindow_drawSprite(window, stats.sprite, NULL);
         update_mouse_cursor(window, mouse);
         sfRenderWindow_display(window);
     }
