@@ -5,14 +5,14 @@
 ** affiche un string
 */
 
-void my_putchar(char c);
+int my_strlen(char const *str);
 
 void my_putstr(char const *str)
 {
-    int count = 0;
+    write(1, str, my_strlen(str));
+}
 
-    while (str[count]) {
-        my_putchar(str[count]);
-        count++;
-    }
+void my_errorstr(char const *str)
+{
+    write(2, str, my_strlen(str));
 }
