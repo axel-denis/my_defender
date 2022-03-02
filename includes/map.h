@@ -11,6 +11,7 @@
     #include "csfml.h"
     #include "structs.h"
 
-map_block **read_map(env_t *game, char *path);
+int read_map(env_t *game, char *path);
+void display_map(env_t *env);
 
 #endif

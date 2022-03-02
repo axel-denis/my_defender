@@ -76,6 +76,7 @@ typedef struct game_data_s {
 
 typedef struct env_s {
     int score;
+    map_block **map;
     game_data data;
 } env_t;
 

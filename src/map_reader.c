@@ -12,7 +12,7 @@
 #include "button.h"
 #include "events.h"
 
-#define REAL_MAP_LEN 192
+#define REAL_MAP_LEN 193 // je compte 192 pourtant, étrange
 #define MAP_LEN 32
 #define SPRITE_SCALE (sfVector2f) {1, 1}
 #define DATABLOCK 6
@@ -34,7 +34,7 @@ int setup_block(env_t *env, map_block *line, char *buf, sfVector2f pos)
 {
     char *temp_str = NULL;
 
-    if (strlen(buf) < 3 || buf[0] - '0' < 0 || buf[0] - '0' > 1)
+    if (strlen(buf) < DATABLOCK || buf[0] - '0' < 0 || buf[0] - '0' > 1)
         return 1;
     line->type = buf[0] - '0';
 
@@ -66,13 +66,15 @@ map_block *map_line(env_t *env, char *buffer)
 
     if (my_strlen(buffer) != REAL_MAP_LEN)
         return NULL;
-    for (int i = 0; i < REAL_MAP_LEN; i++) {
-        setup_block(env, &line[i], buffer, len_to_xy(i / DATABLOCK, MAP_LEN));
+    for (int i = 0; i < MAP_LEN; i++) {
+        if (setup_block(env, &line[i], buffer + i * DATABLOCK,
+            len_to_xy(i, MAP_LEN)) == 1)
+            return NULL;
     }
     return line;
 }
 
-map_block **read_map(env_t *game, char *path)
+int read_map(env_t *game, char *path)
 {
     FILE *fd = fopen(path, "r");
     size_t size = 0;
@@ -81,16 +83,17 @@ map_block **read_map(env_t *game, char *path)
 
     final_tab[18] = NULL;
     if (fd == NULL)
-        return NULL;
+        return 1;
     for (int i = 0; i < 18; i++) {
         size = getline(&buffer, &size, fd);
         if (size < 0) {
             free(buffer);
-            return NULL;
+            return 1;
         }
         final_tab[i] = map_line(game, buffer);
         if (final_tab[i] == NULL)
-            return NULL;
+            return 1;
     }
-    return final_tab;
+    game->map = final_tab;
+    return 0;
 }

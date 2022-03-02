@@ -13,6 +13,7 @@ MAIN		=	src/main.c 			\
 				src/mouse_manager.c \
 				src/events.c		\
 				src/map_reader.c	\
+				src/map_display.c	\
 
 SRC			=						\
 

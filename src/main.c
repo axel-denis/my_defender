@@ -57,12 +57,16 @@ int main(int ac, char **av)
     sfVideoMode main_w = {1920, 1080, 64};
     sfRenderWindow *window;
     object mouse = setup_mouse("img/cursor.png", VC{0.05, 0.05});
-    env_t *env_t = create_env();
+    env_t *env = create_env();
 
     window = sfRenderWindow_create(main_w, "My defender", sfDefaultStyle, NULL);
     sfRenderWindow_setFramerateLimit(window, 60);
     sfRenderWindow_setMouseCursorVisible(window, sfFalse);
-    //read_map(env_t, "map");
+    if (read_map(env, "map") == 1) {
+        my_errorstr("Error on map\n");
+        return 84;
+    }
+    display_map(env);
     main_menu(window, mouse, keys);
     destroy_object(mouse);
     return (0);
