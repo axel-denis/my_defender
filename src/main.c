@@ -41,6 +41,7 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
         sfRenderWindow_clear(window, sfBlack);
         open = !get_events(window, keys)[sfKeyEscape];
         sfRenderWindow_drawSprite(window, background.sprite, NULL);
+        sfSprite_setScale(get_case_from_mouse(env, get_true_mouse_pos(window)), (sfVector2f) {.5, .5});
         display_map(env, window);
         update_mouse_cursor(window, mouse);
         sfRenderWindow_display(window);
