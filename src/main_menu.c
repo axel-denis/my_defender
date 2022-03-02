@@ -17,9 +17,9 @@ button *create_buttons_menu(void)
     button *buttons = malloc(sizeof(button) * 3);
     sfIntRect square = create_rect(0, 0, 6065 / 3, 833);
 
-    buttons[0] = create_button(VC{0.2, 0.2}, VC{1920 / 2 - ((6065 / 3) / 2) * 0.2 - 500, 1080 / 2 - 200}, sfTrue);
-    buttons[1] = create_button(VC{0.2, 0.2}, VC{1920 / 2 - ((6065 / 3) / 2) * 0.2 - 500, 1080 / 2}, sfTrue);
-    buttons[2] = create_button(VC{0.2, 0.2}, VC{1920 / 2 - ((6065 / 3) / 2) * 0.2 - 500, 1080 / 2 + 200}, sfTrue);
+    buttons[0] = create_button(VC{0.2, 0.2}, VC{1920 / 2 - ((6065 / 3) / 2) * 0.2 + 500, 1080 / 2 - 200}, sfTrue);
+    buttons[1] = create_button(VC{0.2, 0.2}, VC{1920 / 2 - ((6065 / 3) / 2) * 0.2 + 500, 1080 / 2}, sfTrue);
+    buttons[2] = create_button(VC{0.2, 0.2}, VC{1920 / 2 - ((6065 / 3) / 2) * 0.2 + 500, 1080 / 2 + 200}, sfTrue);
     setup_button_texture(&(buttons[0]), &square, "img/Blue_button.png");
     setup_button_texture(&(buttons[1]), &square, "img/Blue_button.png");
     setup_button_texture(&(buttons[2]), &square, "img/Blue_button.png");
@@ -36,12 +36,12 @@ void main_menu(sfRenderWindow *window, object mouse, int *keys, env_t *env)
     int open = 1;
     object background;
     background.sprite = sfSprite_create();
-    background.texture = sfTexture_createFromFile("img/bg.jpg", NULL);
+    background.texture = sfTexture_createFromFile("img/newbg.jpg", NULL);
     sfSprite_setTexture(background.sprite, background.texture, sfTrue);
     text texte = setup_text("Nik", "font/oceanicdriftbold.ttf", 150);
     sfFloatRect ownscale = sfText_getGlobalBounds(texte.text);
 
-    sfText_setPosition(texte.text, VC{WINDOW_WIDTH / 2 - ownscale.width / 2 - 500, WINDOW_HEIGHT / 2 - 450});
+    sfText_setPosition(texte.text, VC{WINDOW_WIDTH / 2 - ownscale.width / 2 + 500, WINDOW_HEIGHT / 2 - 450});
     while (sfRenderWindow_isOpen(window) && open) {
         sfRenderWindow_clear(window, sfBlack);
         sfRenderWindow_drawSprite(window, background.sprite, NULL);

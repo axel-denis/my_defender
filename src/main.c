@@ -31,11 +31,18 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
 {
     int open = 1;
 
+    object background;
+
+    background.texture = sfTexture_createFromFile("img/space.jpg", NULL);
+    background.sprite = sfSprite_create();
+    sfSprite_setTexture(background.sprite, background.texture, sfFalse);
+    sfSprite_setScale(background.sprite, VC{0.55, 0.55});
     while (sfRenderWindow_isOpen(window) && open) {
         sfRenderWindow_clear(window, sfBlack);
         open = !get_events(window, keys)[sfKeyEscape];
-        update_mouse_cursor(window, mouse);
+        sfRenderWindow_drawSprite(window, background.sprite, NULL);
         display_map(env, window);
+        update_mouse_cursor(window, mouse);
         sfRenderWindow_display(window);
     }
     keys[sfKeyEscape] = 0;
@@ -46,8 +53,8 @@ env_t *create_env(void)
     env_t *env = malloc(sizeof(env_t));
 
     env->data.ground_texture =
-        sfTexture_createFromFile("img/grass.png", sfFalse);
-    env->data.path_texture = sfTexture_createFromFile("img/dirt.png", sfFalse);
+        sfTexture_createFromFile("img/grass.png", NULL);
+    env->data.path_texture = sfTexture_createFromFile("img/dirt.png", NULL);
     env->score = 0;
     return env;
 }
