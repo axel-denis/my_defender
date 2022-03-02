@@ -27,7 +27,7 @@ void options(sfRenderWindow *window, object mouse, int *keys)
     keys[sfKeyEscape] = 0;
 }
 
-void game(sfRenderWindow *window, object mouse, int *keys)
+void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
 {
     int open = 1;
 
@@ -35,6 +35,7 @@ void game(sfRenderWindow *window, object mouse, int *keys)
         sfRenderWindow_clear(window, sfBlack);
         open = !get_events(window, keys)[sfKeyEscape];
         update_mouse_cursor(window, mouse);
+        display_map(env, window);
         sfRenderWindow_display(window);
     }
     keys[sfKeyEscape] = 0;
@@ -66,8 +67,7 @@ int main(int ac, char **av)
         my_errorstr("Error on map\n");
         return 84;
     }
-    display_map(env);
-    main_menu(window, mouse, keys);
+    main_menu(window, mouse, keys, env);
     destroy_object(mouse);
     return (0);
 }

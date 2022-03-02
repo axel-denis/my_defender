@@ -12,6 +12,6 @@
     #include "structs.h"
 
 int read_map(env_t *game, char *path);
-void display_map(env_t *env);
+void display_map(env_t *env, sfRenderWindow *window);
 
 #endif

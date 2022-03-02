@@ -30,7 +30,7 @@ button *create_buttons_menu(void)
 }
 
 
-void main_menu(sfRenderWindow *window, object mouse, int *keys)
+void main_menu(sfRenderWindow *window, object mouse, int *keys, env_t *env)
 {
     button *buttons = create_buttons_menu();
     int open = 1;
@@ -51,7 +51,7 @@ void main_menu(sfRenderWindow *window, object mouse, int *keys)
             display_button(window, buttons[i], keys);
         update_mouse_cursor(window, mouse);
         if (is_pressed(buttons[0], window, keys) == sfTrue)
-            game(window, mouse, keys);
+            game(window, mouse, keys, env);
         if (is_pressed(buttons[1], window, keys) == sfTrue)
             options(window, mouse, keys);
         if (is_pressed(buttons[2], window, keys) == sfTrue)

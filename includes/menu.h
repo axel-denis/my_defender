@@ -11,6 +11,6 @@
     #include "csfml.h"
     #include "structs.h"
 
-void main_menu(sfRenderWindow *, object, int *);
+void main_menu(sfRenderWindow *, object, int *, env_t *);
 
 #endif /* !MENU_H_ */

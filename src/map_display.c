@@ -12,11 +12,16 @@
 #include "button.h"
 #include "events.h"
 
-void display_map(env_t *env)
+#define RATIO 60
+
+void display_map(env_t *env, sfRenderWindow *window)
 {
     for (int i = 0; i < 18; i++) {
-        for (int j = 0; j < 32; j++)
-            printf("%d.", env->map[i][j].type);
+        for (int j = 0; j < 32; j++) {
+            sfSprite_setPosition(env->map[i][j].sprite, (sfVector2f) {j * 60, i * 60});
+            sfRenderWindow_drawSprite(window, env->map[i][j].sprite, NULL);
+        }
+        //printf("%d.", env->map[i][j].type);
         printf("\n");
     }
 }
