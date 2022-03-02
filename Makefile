@@ -10,6 +10,7 @@ MAIN		=	src/main.c 			\
 				src/button_setup.c 	\
 				src/button_utils.c 	\
 				src/csfml_utils.c 	\
+				src/csfml_utils2.c	\
 				src/mouse_manager.c \
 				src/events.c		\
 				src/map_reader.c	\

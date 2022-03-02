@@ -7,6 +7,7 @@
 
 #include "csfml.h"
 #include "lib.h"
+#include "menu.h"
 #include "structs.h"
 #include "mouse.h"
 #include "button.h"
@@ -29,7 +30,6 @@ button *create_buttons_menu(void)
     return (buttons);
 }
 
-
 void main_menu(sfRenderWindow *window, object mouse, int *keys, env_t *env)
 {
     button *buttons = create_buttons_menu();
@@ -38,10 +38,10 @@ void main_menu(sfRenderWindow *window, object mouse, int *keys, env_t *env)
     background.sprite = sfSprite_create();
     background.texture = sfTexture_createFromFile("img/newbg.jpg", NULL);
     sfSprite_setTexture(background.sprite, background.texture, sfTrue);
-    text texte = setup_text("Nik", "font/oceanicdriftbold.ttf", 150);
+    text texte = setup_text("  Defend\nhomeland", "font/oceanicdriftbold.ttf", 150);
     sfFloatRect ownscale = sfText_getGlobalBounds(texte.text);
 
-    sfText_setPosition(texte.text, VC{WINDOW_WIDTH / 2 - ownscale.width / 2 + 500, WINDOW_HEIGHT / 2 - 450});
+    sfText_setPosition(texte.text, VC{WINDOW_WIDTH / 2 - ownscale.width / 2 + 500, WINDOW_HEIGHT / 2 - 540});
     while (sfRenderWindow_isOpen(window) && open) {
         sfRenderWindow_clear(window, sfBlack);
         sfRenderWindow_drawSprite(window, background.sprite, NULL);

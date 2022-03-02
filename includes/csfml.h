@@ -37,5 +37,6 @@ sfVector2f itofv2(sfVector2i);
 sfBool pos_in_square(sfVector2f, sfFloatRect);
 void destroy_object(object);
 text setup_text(char *, char *, int);
+object create_object(char *file, sfVector2f pos, sfVector2f scale);
 
 #endif

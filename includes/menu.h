@@ -12,5 +12,7 @@
     #include "structs.h"
 
 void main_menu(sfRenderWindow *, object, int *, env_t *);
+void game(sfRenderWindow *window, object mouse, int *keys, env_t *env);
+void options(sfRenderWindow *window, object mouse, int *keys);
 
 #endif /* !MENU_H_ */
