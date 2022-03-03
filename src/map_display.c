@@ -18,7 +18,7 @@ sfSprite *get_case_from_mouse(env_t *env, sfVector2f mouse_pos)
     sfVector2i case_pos = get_case_coords(mouse_pos);
 
     if (case_pos.y < 0 || case_pos.x < 0
-    || case_pos.y >= 18 || case_pos.x >= 32)
+    || case_pos.y >= 18 - 4 || case_pos.x >= 32)
         return NULL;
     return env->map[case_pos.y][case_pos.x].sprite;
 }

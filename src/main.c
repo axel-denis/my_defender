@@ -30,15 +30,24 @@ void options(sfRenderWindow *window, object mouse, int *keys)
 void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
 {
     int open = 1;
+    float money = 10000;
+    float electricity = 0;
+    float steel = 0;
+
     object background = create_object("img/space.jpg", VC{0, 0}, VC{.55, .55});
     object planet = create_object("img/planet.png", VC{2300, 980}, VC{.4, .4});
     object planet2 = create_object("img/planet2.png", VC{300, 700}, VC{.3, .3});
     object milkeyway = create_object("img/milkey_way.png", VC{0, 0}, VC{1, 1});
-    object epsilon = create_object("img/Epsilon.png", VC{0, 0}, VC{.1, .1});
-    object stats = create_object("img/wide_blue_display.png", VC{0, 0}, VC{.7, .3});
+    object epsilon = create_object("img/Epsilon.png", VC{1370, 35}, VC{.1, .1});
+    object stats = create_object("img/wide_blue_display.png", VC{1285, 5}, VC{.6, .3});
+    object cadre = create_object("img/temp.png", VC{0, 836 - 20}, VC{1, 0.6});
+    object button1 = create_object("img/Blue_button.png", VC{50, 836 - 20}, VC{0.3, 0.3});
+    object button2 = create_object("img/Blue_button.png", VC{50, 836 - 20}, VC{0.3, 0.3});
+    text money_text = setup_text(my_nbr_to_str(money) , "font/oceanicdrift.ttf", 45);
 
-    sfSprite_setColor(planet2.sprite, sfColor_fromRGB(175, 175, 175));
-    sfSprite_setColor(planet.sprite, sfColor_fromRGB(150, 150, 150));
+    sfText_setPosition(money_text.text, VC{1430, 24});
+    sfSprite_setColor(planet2.sprite, sfColor_fromRGB(235, 235, 235));
+    sfSprite_setColor(planet.sprite, sfColor_fromRGB(180, 180, 180));
     sfSprite_setRotation(planet.sprite, 180);
     sfSprite_setRotation(planet2.sprite, -100);
     setmap_opacity(env);
@@ -49,9 +58,13 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
         sfRenderWindow_drawSprite(window, milkeyway.sprite, NULL);
         sfRenderWindow_drawSprite(window, planet.sprite, NULL);
         sfRenderWindow_drawSprite(window, planet2.sprite, NULL);
-        sfRenderWindow_drawSprite(window, epsilon.sprite, NULL);
         display_map(env, window);
         sfRenderWindow_drawSprite(window, stats.sprite, NULL);
+        sfRenderWindow_drawSprite(window, epsilon.sprite, NULL);
+        sfRenderWindow_drawText(window, money_text.text, NULL);
+        sfRenderWindow_drawSprite(window, button1.sprite, NULL);
+        sfRenderWindow_drawSprite(window, button2.sprite, NULL);
+        sfRenderWindow_drawSprite(window, cadre.sprite, NULL);
         update_mouse_cursor(window, mouse);
         sfRenderWindow_display(window);
     }
