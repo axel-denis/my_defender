@@ -45,13 +45,17 @@ void main_menu(sfRenderWindow *window, object mouse, int *keys, env_t *env)
     while (sfRenderWindow_isOpen(window) && open) {
         sfRenderWindow_clear(window, sfBlack);
         sfRenderWindow_drawSprite(window, background.sprite, NULL);
-        open = !get_events(window, keys)[sfKeyEscape];
+        get_events(window, keys);
         sfRenderWindow_drawText(window, texte.text, NULL);
         for (int i = 0; i < 3; i++)
             display_button(window, buttons[i], keys);
         update_mouse_cursor(window, mouse);
-        if (is_pressed(buttons[0], window, keys) == sfTrue)
+        if (is_pressed(buttons[0], window, keys) == sfTrue) {
+            print_events(keys);
             game(window, mouse, keys, env);
+            print_events(keys);
+            printf("condition : %d\n", keys[sfKeyEscape]);
+        }
         if (is_pressed(buttons[1], window, keys) == sfTrue)
             options(window, mouse, keys);
         if (is_pressed(buttons[2], window, keys) == sfTrue)

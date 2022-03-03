@@ -81,6 +81,7 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
         update_mouse_cursor(window, mouse);
         sfRenderWindow_display(window);
     }
+    print_events(keys);
     keys[sfKeyEscape] = 0;
 }
 
