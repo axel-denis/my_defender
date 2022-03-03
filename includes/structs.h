@@ -43,8 +43,10 @@ typedef struct map_s {
 } map;
 
 typedef struct player_stats_s {
-    int energy;
-    int iron;
+    float energy;
+    float energy_income;
+    float steel;
+    float steel_income;
     int score;
     int health;
 } player_stats;
@@ -75,8 +77,8 @@ typedef struct game_data_s {
 } game_data;
 
 typedef struct env_s {
-    int score;
     map_block **map;
+    player_stats player_stats;
     game_data data;
 } env_t;
 

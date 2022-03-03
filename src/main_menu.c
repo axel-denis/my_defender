@@ -38,7 +38,7 @@ void main_menu(sfRenderWindow *window, object mouse, int *keys, env_t *env)
     background.sprite = sfSprite_create();
     background.texture = sfTexture_createFromFile("img/newbg.jpg", NULL);
     sfSprite_setTexture(background.sprite, background.texture, sfTrue);
-    text texte = setup_text("  Defend\nhomeland", "font/oceanicdriftbold.ttf", 150);
+    text texte = setup_text("  No\nName", "font/oceanicdriftbold.ttf", 150);
     sfFloatRect ownscale = sfText_getGlobalBounds(texte.text);
 
     sfText_setPosition(texte.text, VC{WINDOW_WIDTH / 2 - ownscale.width / 2 + 500, WINDOW_HEIGHT / 2 - 490});
