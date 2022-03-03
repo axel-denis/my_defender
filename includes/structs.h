@@ -22,8 +22,6 @@ typedef struct enemy_s {
     sfSprite *sprite;
     sfTexture *texture;
     sfVector2f position;
-    sfVector2f objective;
-    int objective_index; // pour savoir à quel point de position il en est
     int health;
     int speed;
 } enemy;
@@ -78,6 +76,7 @@ typedef struct game_data_s {
 
 typedef struct env_s {
     map_block **map;
+    sfVector2i starting_square;
     player_stats player_stats;
     game_data data;
 } env_t;

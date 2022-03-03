@@ -50,10 +50,14 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
     float money = 10000;
     float electricity = 0;
     float steel = 0;
-    object background = create_object("img/background.jpg", VC{0, 0}, VC{1, 1});
 
+    my_put_nbr(env->starting_square.x);
+    my_put_nbr(env->starting_square.y);
+
+    object background = create_object("img/background.jpg", VC{0, 0}, VC{1, 1});
+    object worm_hole = create_object("img/icon.png", VC{env->starting_square.x * 60 , env->starting_square.y * 60}, VC{.3, 1});
     object epsilon = create_object("img/Epsilon.png", VC{1370, 35}, VC{.1, .1});
-    object stats = create_object("img/wide_blue_display.png", VC{1285, 5}, VC{.6, .3});
+    object stats = create_object("img/blue_display.png", VC{1285, 5}, VC{1, 1});
     object cadre = create_object("img/temp.png", VC{0, 836 - 20}, VC{1, 0.6});
     text money_text = setup_text(my_nbr_to_str(money) , "font/oceanicdrift.ttf", 45);
 
@@ -73,6 +77,7 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
         sfRenderWindow_drawSprite(window, button1.sprite, NULL);
         sfRenderWindow_drawSprite(window, button2.sprite, NULL);
         sfRenderWindow_drawSprite(window, cadre.sprite, NULL);
+        sfRenderWindow_drawSprite(window, worm_hole.sprite, NULL);
         update_mouse_cursor(window, mouse);
         sfRenderWindow_display(window);
     }

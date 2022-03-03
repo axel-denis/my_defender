@@ -25,8 +25,8 @@ sfSprite *get_case_from_mouse(env_t *env, sfVector2f mouse_pos)
 
 sfVector2i get_case_coords(sfVector2f position)
 {
-    int x = (position.x / 1920) * 32;
-    int y = (position.y / 1080) * 18;
+    int x = (position.x / WINDOW_WIDTH) * 32;
+    int y = (position.y / WINDOW_HEIGHT) * 18;
 
     return (sfVector2i) {x, y};
 }
@@ -38,6 +38,8 @@ void setmap_opacity(env_t *env)
             if (env->map[i][j].type == 0)
                 sfSprite_setColor(env->map[i][j].sprite, sfColor_fromRGBA(255, 255, 255, 100));
             if (env->map[i][j].type == 1)
+                sfSprite_setColor(env->map[i][j].sprite, sfColor_fromRGBA(255, 255, 255, 150));
+            if (env->map[i][j].type == 2)
                 sfSprite_setColor(env->map[i][j].sprite, sfColor_fromRGBA(255, 255, 255, 150));
         }
     }

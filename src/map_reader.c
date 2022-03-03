@@ -21,8 +21,12 @@ sfSprite *create_sprite(env_t *env, int type, sfVector2f pos)
 
     if (type == 0)
         sfSprite_setTexture(sprite, env->data.ground_texture, sfFalse);
-    else
+    if (type == 1)
         sfSprite_setTexture(sprite, env->data.path_texture, sfFalse);
+    if (type == 2) {
+        sfSprite_setTexture(sprite, env->data.path_texture, sfFalse);
+        env->starting_square = get_case_coords(pos);
+    }
     pos.x *= CASE_SIZE;
     pos.y *= CASE_SIZE;
     sfSprite_setPosition(sprite, pos);
@@ -34,7 +38,7 @@ int setup_block(env_t *env, map_block *line, char *buf, sfVector2f pos)
 {
     char *temp_str = NULL;
 
-    if (strlen(buf) < DATABLOCK || buf[0] - '0' < 0 || buf[0] - '0' > 1)
+    if (strlen(buf) < DATABLOCK)
         return 1;
     line->type = buf[0] - '0';
 
