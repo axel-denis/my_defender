@@ -6,6 +6,7 @@
 ##
 
 MAIN		=	src/main.c 			\
+				src/enemy.c			\
 				src/main_menu.c		\
 				src/button_setup.c 	\
 				src/button_utils.c 	\

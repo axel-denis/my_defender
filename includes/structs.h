@@ -21,9 +21,8 @@ typedef struct enemy_s {
     int type;
     sfSprite *sprite;
     sfTexture *texture;
-    sfVector2f position;
+    float speed;
     int health;
-    int speed;
 } enemy;
 
 typedef struct turret_s {

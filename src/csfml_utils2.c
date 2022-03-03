@@ -19,3 +19,12 @@ object create_object(char *file, sfVector2f pos, sfVector2f scale)
     sfSprite_setPosition(objet.sprite, pos);
     return (objet);
 }
+
+sfVector2i ftoiv2(sfVector2f vector)
+{
+    sfVector2i result;
+
+    result.x = vector.x;
+    result.y = vector.y;
+    return (result);
+}

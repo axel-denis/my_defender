@@ -25,7 +25,7 @@ sfSprite *create_sprite(env_t *env, int type, sfVector2f pos)
         sfSprite_setTexture(sprite, env->data.path_texture, sfFalse);
     if (type == 2) {
         sfSprite_setTexture(sprite, env->data.path_texture, sfFalse);
-        env->starting_square = get_case_coords(pos);
+        env->starting_square = ftoiv2(pos);
     }
     pos.x *= CASE_SIZE;
     pos.y *= CASE_SIZE;

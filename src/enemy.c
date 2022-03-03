@@ -8,14 +8,19 @@
 #include "csfml.h"
 #include "lib.h"
 #include "structs.h"
+#include "enemy.h"
 
-enemy create_enemy_type_1(int case_x, int case_y)
+#include <stdlib.h>
+
+enemy create_enemy_type_1(env_t *env)
 {
     enemy template;
     template.type = 1;
+    template.speed = 1;
+    template.health = 100;
     template.sprite = sfSprite_create();
-    template.texture = sfTexture_createFromFile("img/type1.png");
+    sfSprite_setPosition(template.sprite, VC{env->starting_square.x * 60 + rand() % 30, env->starting_square.y * 60 + rand() % 30});
+    template.texture = sfTexture_createFromFile("img/type1.png", NULL);
     sfSprite_setTexture(template.sprite, template.texture, sfFalse);
-    template.cas
     return template;
 }
