@@ -19,14 +19,10 @@ button *create_buttons_options(void)
     button *buttons = malloc(sizeof(button) * 2);
     sfIntRect square = create_rect(0, 0, 6065 / 3, 833);
 
-    buttons[0] = create_button(VC{0.2, 0.2}, VC{WINDOW_WIDTH / 2 -
-        ((6065 / 3) / 2) * 0.2 + 500, WINDOW_HEIGHT / 2 - 150}, sfTrue);
-    buttons[1] = create_button(VC{0.2, 0.2}, VC{WINDOW_WIDTH / 2 -
-        ((6065 / 3) / 2) * 0.2 + 500, WINDOW_HEIGHT / 2 + 50}, sfTrue);
+    buttons[0] = create_button(VC{.5, .5}, VC{600, 500}, sfFalse);
+    buttons[1] = create_button(VC{-.5, .5}, VC{400, 500}, sfFalse);
     setup_button_texture(&(buttons[0]), &square, "img/arrow.png");
     setup_button_texture(&(buttons[1]), &square, "img/arrow.png");
-    setup_button_text(&(buttons[0]), "Start", "font/Absolute-Xero.ttf", 40);
-    setup_button_text(&(buttons[1]), "Options", "font/Absolute-Xero.ttf", 40);
     return (buttons);
 }
 
@@ -34,12 +30,14 @@ void options(sfRenderWindow *window, object mouse, int *keys)
 {
     int open = 1;
     button *buttons = create_buttons_options();
+    text sound_text = setup_text("Sound", "font/oceandrift.ttf", 32);
 
     while (sfRenderWindow_isOpen(window) && open) {
         sfRenderWindow_clear(window, sfBlack);
         open = !get_events(window, keys)[sfKeyEscape];
         for (int i = 0; i < 2; i++)
             display_button(window, buttons[i], keys);
+        sfRenderWindow_drawText(window, sound_text.text, NULL);
         update_mouse_cursor(window, mouse);
         sfRenderWindow_display(window);
     }

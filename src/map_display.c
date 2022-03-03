@@ -18,7 +18,7 @@ sfSprite *get_case_from_mouse(env_t *env, sfVector2f mouse_pos)
     sfVector2i case_pos = get_case_coords(mouse_pos);
 
     if (case_pos.y < 0 || case_pos.x < 0
-    || case_pos.y >= 18 - 4 || case_pos.x >= 32)
+        || case_pos.y >= 18 || case_pos.x >= 32)
         return NULL;
     return env->map[case_pos.y][case_pos.x].sprite;
 }
@@ -49,7 +49,6 @@ void display_map(env_t *env, sfRenderWindow *window)
 
     for (int i = 0; i < 18; i++) {
         for (int j = 0; j < 32; j++) {
-            sfSprite_setPosition(env->map[i][j].sprite, (sfVector2f) {j * 60, i * 60});
             if (get_case_from_mouse(env, get_true_mouse_pos(window)) == env->map[i][j].sprite) {
                 old_color = sfSprite_getColor(env->map[i][j].sprite);
                 sfSprite_setColor(env->map[i][j].sprite, sfColor_fromRGBA(255, 255, 255, 255));

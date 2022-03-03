@@ -13,6 +13,8 @@
 #include "events.h"
 #include "map.h"
 
+#define CASE_SIZE 60
+
 sfSprite *create_sprite(env_t *env, int type, sfVector2f pos)
 {
     sfSprite *sprite = sfSprite_create();
@@ -21,6 +23,8 @@ sfSprite *create_sprite(env_t *env, int type, sfVector2f pos)
         sfSprite_setTexture(sprite, env->data.ground_texture, sfFalse);
     else
         sfSprite_setTexture(sprite, env->data.path_texture, sfFalse);
+    pos.x *= CASE_SIZE;
+    pos.y *= CASE_SIZE;
     sfSprite_setPosition(sprite, pos);
     sfSprite_setScale(sprite, SPRITE_SCALE);
     return sprite;
@@ -46,25 +50,27 @@ int setup_block(env_t *env, map_block *line, char *buf, sfVector2f pos)
     line->sprite = create_sprite(env, line->type, pos);
     return 0;
 }
-
+/*
 sfVector2f len_to_xy(int len, int max_x)
 {
     sfVector2f vector = {0, 0};
+    float dafuck = (float) len;
 
-    vector.y = len / max_x;
+    vector.y = max_x / dafuck;
     vector.x = len % max_x;
+    printf("vactor %f %f\n", vector.x, vector.y);
     return vector;
 }
+*/
 
-map_block *map_line(env_t *env, char *buffer)
+map_block *map_line(env_t *env, char *buffer, int nb)
 {
     map_block *line = malloc(sizeof(map_block) * (MAP_LEN));
 
     if (my_strlen(buffer) != REAL_MAP_LEN)
         return NULL;
     for (int i = 0; i < MAP_LEN; i++) {
-        if (setup_block(env, &line[i], buffer + i * DATABLOCK,
-            len_to_xy(i, MAP_LEN)) == 1)
+        if (setup_block(env, &line[i], buffer + i * DATABLOCK, VC{i, nb}))
             return NULL;
     }
     return line;
@@ -86,7 +92,7 @@ int read_map(env_t *game, char *path)
             free(buffer);
             return 1;
         }
-        final_tab[i] = map_line(game, buffer);
+        final_tab[i] = map_line(game, buffer, i);
         if (final_tab[i] == NULL)
             return 1;
     }

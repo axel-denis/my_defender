@@ -40,11 +40,11 @@ int *get_events(sfRenderWindow *window, int *keys)
     sfEvent event;
 
     evolve_mouse(keys);
+    for (int i = 0; i < sfKeyCount; i++)
+        keys[i] = sfKeyboard_isKeyPressed(i) == sfTrue;
     while (sfRenderWindow_pollEvent(window, &event)) {
         if (event.type == sfEvtClosed)
             sfRenderWindow_close(window);
-        for (int i = 0; i < sfKeyCount; i++)
-            keys[i] = sfKeyboard_isKeyPressed(i) == sfTrue;
         if (evntMousePressed && event.mouseButton.button == sfMouseLeft)
             keys[leftMouse] = press;
         if (evntMouseReleased && event.mouseButton.button == sfMouseLeft)
