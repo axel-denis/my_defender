@@ -17,14 +17,6 @@ typedef struct object_s {
     sfTexture *texture;
 }object;
 
-typedef struct enemy_s {
-    int type;
-    sfSprite *sprite;
-    sfTexture *texture;
-    float speed;
-    int health;
-} enemy;
-
 typedef struct turret_s {
     int type;
     sfSprite *sprite;
@@ -75,9 +67,18 @@ typedef struct game_data_s {
 
 typedef struct env_s {
     map_block **map;
-    sfVector2i starting_square;
+    sfVector2f starting_square;
     player_stats player_stats;
     game_data data;
 } env_t;
+
+typedef struct enemy_s {
+    int type;
+    sfSprite *sprite;
+    sfTexture *texture;
+    sfVector2f actual_dest;
+    float speed;
+    int health;
+} enemy;
 
 #endif /* !STRUCT_H_ */

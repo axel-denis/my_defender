@@ -25,7 +25,7 @@ sfSprite *create_sprite(env_t *env, int type, sfVector2f pos)
         sfSprite_setTexture(sprite, env->data.path_texture, sfFalse);
     if (type == 2) {
         sfSprite_setTexture(sprite, env->data.path_texture, sfFalse);
-        env->starting_square = ftoiv2(pos);
+        env->starting_square = pos;
     }
     pos.x *= CASE_SIZE;
     pos.y *= CASE_SIZE;
@@ -34,38 +34,26 @@ sfSprite *create_sprite(env_t *env, int type, sfVector2f pos)
     return sprite;
 }
 
-int setup_block(env_t *env, map_block *line, char *buf, sfVector2f pos)
+int setup_block(env_t *env, map_block *bloc, char *buf, sfVector2f pos)
 {
     char *temp_str = NULL;
 
     if (strlen(buf) < DATABLOCK)
         return 1;
-    line->type = buf[0] - '0';
+    bloc->type = buf[0] - '0';
 
-    if (line->type == 1) {
+    if (bloc->type == 1 || bloc->type == 2) {
         temp_str = max_strdup(&(buf[1]), 2);
-        line->next_path.x = my_get_nbr(temp_str);
+        bloc->next_path.x = my_get_nbr(temp_str);
         free(temp_str);
         temp_str = max_strdup(&(buf[3]), 2);
-        line->next_path.y = my_get_nbr(temp_str);
+        bloc->next_path.y = my_get_nbr(temp_str);
         free(temp_str);
     }
-    line->turret = NULL;
-    line->sprite = create_sprite(env, line->type, pos);
+    bloc->turret = NULL;
+    bloc->sprite = create_sprite(env, bloc->type, pos);
     return 0;
 }
-/*
-sfVector2f len_to_xy(int len, int max_x)
-{
-    sfVector2f vector = {0, 0};
-    float dafuck = (float) len;
-
-    vector.y = max_x / dafuck;
-    vector.x = len % max_x;
-    printf("vactor %f %f\n", vector.x, vector.y);
-    return vector;
-}
-*/
 
 map_block *map_line(env_t *env, char *buffer, int nb)
 {

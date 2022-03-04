@@ -28,13 +28,14 @@ void evolve_mouse(int *keys)
         keys[rightMouse] = (keys[rightMouse] + 1) % 4;
 }
 
+/*
 void print_events(int *keys)
 {
     for (int i = 0; i < sfKeyCount + 2; i++)
         printf("%d", keys[i]);
     printf("\n");
 }
-
+*/
 int *get_events(sfRenderWindow *window, int *keys)
 {
     sfEvent event;

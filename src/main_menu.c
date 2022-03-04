@@ -51,10 +51,7 @@ void main_menu(sfRenderWindow *window, object mouse, int *keys, env_t *env)
             display_button(window, buttons[i], keys);
         update_mouse_cursor(window, mouse);
         if (is_pressed(buttons[0], window, keys) == sfTrue) {
-            print_events(keys);
             game(window, mouse, keys, env);
-            print_events(keys);
-            printf("condition : %d\n", keys[sfKeyEscape]);
         }
         if (is_pressed(buttons[1], window, keys) == sfTrue)
             options(window, mouse, keys);

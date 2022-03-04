@@ -79,8 +79,8 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
         sfRenderWindow_drawSprite(window, mob.sprite, NULL);
         update_mouse_cursor(window, mouse);
         sfRenderWindow_display(window);
+        evolve_enemy(env, &mob);
     }
-    print_events(keys);
     keys[sfKeyEscape] = 0;
 }
 
