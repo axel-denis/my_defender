@@ -54,7 +54,7 @@ void main_menu(sfRenderWindow *window, object mouse, int *keys, env_t *env)
             game(window, mouse, keys, env);
         }
         if (is_pressed(buttons[1], window, keys) == sfTrue)
-            options(window, mouse, keys);
+            options(window, mouse, keys, env);
         if (is_pressed(buttons[2], window, keys) == sfTrue)
             open = 0;
         sfRenderWindow_display(window);

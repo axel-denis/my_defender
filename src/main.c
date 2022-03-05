@@ -27,15 +27,30 @@ button *create_buttons_options(void)
     return (buttons);
 }
 
-void options(sfRenderWindow *window, object mouse, int *keys)
+void options(sfRenderWindow *window, object mouse, int *keys, env_t *env)
 {
     int open = 1;
     button *buttons = create_buttons_options();
-    text sound_text = setup_text("Sound", "font/oceandrift.ttf", 32);
+    text sound_text = setup_text("temp", "font/oceanicdrift.ttf", 32);
+    char *txt = my_strdup("Sound: ");
 
+    my_strcat(txt, my_nbr_to_str(env->volume));
+    sfText_setString(sound_text.text, txt);
     while (sfRenderWindow_isOpen(window) && open) {
         sfRenderWindow_clear(window, sfBlack);
         open = !get_events(window, keys)[sfKeyEscape];
+        if (is_pressed(buttons[0], window, keys) == sfTrue && env->volume < 100) {
+            env->volume += 1;
+            txt = my_strdup("Sound: ");
+            my_strcat(txt, my_nbr_to_str(env->volume));
+            sfText_setString(sound_text.text, txt);
+        }
+        if (is_pressed(buttons[1], window, keys) == sfTrue && env->volume > 0) {
+            env->volume -= 1;
+            txt = my_strdup("Sound: ");
+            my_strcat(txt, my_nbr_to_str(env->volume));
+            sfText_setString(sound_text.text, txt);
+        }
         for (int i = 0; i < 2; i++)
             display_button(window, buttons[i], keys);
         sfRenderWindow_drawText(window, sound_text.text, NULL);
@@ -88,6 +103,7 @@ env_t *create_env(void)
 {
     env_t *env = malloc(sizeof(env_t));
 
+    env->volume = 100;
     env->data.ground_texture =
         sfTexture_createFromFile("img/grass.png", NULL);
     env->data.path_texture = sfTexture_createFromFile("img/dirt.png", NULL);

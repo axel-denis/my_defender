@@ -25,6 +25,7 @@ int my_strcmp(char const *s1, char const *s2);
 char *my_strcpy(char *dest, char const *src);
 char *my_strdup(char *str);
 char *max_strdup(char *str, int max);
+char *my_strcat(char *dest , char const *src);
 void my_errorstr(char const *str);
 
 #endif

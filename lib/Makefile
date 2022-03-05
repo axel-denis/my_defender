@@ -10,6 +10,7 @@ SRC	=	my_get_nbr.c		\
 		my_putchar.c		\
 		my_putstr.c			\
 		my_strlen.c			\
+		my_strcat.c			\
 		my_nbr_to_str.c		\
 		dec_to_base.c		\
 		my_str_isalpha.c	\

@@ -25,7 +25,7 @@ sfBool is_pressed(button bouton, sfRenderWindow *window, int *keys)
     sfFloatRect rect = sfSprite_getGlobalBounds(bouton.sprite);
 
     if (pos_in_square(mouse_pos, rect) == sfTrue
-    && (keys[leftMouse] == 1 || keys[leftMouse] == 2))
+    && (keys[leftMouse] == 3))
         return (sfTrue);
     return (sfFalse);
 }
