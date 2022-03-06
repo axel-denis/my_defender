@@ -18,6 +18,7 @@ void buttons_manager(button *but, sfRenderWindow *window, int *keys, env_t *env)
     langue_manager(but, window, keys, env);
     volume_manager(but, window, keys, env);
     volume_manager2(but, window, keys, env);
+    sfMusic_setVolume(env->data.music, env->volume);
 }
 
 void display_options(sfRenderWindow *win, object mouse, button *but, int *keys)

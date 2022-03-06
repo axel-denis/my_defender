@@ -58,6 +58,10 @@ env_t *create_env(void)
 {
     env_t *env = malloc(sizeof(env_t));
 
+    env->data.music = sfMusic_createFromFile("sounds/uncharted-worlds.ogg");
+    sfMusic_play(env->data.music);
+    sfMusic_setLoop(env->data.music, sfTrue);
+    sfMusic_setVolume(env->data.music, 60);
     env->volume = 100;
     env->langue = my_strdup("EN");
     env->data.ground_texture =
@@ -83,6 +87,7 @@ int main(void)
         return 84;
     }
     main_menu(window, mouse, keys, env);
+    sfMusic_destroy(env->data.music);
     destroy_object(mouse);
     return (0);
 }

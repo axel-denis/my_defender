@@ -63,6 +63,7 @@ typedef struct map_block_s {
 typedef struct game_data_s {
     sfTexture *ground_texture;
     sfTexture *path_texture;
+    sfMusic *music;
 } game_data;
 
 typedef struct env_s {
