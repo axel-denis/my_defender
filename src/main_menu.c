@@ -34,11 +34,8 @@ void main_menu(sfRenderWindow *window, object mouse, int *keys, env_t *env)
 {
     button *buttons = create_buttons_menu();
     int open = 1;
-    object background;
-    background.sprite = sfSprite_create();
-    background.texture = sfTexture_createFromFile("img/newbg.jpg", NULL);
-    sfSprite_setTexture(background.sprite, background.texture, sfTrue);
-    text texte = setup_text("  No\nName", "font/oceanicdriftbold.ttf", 150);
+    object background = create_object("img/newbg.jpg", VC{0, 0}, VC{1, 1});
+    text texte = setup_text("  Planet\nDefender", "font/oceanicdriftbold.ttf", 150);
     sfFloatRect ownscale = sfText_getGlobalBounds(texte.text);
 
     sfText_setPosition(texte.text, VC{WINDOW_WIDTH / 2 - ownscale.width / 2 + 500, WINDOW_HEIGHT / 2 - 490});

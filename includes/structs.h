@@ -68,7 +68,8 @@ typedef struct game_data_s {
 typedef struct env_s {
     map_block **map;
     int volume;
-    sfVector2i starting_square;
+    char *langue;
+    sfVector2f starting_square;
     player_stats player_stats;
     game_data data;
 } env_t;

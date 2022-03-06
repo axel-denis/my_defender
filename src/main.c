@@ -17,45 +17,92 @@
 
 button *create_buttons_options(void)
 {
-    button *buttons = malloc(sizeof(button) * 2);
+    button *buttons = malloc(sizeof(button) * 5);
     sfIntRect square = create_rect(0, 0, 6065 / 3, 833);
 
-    buttons[0] = create_button(VC{.5, .5}, VC{600, 500}, sfFalse);
-    buttons[1] = create_button(VC{-.5, .5}, VC{400, 500}, sfFalse);
+    buttons[0] = create_button(VC{.4, .4}, VC{WINDOW_WIDTH / 2 + 200 - 500, WINDOW_HEIGHT / 2 + 61}, sfFalse);
+    buttons[1] = create_button(VC{-.4, .4}, VC{WINDOW_WIDTH / 2 - 200 - 500, WINDOW_HEIGHT / 2 + 61}, sfFalse);
+    buttons[2] = create_button(VC{0.2, 0.2}, VC{WINDOW_WIDTH / 2 - (((6065 / 3) / 2) * 0.2) - 500, WINDOW_HEIGHT / 2 - 150}, sfTrue);
+    buttons[3] = create_button(VC{0.2, 0.2}, VC{WINDOW_WIDTH / 2 - (((6065 / 3) / 2) * 0.2) - 500, WINDOW_HEIGHT / 2 + 250}, sfTrue);
+    buttons[4] = create_button(VC{0.2, 0.2}, VC{WINDOW_WIDTH / 2 - (((6065 / 3) / 2) * 0.2) - 500, WINDOW_HEIGHT / 2 + 50}, sfTrue);
     setup_button_texture(&(buttons[0]), &square, "img/arrow.png");
     setup_button_texture(&(buttons[1]), &square, "img/arrow.png");
+    setup_button_texture(&(buttons[2]), &square, "img/Blue_button.png");
+    setup_button_texture(&(buttons[3]), &square, "img/Blue_button.png");
+    setup_button_texture(&(buttons[4]), &square, "img/Blue_button.png");
+    setup_button_text(&(buttons[2]), "Language: ", "font/Absolute-Xero.ttf", 30);
+    setup_button_text(&(buttons[3]), "Return", "font/Absolute-Xero.ttf", 40);
+    setup_button_text(&(buttons[4]), "Volume: ", "font/Absolute-Xero.ttf", 30);
     return (buttons);
 }
 
 void options(sfRenderWindow *window, object mouse, int *keys, env_t *env)
 {
     int open = 1;
+    int changed = 0;
     button *buttons = create_buttons_options();
-    text sound_text = setup_text("temp", "font/oceanicdrift.ttf", 32);
-    char *txt = my_strdup("Sound: ");
+    char *volume_txt = my_strdup("Volume: ");
+    char *language_txt = my_strdup("Language: ");
+    text texte = setup_text("  Options", "font/oceanicdriftbold.ttf", 150);
+    object background = create_object("img/bg.jpg", VC{0, 0}, VC{1, 1});
 
-    my_strcat(txt, my_nbr_to_str(env->volume));
-    sfText_setString(sound_text.text, txt);
+    sfText_setPosition(texte.text, VC{WINDOW_WIDTH / 2 - 860, WINDOW_HEIGHT / 2 - 360 - 50});
+    my_strcat(language_txt, env->langue);
+    my_strcat(volume_txt, my_nbr_to_str(env->volume));
+    sfText_setString(buttons[4].text.text, volume_txt);
+    sfText_setString(buttons[2].text.text, language_txt);
+    center_button_text(&(buttons[4]));
+    center_button_text(&(buttons[2]));
     while (sfRenderWindow_isOpen(window) && open) {
         sfRenderWindow_clear(window, sfBlack);
         open = !get_events(window, keys)[sfKeyEscape];
         if (is_pressed(buttons[0], window, keys) == sfTrue && env->volume < 100) {
             env->volume += 1;
-            txt = my_strdup("Sound: ");
-            my_strcat(txt, my_nbr_to_str(env->volume));
-            sfText_setString(sound_text.text, txt);
+            volume_txt = my_strdup("Volume: ");
+            my_strcat(volume_txt, my_nbr_to_str(env->volume));
+            sfText_setString(buttons[4].text.text, volume_txt);
+        }
+        if (is_pressed(buttons[2], window, keys) && env->langue[0] == 'E') {
+            env->langue = my_strdup("FR");
+            language_txt = my_strdup("Language: ");
+            my_strcat(language_txt, env->langue);
+            sfText_setString(buttons[2].text.text, language_txt);
+            changed = 1;
+        }
+        if (is_pressed(buttons[2], window, keys) && env->langue[0] == 'F' && changed == 0) {
+            env->langue = my_strdup("EN");
+            language_txt = my_strdup("Language: ");
+            my_strcat(language_txt, env->langue);
+            sfText_setString(buttons[2].text.text, language_txt);
         }
         if (is_pressed(buttons[1], window, keys) == sfTrue && env->volume > 0) {
             env->volume -= 1;
-            txt = my_strdup("Sound: ");
-            my_strcat(txt, my_nbr_to_str(env->volume));
-            sfText_setString(sound_text.text, txt);
+            volume_txt = my_strdup("Volume: ");
+            my_strcat(volume_txt, my_nbr_to_str(env->volume));
+            sfText_setString(buttons[4].text.text, volume_txt);
         }
-        for (int i = 0; i < 2; i++)
+        if (is_pressed(buttons[4], window, keys) && env->volume == 0) {
+            env->volume = 100;
+            volume_txt = my_strdup("Volume: ");
+            my_strcat(volume_txt, my_nbr_to_str(env->volume));
+            sfText_setString(buttons[4].text.text, volume_txt);
+            changed = 1;
+        }
+        if (is_pressed(buttons[4], window, keys) && env->volume != 0 && changed == 0) {
+            env->volume = 0;
+            volume_txt = my_strdup("Volume: ");
+            my_strcat(volume_txt, my_nbr_to_str(env->volume));
+            sfText_setString(buttons[4].text.text, volume_txt);
+        }
+        if (is_pressed(buttons[3], window, keys))
+            open = 0;
+        sfRenderWindow_drawSprite(window, background.sprite, NULL);
+        sfRenderWindow_drawText(window, texte.text, NULL);
+        for (int i = 0; i < 5; i++)
             display_button(window, buttons[i], keys);
-        sfRenderWindow_drawText(window, sound_text.text, NULL);
         update_mouse_cursor(window, mouse);
         sfRenderWindow_display(window);
+        changed = 0;
     }
     keys[sfKeyEscape] = 0;
 }
@@ -104,6 +151,7 @@ env_t *create_env(void)
     env_t *env = malloc(sizeof(env_t));
 
     env->volume = 100;
+    env->langue = my_strdup("EN");
     env->data.ground_texture =
         sfTexture_createFromFile("img/grass.png", NULL);
     env->data.path_texture = sfTexture_createFromFile("img/dirt.png", NULL);
