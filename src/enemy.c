@@ -20,9 +20,10 @@ enemy create_enemy_type_1(env_t *env)
     template.speed = 1;
     template.health = 100;
     template.sprite = sfSprite_create();
-    sfSprite_setPosition(template.sprite, VC{env->starting_square.x * 60 + rand() % 30, env->starting_square.y * 60 + rand() % 30});
+    sfSprite_setPosition(template.sprite, VC{env->starting_square.x * 60 + rand() % 60 - 30, env->starting_square.y * 60 + rand() % 60 - 30});
     template.texture = sfTexture_createFromFile("img/type1.png", NULL);
     sfSprite_setTexture(template.sprite, template.texture, sfFalse);
+    sfSprite_setOrigin(template.sprite, VC{sfSprite_getGlobalBounds(template.sprite).width / 2, sfSprite_getGlobalBounds(template.sprite).height / 2});
     template.actual_dest.x = env->map[(int) env->starting_square.x][(int) env->starting_square.y].next_path.x * 60;
     template.actual_dest.y = env->map[(int) env->starting_square.x][(int) env->starting_square.y].next_path.y * 60;
     return template;
