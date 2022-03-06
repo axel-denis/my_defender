@@ -24,9 +24,9 @@ button *create_buttons_menu(void)
     setup_button_texture(&(buttons[0]), &square, "img/Blue_button.png");
     setup_button_texture(&(buttons[1]), &square, "img/Blue_button.png");
     setup_button_texture(&(buttons[2]), &square, "img/Blue_button.png");
-    setup_button_text(&(buttons[0]), "Start", "font/Absolute-Xero.ttf", 40);
-    setup_button_text(&(buttons[1]), "Options", "font/Absolute-Xero.ttf", 40);
-    setup_button_text(&(buttons[2]), "Quit", "font/Absolute-Xero.ttf", 40);
+    setup_button_text(&(buttons[0]), "Start", "font/Xero.ttf", 40);
+    setup_button_text(&(buttons[1]), "Options", "font/Xero.ttf", 40);
+    setup_button_text(&(buttons[2]), "Quit", "font/Xero.ttf", 40);
     return (buttons);
 }
 

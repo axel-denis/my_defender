@@ -14,5 +14,13 @@
 void main_menu(sfRenderWindow *, object, int *, env_t *);
 void game(sfRenderWindow *window, object mouse, int *keys, env_t *env);
 void options(sfRenderWindow *window, object mouse, int *keys, env_t *env);
+button *create_buttons_options(void);
+void options(sfRenderWindow *window, object mouse, int *keys, env_t *env);
+button *create_buttons_options(void);
+button *setup_buttons_options(button *buttons, env_t *env);
+void langue_manager(button *but, sfRenderWindow *window, int *keys, env_t *env);
+void volume_manager(button *but, sfRenderWindow *window, int *keys, env_t *env);
+void volume_manager2(button *but, sfRenderWindow *window, int *keys, env_t *);
+
 
 #endif /* !MENU_H_ */
