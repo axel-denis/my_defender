@@ -27,11 +27,20 @@ void display_options(sfRenderWindow *win, object mouse, button *but, int *keys)
     update_mouse_cursor(win, mouse);
 }
 
+void display_background(sfRenderWindow *win, object fr, object en, env_t *env)
+{
+    if (env->langue[0] == 'F')
+        sfRenderWindow_drawSprite(win, fr.sprite, NULL);
+    else
+        sfRenderWindow_drawSprite(win, en.sprite, NULL);
+}
+
 void options(sfRenderWindow *window, object mouse, int *keys, env_t *env)
 {
     int open = 1;
     text texte = setup_text("  Options", "font/oceanicdriftbold.ttf", 150);
-    object background = create_object("img/bg.jpg", VC{0, 0}, VC{1, 1});
+    object backfr = create_object("img/options_fr.jpg", VC{0, 0}, VC{1, 1});
+    object backen = create_object("img/options_en.jpg", VC{0, 0}, VC{1, 1});
     button *buttons = create_buttons_options();
 
     setup_buttons_options(buttons, env);
@@ -42,7 +51,7 @@ void options(sfRenderWindow *window, object mouse, int *keys, env_t *env)
         buttons_manager(buttons, window, keys, env);
         if (is_pressed(buttons[3], window, keys))
             open = 0;
-        sfRenderWindow_drawSprite(window, background.sprite, NULL);
+        display_background(window, backfr, backen, env);
         sfRenderWindow_drawText(window, texte.text, NULL);
         display_options(window, mouse, buttons, keys);
         sfRenderWindow_display(window);
