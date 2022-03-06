@@ -36,6 +36,7 @@ void print_events(int *keys)
     printf("\n");
 }
 */
+
 int *get_events(sfRenderWindow *window, int *keys)
 {
     sfEvent event;

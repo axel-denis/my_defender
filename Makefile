@@ -5,19 +5,20 @@
 ## Makefile
 ##
 
-MAIN		=	src/main.c 			\
-				src/enemy.c			\
-				src/events.c		\
-				src/options.c		\
-				src/options2.c		\
-				src/main_menu.c		\
-				src/map_reader.c	\
-				src/csfml_utils.c 	\
-				src/map_display.c	\
-				src/button_setup.c 	\
-				src/button_utils.c 	\
-				src/csfml_utils2.c	\
-				src/mouse_manager.c \
+MAIN		=	src/main.c 				\
+				src/enemy.c				\
+				src/events.c			\
+				src/options.c			\
+				src/options2.c			\
+				src/main_menu.c			\
+				src/map_reader.c		\
+				src/csfml_utils.c 		\
+				src/map_display.c		\
+				src/button_setup.c 		\
+				src/button_utils.c 		\
+				src/csfml_utils2.c		\
+				src/mouse_manager.c		\
+				src/options_managers.c	\
 
 SRC			=						\
 

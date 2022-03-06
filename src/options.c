@@ -41,7 +41,7 @@ void options(sfRenderWindow *window, object mouse, int *keys, env_t *env)
     text texte = setup_text("  Options", "font/oceanicdriftbold.ttf", 150);
     object backfr = create_object("img/options_fr.jpg", VC{0, 0}, VC{1, 1});
     object backen = create_object("img/options_en.jpg", VC{0, 0}, VC{1, 1});
-    button *buttons = create_buttons_options();
+    button *buttons = create_buttons_options(env);
 
     setup_buttons_options(buttons, env);
     sfText_setPosition(texte.text, VC{960 - 860, WINDOW_HEIGHT / 2 - 360 - 50});
