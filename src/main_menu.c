@@ -13,7 +13,22 @@
 #include "button.h"
 #include "events.h"
 
-button *create_buttons_menu(void)
+void change_button_text(button *buttons, env_t *env)
+{
+    if (env->langue[0] == 'E') {
+        sfText_setString(buttons[0].text.text, "Start");
+        sfText_setString(buttons[1].text.text, "Options");
+        sfText_setString(buttons[2].text.text, "Quit");
+    } else {
+        sfText_setString(buttons[0].text.text, "Demarrer");
+        sfText_setString(buttons[1].text.text, "Options");
+        sfText_setString(buttons[2].text.text, "Quitter");
+    }
+    for (int i = 0; i < 3; i ++)
+        center_button_text(&(buttons[i]));
+}
+
+button *create_buttons_menu(env_t *env)
 {
     button *buttons = malloc(sizeof(button) * 3);
     sfIntRect square = create_rect(0, 0, 6065 / 3, 833);
@@ -32,7 +47,7 @@ button *create_buttons_menu(void)
 
 void main_menu(sfRenderWindow *window, object mouse, int *keys, env_t *env)
 {
-    button *buttons = create_buttons_menu();
+    button *buttons = create_buttons_menu(env);
     int open = 1;
     object background = create_object("img/newbg.jpg", VC{0, 0}, VC{1, 1});
     text texte = setup_text("  Planet\nDefender", "font/oceanicdriftbold.ttf", 150);
@@ -50,8 +65,10 @@ void main_menu(sfRenderWindow *window, object mouse, int *keys, env_t *env)
         if (is_pressed(buttons[0], window, keys) == sfTrue) {
             game(window, mouse, keys, env);
         }
-        if (is_pressed(buttons[1], window, keys) == sfTrue)
+        if (is_pressed(buttons[1], window, keys) == sfTrue) {
             options(window, mouse, keys, env);
+            change_button_text(buttons, env);
+        }
         if (is_pressed(buttons[2], window, keys) == sfTrue)
             open = 0;
         sfRenderWindow_display(window);
