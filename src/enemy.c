@@ -31,10 +31,13 @@ enemy *create_null_enemy(void)
 
 void create_enemy_type_1(env_t *env)
 {
-    enemy *actual = env->ennemies;
+    enemy *actual = env->enemies;
 
-    if (actual == NULL)
-        actual = create_null_enemy();
+    if (actual == NULL) {
+        printf("created null enemy\n");
+        env->enemies = create_null_enemy();
+        actual = env->enemies;
+    }
     while (actual->next != NULL)
         actual = actual->next;
     actual->next = malloc(sizeof(enemy));

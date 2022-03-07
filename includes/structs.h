@@ -83,7 +83,7 @@ typedef struct env_s {
     sfVector2f starting_square;
     player_stats player_stats;
     game_data data;
-    enemy *ennemies;
+    enemy *enemies;
 } env_t;
 
 

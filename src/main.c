@@ -45,6 +45,8 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
     object stats = create_object("img/blue_display.png", VC{1285, 5}, VC{1, 1});
     object cadre = create_object("img/temp.png", VC{0, 836 - 20}, VC{1, 0.6});
     create_enemy_type_1(env);
+    create_enemy_type_1(env);
+    create_enemy_type_1(env);
     turret tourelle = create_turret_1();
     text money_text = setup_text(my_nbr_to_str(money) , "font/oceanicdrift.ttf", 45);
     object button1 = create_object("img/Blue_button.png", VC{50, 836 - 20}, VC{0.3, 0.3});
@@ -56,7 +58,7 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
         sfRenderWindow_clear(window, sfBlack);
         open = !get_events(window, keys)[sfKeyEscape];
         sfRenderWindow_drawSprite(window, background.sprite, NULL);
-        sfSprite_setRotation(tourelle.sprite, A_regarde_B(tourelle.position, sfSprite_getPosition(mob.sprite)));
+        sfSprite_setRotation(tourelle.sprite, A_regarde_B(tourelle.position, sfSprite_getPosition(env->enemies->next->next->sprite)));
         display_map(env, window);
         sfRenderWindow_drawSprite(window, tourelle.sprite, NULL);
         sfRenderWindow_drawSprite(window, stats.sprite, NULL);
@@ -66,10 +68,10 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
         sfRenderWindow_drawSprite(window, button2.sprite, NULL);
         sfRenderWindow_drawSprite(window, cadre.sprite, NULL);
         sfRenderWindow_drawSprite(window, worm_hole.sprite, NULL);
-        sfRenderWindow_drawSprite(window, env->ennemies->next->sprite, NULL);
+        display_enemies(window, env);
         update_mouse_cursor(window, mouse);
         sfRenderWindow_display(window);
-        evolve_enemy(env, env->ennemies->next);
+        evolve_all_enemies(env);
     }
     keys[sfKeyEscape] = 0;
 }
@@ -88,7 +90,7 @@ env_t *create_env(void)
         sfTexture_createFromFile("img/grass.png", NULL);
     env->data.path_texture = sfTexture_createFromFile("img/dirt.png", NULL);
     env->player_stats.score = 0;
-    env->ennemies = NULL;
+    env->enemies = NULL;
     return env;
 }
 
