@@ -15,20 +15,39 @@
 
 #define nextpath env->map[(int) pos.y / 60][(int) pos.x / 60].next_path
 
-enemy create_enemy_type_1(env_t *env)
+enemy *create_null_enemy(void)
 {
-    enemy template;
+    enemy *output = malloc(sizeof(enemy));
 
-    template.type = 1;
-    template.speed = 1;
-    template.health = 100;
-    template.sprite = sfSprite_create();
-    template.disp = VC{0, 0};
-    sfSprite_setPosition(template.sprite, VC{env->starting_square.x * 60 + 30 + rand() % 30 - 15, env->starting_square.y * 60 + 30 + rand() % 30 - 15});
-    template.texture = sfTexture_createFromFile("img/type1.png", NULL);
-    sfSprite_setTexture(template.sprite, template.texture, sfFalse);
-    sfSprite_setOrigin(template.sprite, VC{sfSprite_getGlobalBounds(template.sprite).width / 2, sfSprite_getGlobalBounds(template.sprite).height / 2});
-    return template;
+    output->disp = VC{0, 0};
+    output->health = 1;
+    output->speed = 0;
+    output->sprite = NULL;
+    output->texture = NULL;
+    output->type = 0;
+    output->next = NULL;
+    return output;
+}
+
+void create_enemy_type_1(env_t *env)
+{
+    enemy *actual = env->ennemies;
+
+    if (actual == NULL)
+        actual = create_null_enemy();
+    while (actual->next != NULL)
+        actual = actual->next;
+    actual->next = malloc(sizeof(enemy));
+    actual->next->type = 1;
+    actual->next->speed = 1;
+    actual->next->health = 100;
+    actual->next->sprite = sfSprite_create();
+    actual->next->disp = VC{0, 0};
+    sfSprite_setPosition(actual->next->sprite, VC{env->starting_square.x * 60 + 30 + rand() % 30 - 15, env->starting_square.y * 60 + 30 + rand() % 30 - 15});
+    actual->next->texture = sfTexture_createFromFile("img/type1.png", NULL);
+    sfSprite_setTexture(actual->next->sprite, actual->next->texture, sfFalse);
+    sfSprite_setOrigin(actual->next->sprite, VC{sfSprite_getGlobalBounds(actual->next->sprite).width / 2, sfSprite_getGlobalBounds(actual->next->sprite).height / 2});
+    actual->next->next = NULL;
 }
 
 void evolve_enemy(env_t *env, enemy *mob)

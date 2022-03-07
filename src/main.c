@@ -44,7 +44,7 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
     object epsilon = create_object("img/Epsilon.png", VC{1370, 35}, VC{.1, .1});
     object stats = create_object("img/blue_display.png", VC{1285, 5}, VC{1, 1});
     object cadre = create_object("img/temp.png", VC{0, 836 - 20}, VC{1, 0.6});
-    enemy mob = create_enemy_type_1(env);
+    create_enemy_type_1(env);
     turret tourelle = create_turret_1();
     text money_text = setup_text(my_nbr_to_str(money) , "font/oceanicdrift.ttf", 45);
     object button1 = create_object("img/Blue_button.png", VC{50, 836 - 20}, VC{0.3, 0.3});
@@ -66,10 +66,10 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
         sfRenderWindow_drawSprite(window, button2.sprite, NULL);
         sfRenderWindow_drawSprite(window, cadre.sprite, NULL);
         sfRenderWindow_drawSprite(window, worm_hole.sprite, NULL);
-        sfRenderWindow_drawSprite(window, mob.sprite, NULL);
+        sfRenderWindow_drawSprite(window, env->ennemies->next->sprite, NULL);
         update_mouse_cursor(window, mouse);
         sfRenderWindow_display(window);
-        evolve_enemy(env, &mob);
+        evolve_enemy(env, env->ennemies->next);
     }
     keys[sfKeyEscape] = 0;
 }
@@ -88,6 +88,7 @@ env_t *create_env(void)
         sfTexture_createFromFile("img/grass.png", NULL);
     env->data.path_texture = sfTexture_createFromFile("img/dirt.png", NULL);
     env->player_stats.score = 0;
+    env->ennemies = NULL;
     return env;
 }
 

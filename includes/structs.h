@@ -66,15 +66,6 @@ typedef struct game_data_s {
     sfMusic *music;
 } game_data;
 
-typedef struct env_s {
-    map_block **map;
-    int volume;
-    char *langue;
-    sfVector2f starting_square;
-    player_stats player_stats;
-    game_data data;
-} env_t;
-
 typedef struct enemy_s {
     int type;
     sfSprite *sprite;
@@ -82,6 +73,18 @@ typedef struct enemy_s {
     sfVector2f disp;
     float speed;
     int health;
+    struct enemy_s *next;
 } enemy;
+
+typedef struct env_s {
+    map_block **map;
+    int volume;
+    char *langue;
+    sfVector2f starting_square;
+    player_stats player_stats;
+    game_data data;
+    enemy *ennemies;
+} env_t;
+
 
 #endif /* !STRUCT_H_ */
