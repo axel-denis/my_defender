@@ -39,6 +39,5 @@ void destroy_object(object);
 text setup_text(char *string, char *font, int char_size);
 sfVector2i ftoiv2(sfVector2f vector);
 object create_object(char *file, sfVector2f pos, sfVector2f scale);
-float distance_entre_deux_points(sfVector2f point1, sfVector2f point2);
 
 #endif

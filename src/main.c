@@ -13,11 +13,8 @@
 #include "mouse.h"
 #include "button.h"
 #include "events.h"
-#include <math.h>
+#include "maths.h"
 #include "map.h"
-
-#define DToR(Angle) (Angle * M_PI / 180.0)
-#define RToD(Angle) (Angle * 180.0 / M_PI)
 
 turret create_turret_1(void)
 {
@@ -59,7 +56,7 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
         sfRenderWindow_clear(window, sfBlack);
         open = !get_events(window, keys)[sfKeyEscape];
         sfRenderWindow_drawSprite(window, background.sprite, NULL);
-        sfSprite_setRotation(tourelle.sprite, RToD(asin((float) (distance_entre_deux_points(tourelle.position, VC{tourelle.position.x, get_true_mouse_pos(window).y}) / distance_entre_deux_points(tourelle.position, get_true_mouse_pos(window))))));
+        sfSprite_setRotation(tourelle.sprite, A_regarde_B(tourelle.position, sfSprite_getPosition(mob.sprite)));
         display_map(env, window);
         sfRenderWindow_drawSprite(window, tourelle.sprite, NULL);
         sfRenderWindow_drawSprite(window, stats.sprite, NULL);
