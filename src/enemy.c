@@ -9,6 +9,7 @@
 #include "lib.h"
 #include "structs.h"
 #include "enemy.h"
+#include "map.h"
 
 #include <stdlib.h>
 
@@ -36,8 +37,8 @@ void evolve_enemy(env_t *env, enemy *mob)
 
     mob->actual_dest.x = env->map[(int) pos.y / 60][(int) pos.x / 60].next_path.x * 60;
     mob->actual_dest.y = env->map[(int) pos.y / 60][(int) pos.x / 60].next_path.y * 60;
-    movement.x = (pos.x < mob->actual_dest.x) - (pos.x > mob->actual_dest.x);
-    movement.y = (pos.y < mob->actual_dest.y) - (pos.y > mob->actual_dest.y);
+    movement.x = (get_case_coords(pos).x < get_case_coords(mob->actual_dest).x) - (get_case_coords(pos).x > get_case_coords(mob->actual_dest).x);
+    movement.y = (get_case_coords(pos).y < get_case_coords(mob->actual_dest).y) - (get_case_coords(pos).y > get_case_coords(mob->actual_dest).y);
     movement.x *= mob->speed;
     movement.y *= mob->speed;
     sfSprite_move(mob->sprite, movement);
