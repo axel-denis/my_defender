@@ -44,7 +44,7 @@ button *create_buttons_options(env_t *env)
     return (buttons);
 }
 
-button *setup_buttons_options(button *buttons, env_t *env)
+void setup_buttons_options(button *buttons, env_t *env)
 {
     char *volume_txt = my_strdup("Volume: ");
     char *language_txt = my_strdup("Language: ");

@@ -15,6 +15,16 @@
 #include "events.h"
 #include "map.h"
 
+turret create_turret_1()
+{
+    turret template;
+
+    template.type = 1;
+    template.sprite = sfSprite_create();
+    template.texture = sfTexture_createFromFile("", NULL);
+    sfSprite_setTexture(template.sprite, template.texture, NULL);
+}
+
 void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
 {
     int open = 1;
@@ -27,8 +37,8 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
     object stats = create_object("img/blue_display.png", VC{1285, 5}, VC{1, 1});
     object cadre = create_object("img/temp.png", VC{0, 836 - 20}, VC{1, 0.6});
     enemy mob = create_enemy_type_1(env);
+    turret tourelle = create_turret_1();
     text money_text = setup_text(my_nbr_to_str(money) , "font/oceanicdrift.ttf", 45);
-
     object button1 = create_object("img/Blue_button.png", VC{50, 836 - 20}, VC{0.3, 0.3});
     object button2 = create_object("img/Blue_button.png", VC{50, 836 - 20}, VC{0.3, 0.3});
 

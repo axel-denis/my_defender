@@ -28,7 +28,7 @@ void change_button_text(button *buttons, env_t *env)
         center_button_text(&(buttons[i]));
 }
 
-button *create_buttons_menu(env_t *env)
+button *create_buttons_menu(void)
 {
     button *buttons = malloc(sizeof(button) * 3);
     sfIntRect square = create_rect(0, 0, 6065 / 3, 833);
@@ -47,7 +47,7 @@ button *create_buttons_menu(env_t *env)
 
 void main_menu(sfRenderWindow *window, object mouse, int *keys, env_t *env)
 {
-    button *buttons = create_buttons_menu(env);
+    button *buttons = create_buttons_menu();
     int open = 1;
     object background = create_object("img/newbg.jpg", VC{0, 0}, VC{1, 1});
     text texte = setup_text("  Planet\nDefender", "font/oceanicdriftbold.ttf", 150);
