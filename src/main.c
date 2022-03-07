@@ -41,7 +41,7 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
     float steel = 0;
     object background = create_object("img/background.jpg", VC{0, 0}, VC{1, 1});
     object worm_hole = create_object("img/icon.png", VC{env->starting_square.x * 60 , env->starting_square.y * 60 - 58}, VC{.3, 1});
-    object epsilon = create_object("img/Epsilon.png", VC{1370, 27}, VC{.1, .1});
+    object heart = create_object("img/heart.png", VC{1370, 27}, VC{.1, .1});
     object elec = create_object("img/Elecricity.png", VC{1400, 93}, VC{.11, .11});
     object metal = create_object("img/Metal.png", VC{1400, 93}, VC{.11, .11});
     object stats = create_object("img/blue_display.png", VC{1285, 5}, VC{1, 1});
@@ -64,7 +64,7 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
         display_map(env, window);
         sfRenderWindow_drawSprite(window, tourelle.sprite, NULL);
         sfRenderWindow_drawSprite(window, stats.sprite, NULL);
-        sfRenderWindow_drawSprite(window, epsilon.sprite, NULL);
+        sfRenderWindow_drawSprite(window, heart.sprite, NULL);
         sfRenderWindow_drawSprite(window, elec.sprite, NULL);
         sfRenderWindow_drawSprite(window, metal.sprite, NULL);
         sfRenderWindow_drawText(window, money_text.text, NULL);

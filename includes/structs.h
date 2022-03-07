@@ -32,12 +32,12 @@ typedef struct map_s {
 } map;
 
 typedef struct player_stats_s {
-    float energy;
-    float energy_income;
-    float steel;
-    float steel_income;
-    int score;
+    sfVector2i energy;
+    sfVector2i energy_income;
+    sfVector2i steel;
+    sfVector2i steel_income;
     int health;
+    int score;
 } player_stats;
 
 typedef struct text_s {
