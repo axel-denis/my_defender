@@ -79,8 +79,7 @@ typedef struct enemy_s {
     int type;
     sfSprite *sprite;
     sfTexture *texture;
-    sfVector2f actual_dest;
-    sfVector2f displacement;
+    sfVector2f disp;
     float speed;
     int health;
 } enemy;
