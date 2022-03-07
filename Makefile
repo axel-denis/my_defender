@@ -12,6 +12,7 @@ MAIN		=	src/main.c 				\
 				src/options2.c			\
 				src/main_menu.c			\
 				src/map_reader.c		\
+				src/math_utils.c		\
 				src/csfml_utils.c 		\
 				src/map_display.c		\
 				src/button_setup.c 		\
@@ -32,6 +33,7 @@ LIB			= 	-L. ./lib/lib.a 	\
 				-lcsfml-system 		\
 				-lcsfml-audio 		\
 				-lcsfml-window 		\
+				-lm					\
 
 
 CPPFLAGS	+=	-I includes/

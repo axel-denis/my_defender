@@ -13,16 +13,27 @@
 #include "mouse.h"
 #include "button.h"
 #include "events.h"
+#include <math.h>
 #include "map.h"
 
-turret create_turret_1()
+#define DToR(Angle) (Angle * M_PI / 180.0)
+#define RToD(Angle) (Angle * 180.0 / M_PI)
+
+turret create_turret_1(void)
 {
     turret template;
 
     template.type = 1;
     template.sprite = sfSprite_create();
-    template.texture = sfTexture_createFromFile("", NULL);
-    sfSprite_setTexture(template.sprite, template.texture, NULL);
+    template.texture = sfTexture_createFromFile("img/turret1_3.png", NULL);
+    sfSprite_setTexture(template.sprite, template.texture, sfFalse);
+    sfSprite_setScale(template.sprite, VC{.2, .2});
+    sfSprite_setOrigin(template.sprite, VC{150, 250});
+    template.position = VC{60 * 5 - 4,60 * 5 - 20};
+    sfSprite_setPosition(template.sprite, template.position);
+    template.damage_speed = 2;
+    template.damage_per_action = 1;
+    return(template);
 }
 
 void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
@@ -48,7 +59,9 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
         sfRenderWindow_clear(window, sfBlack);
         open = !get_events(window, keys)[sfKeyEscape];
         sfRenderWindow_drawSprite(window, background.sprite, NULL);
+        sfSprite_setRotation(tourelle.sprite, RToD(asin((float) (distance_entre_deux_points(tourelle.position, VC{tourelle.position.x, get_true_mouse_pos(window).y}) / distance_entre_deux_points(tourelle.position, get_true_mouse_pos(window))))));
         display_map(env, window);
+        sfRenderWindow_drawSprite(window, tourelle.sprite, NULL);
         sfRenderWindow_drawSprite(window, stats.sprite, NULL);
         sfRenderWindow_drawSprite(window, epsilon.sprite, NULL);
         sfRenderWindow_drawText(window, money_text.text, NULL);
