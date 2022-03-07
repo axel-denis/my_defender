@@ -26,7 +26,7 @@ turret create_turret_1(void)
     sfSprite_setTexture(template.sprite, template.texture, sfFalse);
     sfSprite_setScale(template.sprite, VC{.2, .2});
     sfSprite_setOrigin(template.sprite, VC{150, 250});
-    template.position = VC{60 * 5 - 4,60 * 5 - 20};
+    template.position = VC{60 * 5 + 30, 60 * 5 + 30};
     sfSprite_setPosition(template.sprite, template.position);
     template.damage_speed = 2;
     template.damage_per_action = 1;
@@ -41,7 +41,8 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
     float steel = 0;
     object background = create_object("img/background.jpg", VC{0, 0}, VC{1, 1});
     object worm_hole = create_object("img/icon.png", VC{env->starting_square.x * 60 , env->starting_square.y * 60 - 58}, VC{.3, 1});
-    object epsilon = create_object("img/Epsilon.png", VC{1370, 35}, VC{.1, .1});
+    object epsilon = create_object("img/Epsilon.png", VC{1370, 27}, VC{.1, .1});
+    object elec = create_object("img/Elecricity.png", VC{1370, 47}, VC{.1, .1});
     object stats = create_object("img/blue_display.png", VC{1285, 5}, VC{1, 1});
     object cadre = create_object("img/temp.png", VC{0, 836 - 20}, VC{1, 0.6});
     create_enemy_type_1(env);
@@ -52,7 +53,7 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
     object button1 = create_object("img/Blue_button.png", VC{50, 836 - 20}, VC{0.3, 0.3});
     object button2 = create_object("img/Blue_button.png", VC{50, 836 - 20}, VC{0.3, 0.3});
 
-    sfText_setPosition(money_text.text, VC{1430, 24});
+    sfText_setPosition(money_text.text, VC{1430, 15});
     setmap_opacity(env);
     while (sfRenderWindow_isOpen(window) && open) {
         sfRenderWindow_clear(window, sfBlack);
@@ -63,6 +64,7 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
         sfRenderWindow_drawSprite(window, tourelle.sprite, NULL);
         sfRenderWindow_drawSprite(window, stats.sprite, NULL);
         sfRenderWindow_drawSprite(window, epsilon.sprite, NULL);
+        sfRenderWindow_drawSprite(window, elec.sprite, NULL);
         sfRenderWindow_drawText(window, money_text.text, NULL);
         sfRenderWindow_drawSprite(window, button1.sprite, NULL);
         sfRenderWindow_drawSprite(window, button2.sprite, NULL);
@@ -83,8 +85,8 @@ env_t *create_env(void)
     env->data.music = sfMusic_createFromFile("sounds/uncharted-worlds.ogg");
     sfMusic_play(env->data.music);
     sfMusic_setLoop(env->data.music, sfTrue);
-    sfMusic_setVolume(env->data.music, 60);
-    env->volume = 100;
+    env->volume = 0;
+    sfMusic_setVolume(env->data.music, env->volume);
     env->langue = my_strdup("EN");
     env->data.ground_texture =
         sfTexture_createFromFile("img/grass.png", NULL);
