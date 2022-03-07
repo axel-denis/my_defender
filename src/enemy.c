@@ -34,7 +34,6 @@ void create_enemy_type_1(env_t *env)
     enemy *actual = env->enemies;
 
     if (actual == NULL) {
-        printf("created null enemy\n");
         env->enemies = create_null_enemy();
         actual = env->enemies;
     }
