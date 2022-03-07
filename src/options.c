@@ -23,6 +23,7 @@ void buttons_manager(button *but, sfRenderWindow *window, int *keys, env_t *env)
 
 void display_options(sfRenderWindow *win, object mouse, button *but, int *keys)
 {
+    center_button_text(&(but[4]));
     for (int i = 0; i < 5; i++)
         display_button(win, but[i], keys);
     update_mouse_cursor(win, mouse);
