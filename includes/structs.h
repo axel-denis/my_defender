@@ -46,6 +46,12 @@ typedef struct text_s {
     sfFont *font;
 } text;
 
+typedef struct pop_button_s {
+    text titre;
+    object icon;
+    object onglet;
+} pop_button;
+
 typedef struct button_s {
     sfSprite *sprite;
     sfTexture *texture;

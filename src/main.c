@@ -184,28 +184,42 @@ hud update_hud(hud hud_player, env_t *env)
     return (hud_player);
 }
 
-object *create_turret_button_ui(int nbr)
+pop_button *create_turret_button_ui(int nbr)
 {
-    object *button = malloc(sizeof(object) * (nbr + 1));
+    pop_button *button = malloc(sizeof(pop_button) * (nbr + 1));
 
-    for (int i = 0; i < nbr; i++)
-        button[i] = create_object("img/onglet.png", VC{i * 180, 820}, VC{2, 2});
-    button[nbr].sprite = NULL;
+    for (int i = 0; i < nbr; i++) {
+        button[i].titre = setup_text("Base Turret", "font/Xero.ttf", 15);
+        button[i].onglet = create_object("img/onglet.png", VC{i * 180, 820}, VC{2, 2});
+        button[i].icon = create_object("img/turret1_1.png", VC{i * 180 + 90, 900}, VC{0.2, 0.2});
+        sfText_setPosition(button[i].titre.text, VC{i * 180 + 12, 840});
+        sfSprite_setOrigin(button[i].icon.sprite, VC{150, 250});
+        sfSprite_setRotation(button[i].icon.sprite, 90);
+    }
+    button[nbr].onglet.sprite = NULL;
     return button;
 }
 
-void display_turrets_button_ui(object *buttons, sfRenderWindow *window)
+void display_turrets_button_ui(pop_button *buttons, sfRenderWindow *window)
 {
     sfVector2f mouse_pos = get_true_mouse_pos(window);
     sfFloatRect rect;
 
-    for (int i = 0; buttons[i].sprite != NULL; i++) {
-        rect = sfSprite_getGlobalBounds(buttons[i].sprite);
-        if (pos_in_square(mouse_pos, rect) == sfTrue && sfSprite_getPosition(buttons[i].sprite).y > 800)
-            sfSprite_move(buttons[i].sprite, VC{0, -1});
-        if (pos_in_square(mouse_pos, rect) == sfFalse && sfSprite_getPosition(buttons[i].sprite).y < 820)
-            sfSprite_move(buttons[i].sprite, VC{0, 1});
-        sfRenderWindow_drawSprite(window, buttons[i].sprite, NULL);
+    for (int i = 0; buttons[i].onglet.sprite != NULL; i++) {
+        rect = sfSprite_getGlobalBounds(buttons[i].onglet.sprite);
+        if (pos_in_square(mouse_pos, rect) == sfTrue && sfSprite_getPosition(buttons[i].onglet.sprite).y > 800) {
+            sfSprite_move(buttons[i].onglet.sprite, VC{0, -1});
+            sfSprite_move(buttons[i].icon.sprite, VC{0, -1});
+            sfText_move(buttons[i].titre.text, VC{0, -1});
+        }
+        if (pos_in_square(mouse_pos, rect) == sfFalse && sfSprite_getPosition(buttons[i].onglet.sprite).y < 820) {
+            sfSprite_move(buttons[i].onglet.sprite, VC{0, 1});
+            sfSprite_move(buttons[i].icon.sprite, VC{0, 1});
+            sfText_move(buttons[i].titre.text, VC{0, 1});
+        }
+        sfRenderWindow_drawSprite(window, buttons[i].onglet.sprite, NULL);
+        sfRenderWindow_drawSprite(window, buttons[i].icon.sprite, NULL);
+        sfRenderWindow_drawText(window, buttons[i].titre.text, NULL);
     }
 }
 
@@ -217,7 +231,7 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
     object background = create_object("img/background.jpg", VC{0, 0}, VC{1, 1});
     object worm_hole = create_object("img/icon.png", VC{env->starting_square.x * 60 , env->starting_square.y * 60 - 58}, VC{.3, 1});
     turret tourelle = create_turret_1();
-    object *buttons = create_turret_button_ui(7);
+    pop_button *buttons = create_turret_button_ui(7);
 
     create_enemy_type_1(env);
     create_enemy_type_1(env);
