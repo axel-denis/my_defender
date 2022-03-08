@@ -233,9 +233,9 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
     turret tourelle = create_turret_1();
     pop_button *buttons = create_turret_button_ui(7);
 
-    create_enemy_type_1(env);
-    create_enemy_type_1(env);
-    create_enemy_type_1(env);
+    create_test_enemy(env, 100);
+    create_test_enemy(env, 50);
+    create_test_enemy(env, 75);
     setmap_opacity(env);
     while (sfRenderWindow_isOpen(window) && open) {
         sfRenderWindow_clear(window, sfBlack);

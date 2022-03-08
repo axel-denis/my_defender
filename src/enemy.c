@@ -29,6 +29,16 @@ enemy *create_null_enemy(void)
     return output;
 }
 
+enemy *template_enemy(int type, int speed, int health)
+{
+    enemy *output = malloc(sizeof(enemy));
+
+    output->type = type;
+    output->speed = speed;
+    output->health = health;
+    return output;
+}
+
 void create_enemy_type_1(env_t *env)
 {
     enemy *actual = env->entities.enemies;
@@ -39,10 +49,27 @@ void create_enemy_type_1(env_t *env)
     }
     while (actual->next != NULL)
         actual = actual->next;
-    actual->next = malloc(sizeof(enemy));
-    actual->next->type = 1;
-    actual->next->speed = 1;
-    actual->next->health = 100;
+    actual->next = template_enemy(1, 1, 100);
+    actual->next->sprite = sfSprite_create();
+    actual->next->disp = VC{0, 0};
+    sfSprite_setPosition(actual->next->sprite, VC{env->starting_square.x * 60 + 30 + rand() % 30 - 15, env->starting_square.y * 60 + 30 + rand() % 30 - 15});
+    actual->next->texture = sfTexture_createFromFile("img/type1.png", NULL);
+    sfSprite_setTexture(actual->next->sprite, actual->next->texture, sfFalse);
+    sfSprite_setOrigin(actual->next->sprite, VC{sfSprite_getGlobalBounds(actual->next->sprite).width / 2, sfSprite_getGlobalBounds(actual->next->sprite).height / 2});
+    actual->next->next = NULL;
+}
+
+void create_test_enemy(env_t *env, int health)
+{
+    enemy *actual = env->entities.enemies;
+
+    if (actual == NULL) {
+        env->entities.enemies = create_null_enemy();
+        actual = env->entities.enemies;
+    }
+    while (actual->next != NULL)
+        actual = actual->next;
+    actual->next = template_enemy(1, 1, health);
     actual->next->sprite = sfSprite_create();
     actual->next->disp = VC{0, 0};
     sfSprite_setPosition(actual->next->sprite, VC{env->starting_square.x * 60 + 30 + rand() % 30 - 15, env->starting_square.y * 60 + 30 + rand() % 30 - 15});

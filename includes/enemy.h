@@ -12,5 +12,6 @@ void create_enemy_type_1(env_t *env);
 void evolve_enemy(env_t *env, enemy *mob);
 void display_enemies(sfRenderWindow *window, env_t *env);
 void evolve_all_enemies(env_t *env);
+void create_test_enemy(env_t *env, int health);
 
 #endif /* !ENEMY_H_ */
