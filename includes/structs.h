@@ -106,6 +106,11 @@ typedef struct hud_s {
     object cadre;
 } hud;
 
+typedef struct entities_s {
+    enemy *enemies;
+    turret *turrets;
+} entities_t;
+
 typedef struct env_s {
     map_block **map;
     int volume;
@@ -114,7 +119,7 @@ typedef struct env_s {
     sfVector2f starting_square;
     player_stats player_stats;
     game_data data;
-    enemy *enemies;
+    entities_t entities;
 } env_t;
 
 #endif /* !STRUCT_H_ */

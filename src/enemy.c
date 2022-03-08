@@ -31,11 +31,11 @@ enemy *create_null_enemy(void)
 
 void create_enemy_type_1(env_t *env)
 {
-    enemy *actual = env->enemies;
+    enemy *actual = env->entities.enemies;
 
     if (actual == NULL) {
-        env->enemies = create_null_enemy();
-        actual = env->enemies;
+        env->entities.enemies = create_null_enemy();
+        actual = env->entities.enemies;
     }
     while (actual->next != NULL)
         actual = actual->next;

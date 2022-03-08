@@ -20,6 +20,7 @@ MAIN		=	src/main.c 				\
 				src/csfml_utils2.c		\
 				src/mouse_manager.c		\
 				src/enemy_display.c		\
+				src/enemies_chain.c		\
 				src/options_managers.c	\
 
 SRC			=						\

@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2021
 ** mydefender
 ** File description:
-** enemy_display.c
+** enemies_chain.C
 */
 
 #include "csfml.h"
@@ -11,12 +11,13 @@
 #include "enemy.h"
 #include "map.h"
 
-void display_enemies(sfRenderWindow *window, env_t *env)
+void evolve_all_enemies(env_t *env)
 {
     enemy *actual = env->entities.enemies;
+
     while (actual != NULL) {
         if (actual->type != 0)
-            sfRenderWindow_drawSprite(window, actual->sprite, NULL);
+            evolve_enemy(env, actual);
         actual = actual->next;
     }
 }
