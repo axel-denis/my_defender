@@ -11,6 +11,7 @@ MAIN		=	src/main.c 				\
 				src/options.c			\
 				src/options2.c			\
 				src/main_menu.c			\
+				src/pause_menu.c		\
 				src/map_reader.c		\
 				src/math_utils.c		\
 				src/csfml_utils.c 		\

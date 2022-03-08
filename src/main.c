@@ -310,6 +310,4 @@ int main(void)
 // Coding syle
 // Lose screen
 // Pause menu
-// FPS personalise
 // Pick up turrets
-// Audio in game
