@@ -184,6 +184,31 @@ hud update_hud(hud hud_player, env_t *env)
     return (hud_player);
 }
 
+object *create_turret_button_ui(int nbr)
+{
+    object *button = malloc(sizeof(object) * (nbr + 1));
+
+    for (int i = 0; i < nbr; i++)
+        button[i] = create_object("img/onglet.png", VC{i * 180, 820}, VC{2, 2});
+    button[nbr].sprite = NULL;
+    return button;
+}
+
+void display_turrets_button_ui(object *buttons, sfRenderWindow *window)
+{
+    sfVector2f mouse_pos = get_true_mouse_pos(window);
+    sfFloatRect rect;
+
+    for (int i = 0; buttons[i].sprite != NULL; i++) {
+        rect = sfSprite_getGlobalBounds(buttons[i].sprite);
+        if (pos_in_square(mouse_pos, rect) == sfTrue && sfSprite_getPosition(buttons[i].sprite).y > 800)
+            sfSprite_move(buttons[i].sprite, VC{0, -1});
+        if (pos_in_square(mouse_pos, rect) == sfFalse && sfSprite_getPosition(buttons[i].sprite).y < 820)
+            sfSprite_move(buttons[i].sprite, VC{0, 1});
+        sfRenderWindow_drawSprite(window, buttons[i].sprite, NULL);
+    }
+}
+
 void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
 {
     int open = 1;
@@ -192,21 +217,13 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
     object background = create_object("img/background.jpg", VC{0, 0}, VC{1, 1});
     object worm_hole = create_object("img/icon.png", VC{env->starting_square.x * 60 , env->starting_square.y * 60 - 58}, VC{.3, 1});
     turret tourelle = create_turret_1();
-    object button1 = create_object("img/onglet.png", VC{0, 820}, VC{2, 2});
-    sfVector2f mouse_pos = get_true_mouse_pos(window);
-    sfFloatRect rect = sfSprite_getGlobalBounds(button1.sprite);
+    object *buttons = create_turret_button_ui(7);
 
     create_enemy_type_1(env);
     create_enemy_type_1(env);
     create_enemy_type_1(env);
     setmap_opacity(env);
     while (sfRenderWindow_isOpen(window) && open) {
-        mouse_pos = get_true_mouse_pos(window);
-        rect = sfSprite_getGlobalBounds(button1.sprite);
-        if (pos_in_square(mouse_pos, rect) == sfTrue && sfSprite_getPosition(button1.sprite).y > 800)
-            sfSprite_move(button1.sprite, VC{0, -1});
-        if (pos_in_square(mouse_pos, rect) == sfFalse && sfSprite_getPosition(button1.sprite).y < 820)
-            sfSprite_move(button1.sprite, VC{0, 1});
         sfRenderWindow_clear(window, sfBlack);
         open = !get_events(window, keys)[sfKeyEscape];
         sfRenderWindow_drawSprite(window, background.sprite, NULL);
@@ -216,8 +233,8 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
         update_player_data(env, clock);
         update_hud(hud_player, env);
         display_hud(hud_player, env, window);
-        sfRenderWindow_drawSprite(window, button1.sprite, NULL);
         sfRenderWindow_drawSprite(window, worm_hole.sprite, NULL);
+        display_turrets_button_ui(buttons, window);
         display_enemies(window, env);
         update_mouse_cursor(window, mouse);
         sfRenderWindow_display(window);
