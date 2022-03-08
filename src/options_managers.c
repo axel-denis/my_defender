@@ -72,4 +72,8 @@ void volume_manager2(button *but, sfRenderWindow *window, int *keys, env_t *env)
         my_strcat(volume_txt, my_nbr_to_str(env->volume));
         sfText_setString(but[4].text.text, volume_txt);
     }
+    for (int i = 0; i < 5; i++) {
+        sfSound_setVolume(but[i].click, env->volume);
+        sfSound_setVolume(but[i].hover, env->volume);
+    }
 }

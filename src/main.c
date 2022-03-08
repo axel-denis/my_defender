@@ -274,8 +274,8 @@ env_t *create_env(void)
     env->data.music = sfMusic_createFromFile("sounds/uncharted-worlds.ogg");
     sfMusic_play(env->data.music);
     sfMusic_setLoop(env->data.music, sfTrue);
-    env->volume = 0;
-    sfMusic_setVolume(env->data.music, env->volume);
+    env->volume = 100;
+    sfMusic_setVolume(env->data.music, env->volume / 2);
     env->langue = my_strdup("EN");
     env->data.ground_texture =
         sfTexture_createFromFile("img/grass.png", NULL);
@@ -305,3 +305,10 @@ int main(void)
     destroy_object(mouse);
     return (0);
 }
+
+// Coding syle
+// Lose screen
+// Pause menu
+// FPS personalise
+// Pick up turrets
+// Audio in game

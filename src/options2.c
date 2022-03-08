@@ -41,6 +41,8 @@ button *create_buttons_options(env_t *env)
         setup_button_text(&(buttons[3]), "Return", "font/Xero.ttf", 40);
     }
     setup_button_text(&(buttons[4]), "Volume: ", "font/Xero.ttf", 30);
+    for (int i = 0; i < 5; i++)
+        setup_button_sounds(&(buttons[i]), "sounds/click.ogg", "sounds/hover.ogg", env);
     return (buttons);
 }
 
@@ -50,9 +52,19 @@ void setup_buttons_options(button *buttons, env_t *env)
     char *language_txt = my_strdup("Language: ");
 
     my_strcat(language_txt, env->langue);
-    my_strcat(volume_txt, my_nbr_to_str(env->volume));
+    my_strcat(volume_txt, my_dec_to_base(env->volume, "0123456789"));
     sfText_setString(buttons[4].text.text, volume_txt);
     sfText_setString(buttons[2].text.text, language_txt);
     center_button_text(&(buttons[4]));
     center_button_text(&(buttons[2]));
 }
+
+/*     char *volume_txt = strdup("Volume: ");
+    char *language_txt = strdup("Language: ");
+
+    language_txt = strcat(language_txt, env->langue);
+    volume_txt = strcat(volume_txt, my_dec_to_base(env->volume, "0123456789"));
+    sfText_setString(buttons[4].text.text, volume_txt);
+    sfText_setString(buttons[2].text.text, language_txt);
+    center_button_text(&(buttons[4]));
+    center_button_text(&(buttons[2])); */

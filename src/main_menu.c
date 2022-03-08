@@ -28,7 +28,7 @@ void change_button_text(button *buttons, env_t *env)
         center_button_text(&(buttons[i]));
 }
 
-button *create_buttons_menu(void)
+button *create_buttons_menu(env_t *env)
 {
     button *buttons = malloc(sizeof(button) * 3);
     sfIntRect square = create_rect(0, 0, 6065 / 3, 833);
@@ -36,9 +36,10 @@ button *create_buttons_menu(void)
     buttons[0] = create_button(VC{0.2, 0.2}, VC{WINDOW_WIDTH / 2 - ((6065 / 3) / 2) * 0.2 + 500, WINDOW_HEIGHT / 2 - 150}, sfTrue);
     buttons[1] = create_button(VC{0.2, 0.2}, VC{WINDOW_WIDTH / 2 - ((6065 / 3) / 2) * 0.2 + 500, WINDOW_HEIGHT / 2 + 50}, sfTrue);
     buttons[2] = create_button(VC{0.2, 0.2}, VC{WINDOW_WIDTH / 2 - ((6065 / 3) / 2) * 0.2 + 500, WINDOW_HEIGHT / 2 + 250}, sfTrue);
-    setup_button_texture(&(buttons[0]), &square, "img/Blue_button.png");
-    setup_button_texture(&(buttons[1]), &square, "img/Blue_button.png");
-    setup_button_texture(&(buttons[2]), &square, "img/Blue_button.png");
+    for (int i = 0; i < 3; i++) {
+        setup_button_texture(&(buttons[i]), &square, "img/Blue_button.png");
+        setup_button_sounds(&(buttons[i]), "sounds/click.ogg", "sounds/hover.ogg", env);
+    }
     setup_button_text(&(buttons[0]), "Start", "font/Xero.ttf", 40);
     setup_button_text(&(buttons[1]), "Options", "font/Xero.ttf", 40);
     setup_button_text(&(buttons[2]), "Quit", "font/Xero.ttf", 40);
@@ -47,7 +48,7 @@ button *create_buttons_menu(void)
 
 void main_menu(sfRenderWindow *window, object mouse, int *keys, env_t *env)
 {
-    button *buttons = create_buttons_menu();
+    button *buttons = create_buttons_menu(env);
     int open = 1;
     object background = create_object("img/newbg.jpg", VC{0, 0}, VC{1, 1});
     text texte = setup_text("  Planet\nDefender", "font/o_driftbold.ttf", 150);
@@ -60,7 +61,7 @@ void main_menu(sfRenderWindow *window, object mouse, int *keys, env_t *env)
         get_events(window, keys);
         sfRenderWindow_drawText(window, texte.text, NULL);
         for (int i = 0; i < 3; i++)
-            display_button(window, buttons[i], keys);
+            display_button(window, &(buttons[i]), keys);
         update_mouse_cursor(window, mouse);
         if (is_pressed(buttons[0], window, keys) == sfTrue) {
             game(window, mouse, keys, env);
@@ -68,6 +69,10 @@ void main_menu(sfRenderWindow *window, object mouse, int *keys, env_t *env)
         if (is_pressed(buttons[1], window, keys) == sfTrue) {
             options(window, mouse, keys, env);
             change_button_text(buttons, env);
+            for (int i = 0; i < 3; i++) {
+                sfSound_setVolume(buttons[i].click, env->volume);
+                sfSound_setVolume(buttons[i].hover, env->volume);
+            }
         }
         if (is_pressed(buttons[2], window, keys) == sfTrue)
             open = 0;

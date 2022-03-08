@@ -55,6 +55,11 @@ typedef struct pop_button_s {
 typedef struct button_s {
     sfSprite *sprite;
     sfTexture *texture;
+    int already_hoverd;
+    sfSound *hover;
+    sfSoundBuffer *hover_buf;
+    sfSound *click;
+    sfSoundBuffer *click_buf;
     text text;
     // peut être faire un pointeur sur fonction
 } button;
