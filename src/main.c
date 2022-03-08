@@ -192,13 +192,21 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
     object background = create_object("img/background.jpg", VC{0, 0}, VC{1, 1});
     object worm_hole = create_object("img/icon.png", VC{env->starting_square.x * 60 , env->starting_square.y * 60 - 58}, VC{.3, 1});
     turret tourelle = create_turret_1();
-    object button1 = create_object("img/Blue_button.png", VC{50, 836 - 20}, VC{0.3, 0.3});
+    object button1 = create_object("img/onglet.png", VC{0, 820}, VC{2, 2});
+    sfVector2f mouse_pos = get_true_mouse_pos(window);
+    sfFloatRect rect = sfSprite_getGlobalBounds(button1.sprite);
 
     create_enemy_type_1(env);
     create_enemy_type_1(env);
     create_enemy_type_1(env);
     setmap_opacity(env);
     while (sfRenderWindow_isOpen(window) && open) {
+        mouse_pos = get_true_mouse_pos(window);
+        rect = sfSprite_getGlobalBounds(button1.sprite);
+        if (pos_in_square(mouse_pos, rect) == sfTrue && sfSprite_getPosition(button1.sprite).y > 800)
+            sfSprite_move(button1.sprite, VC{0, -1});
+        if (pos_in_square(mouse_pos, rect) == sfFalse && sfSprite_getPosition(button1.sprite).y < 820)
+            sfSprite_move(button1.sprite, VC{0, 1});
         sfRenderWindow_clear(window, sfBlack);
         open = !get_events(window, keys)[sfKeyEscape];
         sfRenderWindow_drawSprite(window, background.sprite, NULL);
