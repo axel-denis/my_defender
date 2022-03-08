@@ -61,7 +61,6 @@ typedef struct button_s {
     sfSound *click;
     sfSoundBuffer *click_buf;
     text text;
-    // peut être faire un pointeur sur fonction
 } button;
 
 typedef struct map_block_s {

@@ -7,11 +7,11 @@
 
 #include <stdlib.h>
 
+#include "lib.h"
+
 static char *my_dec_to_base4(int, char *, int, int);
 static char *my_dec_to_base3(int, char *, int, int);
 static char *my_dec_to_base2(long, char *, int, int);
-char *my_revstr(char *str);
-int my_strlen(char *str);
 
 char *my_dec_to_base(long nb, char *base)
 {

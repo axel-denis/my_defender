@@ -88,9 +88,11 @@ hud create_hud(env_t *env)
     return (h_p);
 }
 
-void update_player_data(env_t *env, sfClock *clock)
+void update_player_data(env_t *env, sfClock *clock, int *wait_escape)
 {
     if (sfTime_asSeconds(sfClock_getElapsedTime(clock)) > 1) {
+        if (*wait_escape > 0)
+            *wait_escape -= 1;
         env->player_stats.energy.x += env->player_stats.energy_income.x;
         env->player_stats.steel.x += env->player_stats.steel_income.x;
         env->player_stats.energy.y += env->player_stats.energy_income.y;
@@ -226,6 +228,8 @@ void display_turrets_button_ui(pop_button *buttons, sfRenderWindow *window)
 void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
 {
     int open = 1;
+    int wait_escape = 0;
+    sfClock *escape_time = sfClock_create();
     sfClock *clock = sfClock_create();
     hud hud_player = create_hud(env);
     object background = create_object("img/background.jpg", VC{0, 0}, VC{1, 1});
@@ -239,12 +243,13 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
     setmap_opacity(env);
     while (sfRenderWindow_isOpen(window) && open) {
         sfRenderWindow_clear(window, sfBlack);
-        open = !get_events(window, keys)[sfKeyEscape];
+        get_events(window, keys);
+        printf("%d\n", keys[sfKeyA]);
         sfRenderWindow_drawSprite(window, background.sprite, NULL);
         //sfSprite_setRotation(tourelle.sprite, A_regarde_B(tourelle.position, sfSprite_getPosition(env->entities.enemies->next->next->sprite)));
         display_map(env, window);
         sfRenderWindow_drawSprite(window, tourelle.sprite, NULL);
-        update_player_data(env, clock);
+        update_player_data(env, clock, &wait_escape);
         update_hud(hud_player, env);
         display_hud(hud_player, env, window);
         sfRenderWindow_drawSprite(window, worm_hole.sprite, NULL);
@@ -252,6 +257,11 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
         display_enemies(window, env);
         update_mouse_cursor(window, mouse);
         sfRenderWindow_display(window);
+        if (keys[sfKeyEscape] == 1) {
+            sfClock_restart(escape_time);
+            if (pause_menu(window, mouse, keys, env) == 1)
+                open = 0;
+        }
         evolve_all_enemies(env);
     }
     sfClock_destroy(clock);

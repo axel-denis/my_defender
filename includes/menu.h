@@ -21,6 +21,8 @@ void langue_manager(button *but, sfRenderWindow *window, int *keys, env_t *env);
 void volume_manager(button *but, sfRenderWindow *window, int *keys, env_t *env);
 void volume_manager2(button *but, sfRenderWindow *window, int *keys, env_t *);
 void fps_manager(button *but, sfRenderWindow *window, int *keys, env_t *env);
+int pause_menu(sfRenderWindow *window, object mouse, int *keys, env_t *env);
+void display_background(sfRenderWindow *win, object fr, object en, env_t *env);
 
 
 #endif /* !MENU_H_ */
