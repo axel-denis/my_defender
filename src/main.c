@@ -241,7 +241,7 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
         sfRenderWindow_clear(window, sfBlack);
         open = !get_events(window, keys)[sfKeyEscape];
         sfRenderWindow_drawSprite(window, background.sprite, NULL);
-        sfSprite_setRotation(tourelle.sprite, A_regarde_B(tourelle.position, sfSprite_getPosition(env->entities.enemies->next->next->sprite)));
+        //sfSprite_setRotation(tourelle.sprite, A_regarde_B(tourelle.position, sfSprite_getPosition(env->entities.enemies->next->next->sprite)));
         display_map(env, window);
         sfRenderWindow_drawSprite(window, tourelle.sprite, NULL);
         update_player_data(env, clock);

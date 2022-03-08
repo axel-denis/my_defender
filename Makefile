@@ -40,7 +40,7 @@ LIB			= 	-L. ./lib/lib.a 	\
 
 
 CPPFLAGS	+=	-I includes/
-CFLAGS		+=	-Wall -Wextra -g3 #-ggdb3
+CFLAGS		+=	-Wall -Wextra -g3 -ggdb3
 
 $(NAME):		$(MAINOBJ) $(OBJ)
 				make -C lib/

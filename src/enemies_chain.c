@@ -11,19 +11,21 @@
 #include "enemy.h"
 #include "map.h"
 
-void remove_next_enemy_if_needed(enemy *precedent)
+enemy *remove_next_enemy_if_needed(enemy *precedent)
 {
     enemy *enemy_to_remove = precedent->next;
 
-    if (enemy_to_remove->next == NULL || enemy_to_remove->health > 0)
-        return;
+    if (enemy_to_remove->health > 0)
+        return enemy_to_remove;
     printf("passed\n");
     precedent->next = enemy_to_remove->next;
     free(enemy_to_remove);
+    return precedent->next;
 }
 
 void evolve_all_enemies(env_t *env)
 {
+    printf("entry\n");
     enemy *actual = env->entities.enemies;
     enemy *last = actual;
 
@@ -33,9 +35,14 @@ void evolve_all_enemies(env_t *env)
             evolve_enemy(env, actual);
             printf("enemy health : %d\n", actual->health);
             actual->health--;
-            remove_next_enemy_if_needed(last);
+            actual = remove_next_enemy_if_needed(last);
+        }
+        if (actual == NULL) {
+            printf("returned\n");
+            return;
         }
         last = actual;
         actual = actual->next;
+        printf("pased and passed\n");
     }
 }
