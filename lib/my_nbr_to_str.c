@@ -29,7 +29,7 @@ int length(int nb)
 char *my_nbr_to_str(int nb)
 {
     int len = length(nb);
-    char *str = malloc(len + 1);
+    char *str = malloc(sizeof(char) * (len + 1));
 
     str[len] = '\0';
     while (len > 0) {

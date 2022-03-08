@@ -50,7 +50,7 @@ void main_menu(sfRenderWindow *window, object mouse, int *keys, env_t *env)
     button *buttons = create_buttons_menu();
     int open = 1;
     object background = create_object("img/newbg.jpg", VC{0, 0}, VC{1, 1});
-    text texte = setup_text("  Planet\nDefender", "font/oceanicdriftbold.ttf", 150);
+    text texte = setup_text("  Planet\nDefender", "font/o_driftbold.ttf", 150);
     sfFloatRect ownscale = sfText_getGlobalBounds(texte.text);
 
     sfText_setPosition(texte.text, VC{WINDOW_WIDTH / 2 - ownscale.width / 2 + 500, WINDOW_HEIGHT / 2 - 490});

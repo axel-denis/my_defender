@@ -37,7 +37,7 @@ typedef struct player_stats_s {
     sfVector2i steel;
     sfVector2i steel_income;
     int health;
-    int score;
+    int wave;
 } player_stats;
 
 typedef struct text_s {
@@ -75,6 +75,25 @@ typedef struct enemy_s {
     int health;
     struct enemy_s *next;
 } enemy;
+
+typedef struct hud_s {
+    object icon_health;
+    object icon_energy;
+    object icon_steel;
+    object icon_energy_income_pos;
+    object icon_steel_income_pos;
+    object icon_energy_income_neu;
+    object icon_steel_income_neu;
+    object icon_energy_income_neg;
+    object icon_steel_income_neg;
+    text wave;
+    text text_health;
+    text text_energy;
+    text text_steel;
+    text text_energy_income;
+    text text_steel_income;
+    object cadre;
+} hud;
 
 typedef struct env_s {
     map_block **map;

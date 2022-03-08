@@ -12,6 +12,8 @@ SRC	=	my_get_nbr.c		\
 		my_strlen.c			\
 		my_strcat.c			\
 		my_nbr_to_str.c		\
+		my_dec_to_base.c	\
+		my_revstr.c			\
 		dec_to_base.c		\
 		my_str_isalpha.c	\
 		my_strcmp.c			\

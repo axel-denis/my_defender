@@ -8,6 +8,10 @@
 #ifndef LIB_H
     #define LIB_H
 
+    #define ABS(x) (x < 0) ? -x : x;
+
+char *my_revstr(char *str);
+char *my_dec_to_base(long nb, char *base);
 int my_strlen(char const *str);
 int my_get_nbr(char *str);
 void my_put_nbr(int nb);
@@ -25,7 +29,7 @@ int my_strcmp(char const *s1, char const *s2);
 char *my_strcpy(char *dest, char const *src);
 char *my_strdup(char *str);
 char *max_strdup(char *str, int max);
-char *my_strcat(char *dest , char const *src);
+char *my_strcat(char *dest , char *src);
 void my_errorstr(char const *str);
 
 #endif

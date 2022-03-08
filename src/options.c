@@ -40,7 +40,7 @@ void display_background(sfRenderWindow *win, object fr, object en, env_t *env)
 void options(sfRenderWindow *window, object mouse, int *keys, env_t *env)
 {
     int open = 1;
-    text texte = setup_text("  Options", "font/oceanicdriftbold.ttf", 150);
+    text texte = setup_text("  Options", "font/o_driftbold.ttf", 150);
     object backfr = create_object("img/options_fr.jpg", VC{0, 0}, VC{1, 1});
     object backen = create_object("img/options_en.jpg", VC{0, 0}, VC{1, 1});
     button *buttons = create_buttons_options(env);
