@@ -262,6 +262,7 @@ env_t *create_env(void)
 {
     env_t *env = malloc(sizeof(env_t));
 
+    env->fps = 75;
     env->player_stats.health = 100;
     env->player_stats.energy.x = -200;
     env->player_stats.energy.y = 0;
@@ -294,7 +295,7 @@ int main(void)
     env_t *env = create_env();
 
     window = sfRenderWindow_create(main_w, "My defender", sfDefaultStyle, NULL);
-    sfRenderWindow_setFramerateLimit(window, 75);
+    sfRenderWindow_setFramerateLimit(window, env->fps);
     sfRenderWindow_setMouseCursorVisible(window, sfFalse);
     if (read_map(env, "map") == 1) {
         my_errorstr("Error on map\n");

@@ -36,6 +36,40 @@ void langue_manager(button *but, sfRenderWindow *window, int *keys, env_t *env)
     center_button_text(&(but[3]));
 }
 
+void fps_manager(button *but, sfRenderWindow *window, int *keys, env_t *env)
+{
+    if (is_pressed(but[5], window, keys) == sfTrue && env->fps == 75) {
+        env->fps = 144;
+        sfRenderWindow_setFramerateLimit(window, env->fps);
+        sfText_setString(but[5].text.text, "fps: 144");
+        return;
+    }
+    if (is_pressed(but[5], window, keys) == sfTrue && env->fps == 144) {
+        env->fps = 240;
+        sfRenderWindow_setFramerateLimit(window, env->fps);
+        sfText_setString(but[5].text.text, "fps: 240");
+        return;
+    }
+    if (is_pressed(but[5], window, keys) == sfTrue && env->fps == 240) {
+        env->fps = 30;
+        sfRenderWindow_setFramerateLimit(window, env->fps);
+        sfText_setString(but[5].text.text, "fps: 30");
+        return;
+    }
+    if (is_pressed(but[5], window, keys) == sfTrue && env->fps == 30) {
+        env->fps = 60;
+        sfRenderWindow_setFramerateLimit(window, env->fps);
+        sfText_setString(but[5].text.text, "fps: 60");
+        return;
+    }
+    if (is_pressed(but[5], window, keys) == sfTrue && env->fps == 60) {
+        env->fps = 75;
+        sfRenderWindow_setFramerateLimit(window, env->fps);
+        sfText_setString(but[5].text.text, "fps: 75");
+        return;
+    }
+}
+
 void volume_manager(button *but, sfRenderWindow *window, int *keys, env_t *env)
 {
     char *volume_txt;

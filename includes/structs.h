@@ -109,6 +109,7 @@ typedef struct hud_s {
 typedef struct env_s {
     map_block **map;
     int volume;
+    int fps;
     char *langue;
     sfVector2f starting_square;
     player_stats player_stats;

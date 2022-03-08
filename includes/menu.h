@@ -20,6 +20,7 @@ void setup_buttons_options(button *buttons, env_t *env);
 void langue_manager(button *but, sfRenderWindow *window, int *keys, env_t *env);
 void volume_manager(button *but, sfRenderWindow *window, int *keys, env_t *env);
 void volume_manager2(button *but, sfRenderWindow *window, int *keys, env_t *);
+void fps_manager(button *but, sfRenderWindow *window, int *keys, env_t *env);
 
 
 #endif /* !MENU_H_ */
