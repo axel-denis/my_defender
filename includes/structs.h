@@ -105,5 +105,4 @@ typedef struct env_s {
     enemy *enemies;
 } env_t;
 
-
 #endif /* !STRUCT_H_ */
