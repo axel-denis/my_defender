@@ -13,7 +13,7 @@
 
 void display_enemies(sfRenderWindow *window, env_t *env)
 {
-    enemy *actual = env->entities.enemies;
+    enemy *actual = env->c_game.enemies;
     while (actual != NULL) {
         if (actual->type != 0)
             sfRenderWindow_drawSprite(window, actual->sprite, NULL);

@@ -41,11 +41,11 @@ enemy *template_enemy(int type, int speed, int health)
 
 void create_enemy_type_1(env_t *env)
 {
-    enemy *actual = env->entities.enemies;
+    enemy *actual = env->c_game.enemies;
 
     if (actual == NULL) {
-        env->entities.enemies = create_null_enemy();
-        actual = env->entities.enemies;
+        env->c_game.enemies = create_null_enemy();
+        actual = env->c_game.enemies;
     }
     while (actual->next != NULL)
         actual = actual->next;
@@ -61,11 +61,11 @@ void create_enemy_type_1(env_t *env)
 
 void create_test_enemy(env_t *env, int health)
 {
-    enemy *actual = env->entities.enemies;
+    enemy *actual = env->c_game.enemies;
 
     if (actual == NULL) {
-        env->entities.enemies = create_null_enemy();
-        actual = env->entities.enemies;
+        env->c_game.enemies = create_null_enemy();
+        actual = env->c_game.enemies;
     }
     while (actual->next != NULL)
         actual = actual->next;
@@ -83,6 +83,7 @@ void evolve_enemy(env_t *env, enemy *mob)
 {
     sfVector2f pos = sfSprite_getPosition(mob->sprite);
     sfVector2f movement = {0, 0};
+    int clock_mult = sfTime_asMilliseconds(sfClock_getElapsedTime(env->c_game.clock)) / 17;
 
     if (mob->disp.x == 0 && mob->disp.y == 0) {
         mob->disp.x = ((nextpath.x > get_case_coords(pos).x) - (nextpath.x < get_case_coords(pos).x));
@@ -91,9 +92,9 @@ void evolve_enemy(env_t *env, enemy *mob)
         mob->disp.y *= 1 / mob->speed * 60;
     }
 
-    movement.x = ((mob->disp.x > 0) - (mob->disp.x < 0)) * mob->speed;
-    movement.y = ((mob->disp.y > 0) - (mob->disp.y < 0)) * mob->speed;
-    mob->disp.x += ((mob->disp.x < 0) - (mob->disp.x > 0)) * mob->speed;
-    mob->disp.y += ((mob->disp.y < 0) - (mob->disp.y > 0)) * mob->speed;
+    movement.x = ((mob->disp.x > 0) - (mob->disp.x < 0)) * mob->speed * clock_mult;
+    movement.y = ((mob->disp.y > 0) - (mob->disp.y < 0)) * mob->speed * clock_mult;
+    mob->disp.x += ((mob->disp.x < 0) - (mob->disp.x > 0)) * mob->speed * clock_mult;
+    mob->disp.y += ((mob->disp.y < 0) - (mob->disp.y > 0)) * mob->speed * clock_mult;
     sfSprite_move(mob->sprite, movement);
 }

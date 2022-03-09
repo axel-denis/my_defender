@@ -142,11 +142,12 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
     create_test_enemy(env, 50);
     create_test_enemy(env, 75);
     setmap_opacity(env);
+    sfClock_restart(env->c_game.clock);
     while (sfRenderWindow_isOpen(window) && open) {
         sfRenderWindow_clear(window, sfBlack);
         get_events(window, keys);
         sfRenderWindow_drawSprite(window, background.sprite, NULL);
-        //sfSprite_setRotation(tourelle.sprite, A_regarde_B(tourelle.position, sfSprite_getPosition(env->entities.enemies->next->next->sprite)));
+        //sfSprite_setRotation(tourelle.sprite, A_regarde_B(tourelle.position, sfSprite_getPosition(env->c_game.enemies->next->next->sprite)));
         display_map(env, window);
         sfRenderWindow_drawSprite(window, tourelle.sprite, NULL);
         update_player_data(env, clock);
@@ -160,8 +161,11 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
         if (keys[sfKeyEscape] == 3) {
             if (pause_menu(window, mouse, keys, env) == 1)
                 open = 0;
+            sfClock_restart(env->c_game.clock);
         }
         evolve_all_enemies(env);
+        if (sfTime_asMilliseconds(sfClock_getElapsedTime(env->c_game.clock)) > 16)
+            sfClock_restart(env->c_game.clock);
     }
     sfClock_destroy(clock);
     keys[sfKeyEscape] = 0;
@@ -191,7 +195,8 @@ env_t *create_env(void)
         sfTexture_createFromFile("img/grass.png", NULL);
     env->data.path_texture = sfTexture_createFromFile("img/dirt.png", NULL);
     env->player_stats.wave = 1;
-    env->entities.enemies = NULL;
+    env->c_game.enemies = NULL;
+    env->c_game.clock = sfClock_create();
     return env;
 }
 

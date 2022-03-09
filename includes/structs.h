@@ -110,6 +110,12 @@ typedef struct entities_s {
     turret *turrets;
 } entities_t;
 
+typedef struct current_game_s {
+    enemy *enemies;
+    turret *turrets;
+    sfClock *clock;
+} current_game_t;
+
 typedef struct env_s {
     map_block **map;
     int volume;
@@ -118,7 +124,7 @@ typedef struct env_s {
     sfVector2f starting_square;
     player_stats player_stats;
     game_data data;
-    entities_t entities;
+    current_game_t c_game;
 } env_t;
 
 #endif /* !STRUCT_H_ */

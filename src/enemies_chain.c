@@ -24,9 +24,11 @@ enemy *remove_next_enemy_if_needed(enemy *precedent)
 
 void evolve_all_enemies(env_t *env)
 {
-    enemy *actual = env->entities.enemies;
+    enemy *actual = env->c_game.enemies;
     enemy *last = actual;
 
+    if (sfTime_asMilliseconds(sfClock_getElapsedTime(env->c_game.clock)) < 13)
+        return;
     while (actual != NULL) {
         if (actual->type != 0) {
             evolve_enemy(env, actual);
