@@ -28,6 +28,20 @@ void evolve_mouse(int *keys)
         keys[rightMouse] = (keys[rightMouse] + 1) % 4;
 }
 
+void evolve_keys(int *keys)
+{
+    for (int i = 0; i < sfKeyCount; i++) {
+        if (sfKeyboard_isKeyPressed(i) == sfTrue && keys[i] == 1)
+            keys[i]++;
+        if (sfKeyboard_isKeyPressed(i) == sfTrue && keys[i] == 0)
+            keys[i]++;
+        if (sfKeyboard_isKeyPressed(i) == sfFalse && keys[i] == 3)
+            keys[i] = 0;
+        if (sfKeyboard_isKeyPressed(i) == sfFalse && keys[i] > 0 && keys[i] < 3)
+            keys[i] = 3;
+    }
+}
+
 /*
 void print_events(int *keys)
 {
@@ -36,14 +50,12 @@ void print_events(int *keys)
     printf("\n");
 }
 */
-
 int *get_events(sfRenderWindow *window, int *keys)
 {
     sfEvent event;
 
     evolve_mouse(keys);
-    for (int i = 0; i < sfKeyCount; i++)
-        keys[i] = sfKeyboard_isKeyPressed(i) == sfTrue;
+    evolve_keys(keys);
     while (sfRenderWindow_pollEvent(window, &event)) {
         if (event.type == sfEvtClosed)
             sfRenderWindow_close(window);
