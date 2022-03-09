@@ -19,7 +19,7 @@ sfSprite *create_sprite(env_t *env, int type, sfVector2f pos)
 {
     sfSprite *sprite = sfSprite_create();
 
-    if (type == 0)
+    if (type == 0 || type == 3)
         sfSprite_setTexture(sprite, env->data.ground_texture, sfFalse);
     if (type == 1)
         sfSprite_setTexture(sprite, env->data.path_texture, sfFalse);

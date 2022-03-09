@@ -17,7 +17,7 @@
 #include "map.h"
 #include "hud.h"
 
-turret create_turret_1(void)
+turret create_turret_1(int x, int y)
 {
     turret template;
 
@@ -27,7 +27,7 @@ turret create_turret_1(void)
     sfSprite_setTexture(template.sprite, template.texture, sfFalse);
     sfSprite_setScale(template.sprite, VC{.2, .2});
     sfSprite_setOrigin(template.sprite, VC{150, 250});
-    template.position = VC{60 * 5 + 30, 60 * 5 + 30};
+    template.position = VC{60 * x + 30, 60 * y + 30};
     sfSprite_setPosition(template.sprite, template.position);
     template.damage_speed = 2;
     template.damage_per_action = 1;
@@ -134,38 +134,57 @@ void display_turrets_button_ui(pop_button *buttons, sfRenderWindow *window, int 
     }
 }
 
-int pickup_turrets(pop_button *buttons, sfRenderWindow *window, int pickedup, int *keys)
+int pickup_turrets(pop_button *but, sfVector2f mouse_pos, int pick, int *keys, env_t *env)
 {
-    sfVector2f mouse_pos = get_true_mouse_pos(window);
+    if (pick == -1) {
+        for (int i = 0; but[i].onglet.sprite != NULL; i++) {
+            sfFloatRect rect = sfSprite_getGlobalBounds(but[i].icon.sprite);
 
-    if (pickedup == -1) {
-        for (int i = 0; buttons[i].onglet.sprite != NULL; i++)
-            if (pos_in_square(mouse_pos, sfSprite_getGlobalBounds(buttons[i].icon.sprite)) && keys[leftMouse] == 1) {
-                sfSprite_setPosition(buttons[i].icon.sprite, mouse_pos);
+            if (pos_in_square(mouse_pos, rect) && keys[leftMouse] == 1) {
+                sfSprite_setPosition(but[i].icon.sprite, mouse_pos);
                 return i;
             }
+        }
     } else {
         if (keys[leftMouse] == 2 || keys[leftMouse] == 1) {
-            sfSprite_setPosition(buttons[pickedup].icon.sprite, mouse_pos);
-            return pickedup;
+            sfVector2i coo = get_case_coords(mouse_pos);
+            if (coo.x < 32 && coo.y < 18 && env->map[coo.y][coo.x].type == 0)
+                sfSprite_setPosition(but[pick].icon.sprite, VC{coo.x * 60 + 30, coo.y * 60 + 30});
+            else
+                sfSprite_setPosition(but[pick].icon.sprite, mouse_pos);
+            return pick;
         }
         if (keys[leftMouse] == 3 || keys[leftMouse] == 0) {
-            sfSprite_setPosition(buttons[pickedup].icon.sprite, VC{sfSprite_getPosition(buttons[pickedup].onglet.sprite).x + 90, 900});
+            //if (coo.x < 32 && coo.y < 18 && env->map[coo.y][coo.x].type == 0) //                          HERE TO CREATE TURETTE
+            //    create_turret(coo.x, coo.y);                                  //
+            sfSprite_setPosition(but[pick].icon.sprite, VC{pick * 180 + 90, sfSprite_getPosition(but[pick].onglet.sprite).y + 80});
             return -1;
         }
     }
     return -1;
 }
 
+void display_picked_turret(int pickedup, pop_button *buttons, sfRenderWindow *w)
+{
+    if (pickedup != -1) {
+        sfColor darken = sfColor_fromRGBA(220, 220, 220, 150);
+        sfColor normal = sfColor_fromRGBA(255, 255, 255, 255);
+
+        sfSprite_setColor(buttons[pickedup].icon.sprite, darken);
+        sfRenderWindow_drawSprite(w, buttons[pickedup].icon.sprite, NULL);
+        sfSprite_setColor(buttons[pickedup].icon.sprite, normal);
+    }
+}
+
 void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
 {
     int open = 1;
-    int pickedup = -1; // -1 == rien, sinon numéro du popup button
+    int pick = -1; // -1 == rien, sinon numéro du popup button
     sfClock *clock = sfClock_create();
     hud hud_player = create_hud();
     object background = create_object("img/background.jpg", VC{0, 0}, VC{1, 1});
     object worm_hole = create_object("img/icon.png", VC{env->starting_square.x * 60 , env->starting_square.y * 60 - 58}, VC{.3, 1});
-    turret tourelle = create_turret_1();
+    turret tourelle = create_turret_1(5, 5);
     pop_button *buttons = create_turret_button_ui(7);
 
     create_test_enemy(env, 100);
@@ -174,32 +193,36 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
     setmap_opacity(env);
     sfClock_restart(env->c_game.clock);
     while (sfRenderWindow_isOpen(window) && open) {
+
+        /* Act */
+
         sfRenderWindow_clear(window, sfBlack);
         get_events(window, keys);
-        sfRenderWindow_drawSprite(window, background.sprite, NULL);
         //sfSprite_setRotation(tourelle.sprite, A_regarde_B(tourelle.position, sfSprite_getPosition(env->c_game.enemies->next->next->sprite)));
-        display_map(env, window);
-        sfRenderWindow_drawSprite(window, tourelle.sprite, NULL);
-        pickedup = pickup_turrets(buttons, window, pickedup, keys);
+        pick = pickup_turrets(buttons, get_true_mouse_pos(window), pick, keys, env);
         update_player_data(env, clock);
         update_hud(hud_player, env);
+
+        /* Display */
+
+        sfRenderWindow_drawSprite(window, background.sprite, NULL);
+        display_map(env, window);
+        sfRenderWindow_drawSprite(window, tourelle.sprite, NULL);
         display_hud(hud_player, env, window);
         sfRenderWindow_drawSprite(window, worm_hole.sprite, NULL);
-        display_turrets_button_ui(buttons, window, pickedup);
+        display_turrets_button_ui(buttons, window, pick);
         display_enemies(window, env);
-        if (pickedup != -1) {
-            sfSprite_setColor(buttons[pickedup].icon.sprite, sfColor_fromRGBA(220, 220, 220, 150));
-            sfRenderWindow_drawSprite(window, buttons[pickedup].icon.sprite, NULL);
-            sfSprite_setColor(buttons[pickedup].icon.sprite, sfColor_fromRGBA(255, 255, 255, 255));
-        }
+        display_picked_turret(pick, buttons, window);
         update_mouse_cursor(window, mouse);
         sfRenderWindow_display(window);
+        evolve_all_enemies(env);
+
         if (keys[sfKeyEscape] == 3) {
             if (pause_menu(window, mouse, keys, env) == 1)
                 open = 0;
             sfClock_restart(env->c_game.clock);
         }
-        evolve_all_enemies(env);
+
         if (sfTime_asMilliseconds(sfClock_getElapsedTime(env->c_game.clock)) > 16)
             sfClock_restart(env->c_game.clock);
     }
