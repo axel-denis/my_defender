@@ -51,6 +51,12 @@ void fps_manager(button *but, sfRenderWindow *window, int *keys, env_t *env)
         return;
     }
     if (is_pressed(but[5], window, keys) == sfTrue && env->fps == 240) {
+        env->fps = 30;
+        sfRenderWindow_setFramerateLimit(window, env->fps);
+        sfText_setString(but[5].text.text, "fps: 60");
+        return;
+    }
+    if (is_pressed(but[5], window, keys) == sfTrue && env->fps == 30) {
         env->fps = 60;
         sfRenderWindow_setFramerateLimit(window, env->fps);
         sfText_setString(but[5].text.text, "fps: 60");
