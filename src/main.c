@@ -99,7 +99,18 @@ pop_button *create_turret_button_ui(int nbr)
     return button;
 }
 
-void display_turrets_button_ui(pop_button *buttons, sfRenderWindow *window)
+void display_turret_icon(pop_button *buttons, sfRenderWindow *window, int i, sfVector2f mouse_pos)
+{
+    if (pos_in_square(mouse_pos, sfSprite_getGlobalBounds(buttons[i].icon.sprite))) {
+        sfSprite_setColor(buttons[i].icon.sprite, sfColor_fromRGBA(220, 220, 220, 150));
+        sfRenderWindow_drawSprite(window, buttons[i].icon.sprite, NULL);
+        sfSprite_setColor(buttons[i].icon.sprite, sfColor_fromRGBA(255, 255, 255, 255));
+    } else {
+        sfRenderWindow_drawSprite(window, buttons[i].icon.sprite, NULL);
+    }
+}
+
+void display_turrets_button_ui(pop_button *buttons, sfRenderWindow *window, int pickedup)
 {
     sfVector2f mouse_pos = get_true_mouse_pos(window);
     sfFloatRect rect;
@@ -117,20 +128,39 @@ void display_turrets_button_ui(pop_button *buttons, sfRenderWindow *window)
             sfText_move(buttons[i].titre.text, VC{0, 1});
         }
         sfRenderWindow_drawSprite(window, buttons[i].onglet.sprite, NULL);
-        if (pos_in_square(mouse_pos, sfSprite_getGlobalBounds(buttons[i].icon.sprite))) {
-            sfSprite_setColor(buttons[i].icon.sprite, sfColor_fromRGB(150, 150, 150));
-            sfRenderWindow_drawSprite(window, buttons[i].icon.sprite, NULL);
-            sfSprite_setColor(buttons[i].icon.sprite, sfColor_fromRGB(255, 255, 255));
-        } else {
-            sfRenderWindow_drawSprite(window, buttons[i].icon.sprite, NULL);
-        }
         sfRenderWindow_drawText(window, buttons[i].titre.text, NULL);
+        if (pickedup != i)
+            display_turret_icon(buttons, window, i, mouse_pos);
     }
+}
+
+int pickup_turrets(pop_button *buttons, sfRenderWindow *window, int pickedup, int *keys)
+{
+    sfVector2f mouse_pos = get_true_mouse_pos(window);
+
+    if (pickedup == -1) {
+        for (int i = 0; buttons[i].onglet.sprite != NULL; i++)
+            if (pos_in_square(mouse_pos, sfSprite_getGlobalBounds(buttons[i].icon.sprite)) && keys[leftMouse] == 1) {
+                sfSprite_setPosition(buttons[i].icon.sprite, mouse_pos);
+                return i;
+            }
+    } else {
+        if (keys[leftMouse] == 2 || keys[leftMouse] == 1) {
+            sfSprite_setPosition(buttons[pickedup].icon.sprite, mouse_pos);
+            return pickedup;
+        }
+        if (keys[leftMouse] == 3 || keys[leftMouse] == 0) {
+            sfSprite_setPosition(buttons[pickedup].icon.sprite, VC{sfSprite_getPosition(buttons[pickedup].onglet.sprite).x + 90, 900});
+            return -1;
+        }
+    }
+    return -1;
 }
 
 void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
 {
     int open = 1;
+    int pickedup = -1; // -1 == rien, sinon numéro du popup button
     sfClock *clock = sfClock_create();
     hud hud_player = create_hud();
     object background = create_object("img/background.jpg", VC{0, 0}, VC{1, 1});
@@ -150,12 +180,18 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
         //sfSprite_setRotation(tourelle.sprite, A_regarde_B(tourelle.position, sfSprite_getPosition(env->c_game.enemies->next->next->sprite)));
         display_map(env, window);
         sfRenderWindow_drawSprite(window, tourelle.sprite, NULL);
+        pickedup = pickup_turrets(buttons, window, pickedup, keys);
         update_player_data(env, clock);
         update_hud(hud_player, env);
         display_hud(hud_player, env, window);
         sfRenderWindow_drawSprite(window, worm_hole.sprite, NULL);
-        display_turrets_button_ui(buttons, window);
+        display_turrets_button_ui(buttons, window, pickedup);
         display_enemies(window, env);
+        if (pickedup != -1) {
+            sfSprite_setColor(buttons[pickedup].icon.sprite, sfColor_fromRGBA(220, 220, 220, 150));
+            sfRenderWindow_drawSprite(window, buttons[pickedup].icon.sprite, NULL);
+            sfSprite_setColor(buttons[pickedup].icon.sprite, sfColor_fromRGBA(255, 255, 255, 255));
+        }
         update_mouse_cursor(window, mouse);
         sfRenderWindow_display(window);
         if (keys[sfKeyEscape] == 3) {
@@ -224,3 +260,4 @@ int main(void)
 // Coding syle
 // Lose screen
 // Pick up turrets
+// change size in options
