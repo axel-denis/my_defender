@@ -148,15 +148,16 @@ int pickup_turrets(pop_button *but, sfVector2f mouse_pos, int pick, int *keys, e
     } else {
         if (keys[leftMouse] == 2 || keys[leftMouse] == 1) {
             sfVector2i coo = get_case_coords(mouse_pos);
-            if (coo.x < 32 && coo.y < 18 && env->map[coo.y][coo.x].type == 0)
+
+            if (coo.x > 0 && coo.y > 0 && coo.x < 32 && coo.y < 18 && env->map[coo.y][coo.x].type == 0)
                 sfSprite_setPosition(but[pick].icon.sprite, VC{coo.x * 60 + 30, coo.y * 60 + 30});
             else
                 sfSprite_setPosition(but[pick].icon.sprite, mouse_pos);
             return pick;
         }
         if (keys[leftMouse] == 3 || keys[leftMouse] == 0) {
-            //if (coo.x < 32 && coo.y < 18 && env->map[coo.y][coo.x].type == 0) //                          HERE TO CREATE TURETTE
-            //    create_turret(coo.x, coo.y);                                  //
+            //if (coo.x < 32 && coo.y < 18 && env->map[coo.y][coo.x].type == 0)                                             //                     HERE TO CREATE TURETTE
+            //    create_turret(coo.x, coo.y, but[pick].type.cequetuveuxdelastructturret);                                  //
             sfSprite_setPosition(but[pick].icon.sprite, VC{pick * 180 + 90, sfSprite_getPosition(but[pick].onglet.sprite).y + 80});
             return -1;
         }

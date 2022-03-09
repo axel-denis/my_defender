@@ -50,6 +50,7 @@ typedef struct pop_button_s {
     text titre;
     object icon;
     object onglet;
+    turret type;
 } pop_button;
 
 typedef struct button_s {
