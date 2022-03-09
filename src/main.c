@@ -132,7 +132,7 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
 {
     int open = 1;
     sfClock *clock = sfClock_create();
-    hud hud_player = create_hud(env);
+    hud hud_player = create_hud();
     object background = create_object("img/background.jpg", VC{0, 0}, VC{1, 1});
     object worm_hole = create_object("img/icon.png", VC{env->starting_square.x * 60 , env->starting_square.y * 60 - 58}, VC{.3, 1});
     turret tourelle = create_turret_1();
@@ -145,7 +145,6 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
     while (sfRenderWindow_isOpen(window) && open) {
         sfRenderWindow_clear(window, sfBlack);
         get_events(window, keys);
-        printf("%d\n", keys[sfKeyA]);
         sfRenderWindow_drawSprite(window, background.sprite, NULL);
         //sfSprite_setRotation(tourelle.sprite, A_regarde_B(tourelle.position, sfSprite_getPosition(env->entities.enemies->next->next->sprite)));
         display_map(env, window);

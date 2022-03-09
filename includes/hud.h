@@ -12,7 +12,7 @@
     #include "structs.h"
 
 void display_hud(hud hud_p, env_t *env, sfRenderWindow *window);
-hud create_hud(env_t *env);
+hud create_hud(void);
 char *formating_hud(sfVector2i value);
 hud update_hud(hud hud_player, env_t *env);
 

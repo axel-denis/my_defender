@@ -43,7 +43,7 @@ void display_hud(hud hud_p, env_t *env, sfRenderWindow *window)
     sfRenderWindow_drawText(window, hud_p.wave.text, NULL);
 }
 
-hud create_hud(env_t *env)
+hud create_hud(void)
 {
     hud h_p;
 
