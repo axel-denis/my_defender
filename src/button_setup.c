@@ -49,5 +49,5 @@ void setup_button_sounds(button *bouton, char *click, char *hover, env_t *env)
     sfSound_setBuffer(bouton->click, bouton->click_buf);
     sfSound_setBuffer(bouton->hover, bouton->hover_buf);
     sfSound_setVolume(bouton->click, env->volume);
-    sfSound_setVolume(bouton->hover, env->volume);
+    sfSound_setVolume(bouton->hover, env->volume/1.4);
 }

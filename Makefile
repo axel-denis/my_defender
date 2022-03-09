@@ -5,7 +5,8 @@
 ## Makefile
 ##
 
-MAIN		=	src/main.c 				\
+MAIN		=	src/hud.c				\
+				src/main.c 				\
 				src/enemy.c				\
 				src/events.c			\
 				src/options.c			\

@@ -71,7 +71,7 @@ void main_menu(sfRenderWindow *window, object mouse, int *keys, env_t *env)
             change_button_text(buttons, env);
             for (int i = 0; i < 3; i++) {
                 sfSound_setVolume(buttons[i].click, env->volume);
-                sfSound_setVolume(buttons[i].hover, env->volume);
+                sfSound_setVolume(buttons[i].hover, env->volume/1.4);
             }
         }
         if (is_pressed(buttons[2], window, keys) == sfTrue)
