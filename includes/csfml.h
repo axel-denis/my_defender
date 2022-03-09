@@ -32,7 +32,7 @@
 
     #include "structs.h"
 
-sfIntRect create_rect(int, int, int, int);
+sfIntRect create_rect(int left, int top, int width, int height);
 sfVector2f itofv2(sfVector2i);
 sfBool pos_in_square(sfVector2f, sfFloatRect);
 void destroy_object(object);

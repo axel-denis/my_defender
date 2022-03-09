@@ -43,7 +43,6 @@ int pause_menu(sfRenderWindow *window, object mouse, int *keys, env_t *env)
 {
     int open = 1;
     int to_return = 0;
-    sfClock *clock = sfClock_create();
     button *buttons = create_buttons_pause(env);
     text texte = setup_text("   Pause", "font/o_driftbold.ttf", 150);
     object backfr = create_object("img/pause_fr.jpg", VC{0, 0}, VC{1, 1});
@@ -53,7 +52,7 @@ int pause_menu(sfRenderWindow *window, object mouse, int *keys, env_t *env)
     while (sfRenderWindow_isOpen(window) && open) {
         sfRenderWindow_clear(window, sfBlack);
         get_events(window, keys);
-        if (sfTime_asSeconds(sfClock_getElapsedTime(clock)) > 1 && keys[sfKeyEscape] == 1)
+        if (keys[sfKeyEscape] == 3)
             open = 0;
         if (is_pressed(buttons[0], window, keys))
             open = 0;

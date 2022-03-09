@@ -152,7 +152,7 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
         display_enemies(window, env);
         update_mouse_cursor(window, mouse);
         sfRenderWindow_display(window);
-        if (keys[sfKeyEscape] == 1) {
+        if (keys[sfKeyEscape] == 3) {
             if (pause_menu(window, mouse, keys, env) == 1)
                 open = 0;
         }
@@ -195,7 +195,7 @@ int main(void)
     int *keys = init_keys();
     sfVideoMode main_w = {1920, 1080, 64};
     sfRenderWindow *window;
-    object mouse = setup_mouse("img/cursor.png", VC{0.05, 0.05});
+    object mouse = setup_mouse("img/cursor.png", VC{1.7, 1.7});
     env_t *env = create_env();
 
     window = sfRenderWindow_create(main_w, "My defender", sfDefaultStyle, NULL);
