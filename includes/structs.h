@@ -17,15 +17,6 @@ typedef struct object_s {
     sfTexture *texture;
 }object;
 
-typedef struct turret_s {
-    int type;
-    sfSprite *sprite;
-    sfTexture *texture;
-    sfVector2f position;
-    int damage_speed;
-    int damage_per_action;
-} turret;
-
 typedef struct map_s {
     int index;
     sfVector2f *path_list;
@@ -86,6 +77,16 @@ typedef struct enemy_s {
     int health;
     struct enemy_s *next;
 } enemy;
+
+typedef struct turret_s {
+    int type;
+    sfSprite *sprite;
+    sfTexture *texture;
+    sfVector2f position;
+    int damage_speed;
+    int damage_per_action;
+    struct turret_s *next;
+} turret;
 
 typedef struct hud_s {
     object icon_health;

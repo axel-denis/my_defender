@@ -11,8 +11,6 @@
 #include "enemy.h"
 #include "map.h"
 
-#include <stdlib.h>
-
 #define nextpath env->map[(int) pos.y / 60][(int) pos.x / 60].next_path
 
 enemy *create_null_enemy(void)

@@ -17,23 +17,6 @@
 #include "map.h"
 #include "hud.h"
 
-turret create_turret_1(int x, int y)
-{
-    turret template;
-
-    template.type = 1;
-    template.sprite = sfSprite_create();
-    template.texture = sfTexture_createFromFile("img/turret1_3.png", NULL);
-    sfSprite_setTexture(template.sprite, template.texture, sfFalse);
-    sfSprite_setScale(template.sprite, VC{.2, .2});
-    sfSprite_setOrigin(template.sprite, VC{150, 250});
-    template.position = VC{60 * x + 30, 60 * y + 30};
-    sfSprite_setPosition(template.sprite, template.position);
-    template.damage_speed = 2;
-    template.damage_per_action = 1;
-    return(template);
-}
-
 void update_player_data(env_t *env, sfClock *clock)
 {
     if (sfTime_asSeconds(sfClock_getElapsedTime(clock)) > 1) {
@@ -185,7 +168,7 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
     hud hud_player = create_hud();
     object background = create_object("img/background.jpg", VC{0, 0}, VC{1, 1});
     object worm_hole = create_object("img/icon.png", VC{env->starting_square.x * 60 , env->starting_square.y * 60 - 58}, VC{.3, 1});
-    turret tourelle = create_turret_1(5, 5);
+    //turret tourelle = create_turret_1(5, 5);
     pop_button *buttons = create_turret_button_ui(7);
 
     create_test_enemy(env, 100);
@@ -208,7 +191,7 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
 
         sfRenderWindow_drawSprite(window, background.sprite, NULL);
         display_map(env, window);
-        sfRenderWindow_drawSprite(window, tourelle.sprite, NULL);
+        //sfRenderWindow_drawSprite(window, tourelle.sprite, NULL);
         display_hud(hud_player, env, window);
         sfRenderWindow_drawSprite(window, worm_hole.sprite, NULL);
         display_turrets_button_ui(buttons, window, pick);
