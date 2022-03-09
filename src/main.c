@@ -117,7 +117,13 @@ void display_turrets_button_ui(pop_button *buttons, sfRenderWindow *window)
             sfText_move(buttons[i].titre.text, VC{0, 1});
         }
         sfRenderWindow_drawSprite(window, buttons[i].onglet.sprite, NULL);
-        sfRenderWindow_drawSprite(window, buttons[i].icon.sprite, NULL);
+        if (pos_in_square(mouse_pos, sfSprite_getGlobalBounds(buttons[i].icon.sprite))) {
+            sfSprite_setColor(buttons[i].icon.sprite, sfColor_fromRGB(150, 150, 150));
+            sfRenderWindow_drawSprite(window, buttons[i].icon.sprite, NULL);
+            sfSprite_setColor(buttons[i].icon.sprite, sfColor_fromRGB(255, 255, 255));
+        } else {
+            sfRenderWindow_drawSprite(window, buttons[i].icon.sprite, NULL);
+        }
         sfRenderWindow_drawText(window, buttons[i].titre.text, NULL);
     }
 }
@@ -213,5 +219,4 @@ int main(void)
 
 // Coding syle
 // Lose screen
-// Pause menu
 // Pick up turrets
