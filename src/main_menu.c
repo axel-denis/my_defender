@@ -46,6 +46,7 @@ button *create_buttons_menu(env_t *env)
     return (buttons);
 }
 
+
 void main_menu(sfRenderWindow *window, object mouse, int *keys, env_t *env)
 {
     button *buttons = create_buttons_menu(env);
