@@ -66,7 +66,7 @@ int pause_menu(sfRenderWindow *window, object mouse, int *keys, env_t *env)
         for (int i = 0; i < 3; i++)
             display_button(window, &(buttons[i]), keys);
         sfRenderWindow_drawText(window, texte.text, NULL);
-        update_mouse_cursor(window, mouse);
+        update_mouse_cursor(window, mouse, env->tempo);
         sfRenderWindow_display(window);
     }
     for (int i = 0; i < 3; i++)

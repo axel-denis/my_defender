@@ -25,12 +25,11 @@ void buttons_manager(button *but, sfRenderWindow *window, int *keys, env_t *env)
     resolution_manager(but, window, keys, env);
 }
 
-void display_options(sfRenderWindow *win, object mouse, button *but, int *keys)
+void display_options(sfRenderWindow *win, object mouse, button *but, int *keys, env_t *env)
 {
-    center_button_text(&(but[4]));
     for (int i = 0; i < 10; i++)
         display_button(win, &(but[i]), keys);
-    update_mouse_cursor(win, mouse);
+    update_mouse_cursor(win, mouse, env->tempo);
 }
 
 void display_background(sfRenderWindow *win, object fr, object en, env_t *env)
@@ -58,7 +57,7 @@ void options(sfRenderWindow *window, object mouse, int *keys, env_t *env)
             open = 0;
         display_background(window, backfr, backen, env);
         sfRenderWindow_drawText(window, texte.text, NULL);
-        display_options(window, mouse, buttons, keys);
+        display_options(window, mouse, buttons, keys, env);
         sfRenderWindow_display(window);
     }
     for (int i = 0; i < 10; i++)

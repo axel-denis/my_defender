@@ -128,6 +128,7 @@ typedef struct env_s {
     int screen_type;
     char *langue;
     int resolution;
+    sfClock *tempo;
     game_data data;
     current_game_t c_game;
 } env_t;

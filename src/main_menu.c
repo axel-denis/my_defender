@@ -63,7 +63,7 @@ void main_menu(sfRenderWindow *window, object mouse, int *keys, env_t *env)
         sfRenderWindow_drawText(window, texte.text, NULL);
         for (int i = 0; i < 3; i++)
             display_button(window, &(buttons[i]), keys);
-        update_mouse_cursor(window, mouse);
+        update_mouse_cursor(window, mouse, env->tempo);
         if (is_pressed(buttons[0], window, keys) == sfTrue) {
             game(window, mouse, keys, env);
         }

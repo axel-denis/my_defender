@@ -6,6 +6,7 @@
 */
 
 #include "mouse.h"
+#include <math.h>
 
 object setup_mouse(char *filename, sfVector2f scale)
 {
@@ -30,17 +31,20 @@ sfVector2f get_true_mouse_pos(sfRenderWindow *window)
     return (mouse_pos);
 }
 
-void update_mouse_cursor(sfRenderWindow *window, object mouse)
+void update_mouse_cursor(sfRenderWindow *window, object mouse, sfClock *clock)
 {
     sfVector2f mouse_pos = get_true_mouse_pos(window);
     sfIntRect rect;
     sfIntRect rect_current = sfSprite_getTextureRect(mouse.sprite);
+    float sec = fmod(sfTime_asSeconds(sfClock_getElapsedTime(clock)),1);
 
-    if (rect_current.left < 466 - 24)
-        rect = create_rect(rect_current.left + 24, 0, 24, 24);
-    else
-        rect = create_rect(0, 0, 24, 24);
+    if ((sec > 0.98 && sec < 1) || (sec > 0.48 && sec < 0.5)) {
+        if (rect_current.left < 466 - 24)
+            rect = create_rect(rect_current.left + 24, 0, 24, 24);
+        else
+            rect = create_rect(0, 0, 24, 24);
+        sfSprite_setTextureRect(mouse.sprite, rect);
+    }
     sfSprite_setPosition(mouse.sprite, mouse_pos);
-    sfSprite_setTextureRect(mouse.sprite, rect);
     sfRenderWindow_drawSprite(window, mouse.sprite, NULL);
 }

@@ -182,7 +182,7 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
 {
     int open = 1;
     create_game(env);
-    int pick = -1; // -1 == rien, sinon numéro du popup button
+    int pick = -1;
     sfClock *clock = sfClock_create();
     hud hud_player = create_hud();
     object background = create_object("img/background.jpg", VC{0, 0}, VC{1, 1});
@@ -210,13 +210,12 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
 
         sfRenderWindow_drawSprite(window, background.sprite, NULL);
         display_map(env, window);
-        //sfRenderWindow_drawSprite(window, tourelle.sprite, NULL);
         display_hud(hud_player, env, window);
         sfRenderWindow_drawSprite(window, worm_hole.sprite, NULL);
         display_turrets_button_ui(buttons, window, pick);
         display_enemies(window, env);
         display_picked_turret(pick, buttons, window);
-        update_mouse_cursor(window, mouse);
+        update_mouse_cursor(window, mouse, env->tempo);
         sfRenderWindow_display(window);
         evolve_all_enemies(env);
 
@@ -237,6 +236,7 @@ env_t *create_env(void)
 {
     env_t *env = malloc(sizeof(env_t));
 
+    env->tempo = sfClock_create();
     env->fps = 75;
     env->screen_type = 0;
     env->vsync = 1;
@@ -290,5 +290,3 @@ int main(void)
 // Coding syle
 // Lose screen
 // change size in options
-
-// # annimation cursor fps indépendant
