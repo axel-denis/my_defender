@@ -260,11 +260,14 @@ int main(void)
     sfRenderWindow *window;
     object mouse = setup_mouse("img/cursor.png", VC{1.7, 1.7});
     env_t *env = create_env();
+    sfImage *icon = sfImage_createFromFile("img/Elecricity.png");
+    sfVector2u size = sfImage_getSize(icon);
 
     window = sfRenderWindow_create(main_w, "My defender", sfDefaultStyle, NULL);
     sfRenderWindow_setFramerateLimit(window, env->fps);
     sfRenderWindow_setMouseCursorVisible(window, sfFalse);
     sfRenderWindow_setVerticalSyncEnabled(window, sfTrue);
+    sfRenderWindow_setIcon(window, size.x, size.y,  sfImage_getPixelsPtr(icon));
     main_menu(window, mouse, keys, env);
     sfMusic_destroy(env->data.music);
     destroy_object(mouse);
