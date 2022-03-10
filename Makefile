@@ -20,6 +20,7 @@ MAIN		=	src/hud.c				\
 				src/button_setup.c 		\
 				src/button_utils.c 		\
 				src/csfml_utils2.c		\
+				src/enemy_parser.c		\
 				src/mouse_manager.c		\
 				src/enemy_display.c		\
 				src/enemies_chain.c		\

@@ -69,7 +69,6 @@ void update_player_data(env_t *env, sfClock *clock)
 pop_button *create_turret_button_ui(int nbr)
 {
     pop_button *button = malloc(sizeof(pop_button) * (nbr + 1));
-
     for (int i = 0; i < nbr; i++) {
         button[i].titre = setup_text("Base Turret", "font/Xero.ttf", 15);
         button[i].onglet = create_object("img/onglet.png", VC{i * 180, 820}, VC{2, 2});
@@ -180,6 +179,7 @@ void create_game(env_t *env)
 
 void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
 {
+    enemy *enemies = create_enemies_type();
     int open = 1;
     create_game(env);
     int pick = -1;
