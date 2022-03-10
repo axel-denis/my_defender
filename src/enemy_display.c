@@ -35,17 +35,13 @@ void display_turrets(sfRenderWindow *window, env_t *env)
             actual = actual->next;
             continue;
         }
-        printf("drawed\n");
         nearest = get_nearest(env, sfSprite_getPosition(actual->sprite));
         pos = sfSprite_getPosition(actual->sprite);
         if (nearest != NULL) {
             near_pos = sfSprite_getPosition(nearest->sprite);
             sfSprite_setRotation(actual->sprite, A_regarde_B(pos, near_pos));
         }
-        printf("(%f %f) to (%f %f) = %f\n", pos.x, pos.y, near_pos.x, near_pos.y, A_regarde_B(pos, near_pos));
-        printf("x: %f y: %f scaleX:%f scaleY:%f\n", sfSprite_getPosition(actual->sprite).x, sfSprite_getPosition(actual->sprite).y, sfSprite_getScale(actual->sprite).x, sfSprite_getScale(actual->sprite).y);
         sfRenderWindow_drawSprite(window, actual->sprite, NULL);
         actual = actual->next;
     }
-    printf("========\n");
 }
