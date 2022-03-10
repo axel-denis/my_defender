@@ -88,20 +88,6 @@ typedef struct map_block_s {
     turret_t *turret;
 } map_block;
 
-typedef struct map_block_s {
-    int type;
-    sfVector2f next_path;
-    sfSprite *sprite;
-    turret *turret;
-} map_block;
-
-typedef struct pop_button_s {
-    text titre;
-    object icon;
-    object onglet;
-    turret type;
-} pop_button;
-
 typedef struct hud_s {
     object icon_health;
     object icon_energy;

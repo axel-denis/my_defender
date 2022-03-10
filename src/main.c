@@ -140,13 +140,8 @@ int pickup_turrets(pop_button *but, sfVector2f mouse_pos, int pick, int *keys, e
             return pick;
         }
         if (keys[leftMouse] == 3 || keys[leftMouse] == 0) {
-<<<<<<< HEAD
-            //if (coo.x < 32 && coo.y < 18 && env->c_game.map[coo.y][coo.x].type == 0)                                             //                     HERE TO CREATE TURETTE
-            //    create_turret(coo.x, coo.y, but[pick].type.cequetuveuxdelastructturret);                                  //
-=======
-            if (coo.x < 32 && coo.y < 18 && env->map[coo.y][coo.x].type == 0)
+            if (coo.x < 32 && coo.y < 18 && env->c_game.map[coo.y][coo.x].type == 0)
                 clone_turret(env, but[pick].type, VC{coo.x, coo.y});
->>>>>>> d084a83 ([EDIT] Starting to add interractions between turrets and enemies)
             sfSprite_setPosition(but[pick].icon.sprite, VC{pick * 180 + 90, sfSprite_getPosition(but[pick].onglet.sprite).y + 80});
             return -1;
         }
@@ -258,13 +253,10 @@ env_t *create_env(void)
     env->data.ground_texture =
         sfTexture_createFromFile("img/grass.png", NULL);
     env->data.path_texture = sfTexture_createFromFile("img/dirt.png", NULL);
-<<<<<<< HEAD
-=======
-    env->player_stats.wave = 1;
+    env->c_game.player_stats.wave = 1;
     env->c_game.enemies = NULL;
     env->c_game.turrets = NULL;
     env->c_game.clock = sfClock_create();
->>>>>>> d084a83 ([EDIT] Starting to add interractions between turrets and enemies)
     return env;
 }
 

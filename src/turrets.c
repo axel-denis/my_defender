@@ -52,12 +52,12 @@ void clone_turret(env_t *env, turret_t *turret, sfVector2f pos)
     actual->next->sprite = sfSprite_create();
     //sfSprite_setTexture(actual->next->sprite, turret->texture, sfFalse);
 
-    actual->next->texture = sfTexture_createFromFile("img/type1.png", NULL);
+    actual->next->texture = sfTexture_createFromFile("img/turret1_1.png", NULL);
     sfSprite_setTexture(actual->next->sprite, actual->next->texture, sfFalse);
 
     sfSprite_setScale(actual->next->sprite, VC{.2, .2});
     sfSprite_setOrigin(actual->next->sprite, VC{150, 250});
-    actual->next->position = pos;
+    actual->next->position = VC{pos.x * 60 + 30, pos.y * 60 + 30};
     sfSprite_setPosition(actual->next->sprite, actual->next->position);
     actual->next->next = NULL;
 }

@@ -16,5 +16,6 @@ void evolve_all_enemies(env_t *env);
 void create_test_enemy(env_t *env, int health);
 enemy *create_enemies_type(void);
 enemy *remove_next_enemy_if_needed(enemy *precedent);
+enemy *get_nearest(env_t *env, sfVector2f pos);
 
 #endif /* !ENEMY_H_ */
