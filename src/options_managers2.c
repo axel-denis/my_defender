@@ -63,27 +63,22 @@ void resolution_manager(button *but, sfRenderWindow *window, int *k, env_t *env)
 
 void screen_manager(button *but, sfRenderWindow *window, int *keys, env_t *env)
 {
-    sfVideoMode main_w;
     if (is_pressed(but[2], window, keys) != sfTrue)
         return;
-
     if (env->screen_type == 0) {
         env->screen_type = 1;
-        main_w = (sfVideoMode){env->resolution, env->resolution / 16 * 9, 24};
         sfRenderWindow_destroy(window);
-        window = sfRenderWindow_create(main_w, "My defender", sfClose, NULL);
+        window = create_windows(env);
     } else if (env->screen_type == 1) {
         env->screen_type = 2;
         env->resolution = 1920;
-        main_w = (sfVideoMode){env->resolution, env->resolution / 16 * 9, 24};
         set_button_resolution_txt(&(but[6]), env);
         sfRenderWindow_destroy(window);
-        window = sfRenderWindow_create(main_w, "My defender", 8, NULL);
+        window = create_windows(env);
     } else if (env->screen_type == 2) {
         env->screen_type = 0;
-        main_w = (sfVideoMode){env->resolution, env->resolution / 16 * 9, 24};
         sfRenderWindow_destroy(window);
-        window = sfRenderWindow_create(main_w, "My defender", 7, NULL);
+        window = create_windows(env);
     }
     set_button_screen_txt(&(but[2]), env);
 }

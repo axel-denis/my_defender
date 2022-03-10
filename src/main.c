@@ -253,21 +253,34 @@ env_t *create_env(void)
     return env;
 }
 
+sfRenderWindow *create_windows(env_t *env)
+{
+    sfImage *icon = sfImage_createFromFile("img/Elecricity.png");
+    sfVector2u size = sfImage_getSize(icon);
+    sfVideoMode main_w = {env->resolution, env->resolution / 16 * 9, 24};
+    sfRenderWindow *window;
+
+    if (env->screen_type == 0)
+        window = sfRenderWindow_create(main_w, "My defender", 7, NULL);
+    if (env->screen_type == 1)
+        window = sfRenderWindow_create(main_w, "My defender", 1, NULL);
+    if (env->screen_type == 2)
+        window = sfRenderWindow_create(main_w, "My defender", 8, NULL);
+    sfRenderWindow_setFramerateLimit(window, env->fps);
+    sfRenderWindow_setMouseCursorVisible(window, sfFalse);
+    sfRenderWindow_setVerticalSyncEnabled(window, env->vsync);
+    sfRenderWindow_setIcon(window, size.x, size.y,  sfImage_getPixelsPtr(icon));
+    sfImage_destroy(icon);
+    return (window);
+}
+
 int main(void)
 {
     int *keys = init_keys();
-    sfVideoMode main_w = {1920, 1080, 24};
-    sfRenderWindow *window;
     object mouse = setup_mouse("img/cursor.png", VC{1.7, 1.7});
     env_t *env = create_env();
-    sfImage *icon = sfImage_createFromFile("img/Elecricity.png");
-    sfVector2u size = sfImage_getSize(icon);
+    sfRenderWindow *window = create_windows(env);
 
-    window = sfRenderWindow_create(main_w, "My defender", sfDefaultStyle, NULL);
-    sfRenderWindow_setFramerateLimit(window, env->fps);
-    sfRenderWindow_setMouseCursorVisible(window, sfFalse);
-    sfRenderWindow_setVerticalSyncEnabled(window, sfTrue);
-    sfRenderWindow_setIcon(window, size.x, size.y,  sfImage_getPixelsPtr(icon));
     main_menu(window, mouse, keys, env);
     sfMusic_destroy(env->data.music);
     destroy_object(mouse);
