@@ -72,49 +72,74 @@ hud create_hud(void)
     return (h_p);
 }
 
-char *formating_hud(sfVector2i value)
+char *formating_hud_in(sfVector2i value)
 {
-    char *texte;
-    int absolute_value = ABS(value.y);
+    char *text_val = my_dec_to_base(value.x, "0123456789");
+    int absolute = ABS(value.y);
+    char *text_abs = my_dec_to_base(absolute, "0123456789");
+    int len =  + my_strlen(text_val) + (value.y < 0 && value.x >= 0);
+    char *texte = malloc(sizeof(char) * (4 + my_strlen(text_abs) + len));
 
     if (value.y < 0 && value.x >= 0) {
-        texte = my_strdup("-");
-        my_strcat(texte, my_dec_to_base(value.x, "0123456789"));
+        texte = my_strcpy(texte, "-");
+        my_strcat(texte, text_val);
     } else
-        texte = my_dec_to_base(value.x, "0123456789");
+        texte = my_strcpy(texte, text_val);
     my_strcat(texte, ".");
-    my_strcat(texte, my_dec_to_base(absolute_value, "0123456789"));
+    my_strcat(texte, text_abs);
+    my_strcat(texte, "/s");
+    free(text_val);
+    free(text_abs);
+    return (texte);
+}
+
+char *formating_hud(sfVector2i value)
+{
+    char *text_val = my_dec_to_base(value.x, "0123456789");
+    int absolute = ABS(value.y);
+    char *text_abs = my_dec_to_base(absolute, "0123456789");
+    int len =  + my_strlen(text_val) + (value.y < 0 && value.x >= 0);
+    char *texte = malloc(sizeof(char) * (2 + my_strlen(text_abs) + len));
+
+    if (value.y < 0 && value.x >= 0) {
+        texte = my_strcpy(texte, "-");
+        my_strcat(texte, text_val);
+    } else
+        texte = my_strcpy(texte, text_val);
+    my_strcat(texte, ".");
+    my_strcat(texte, text_abs);
+    free(text_val);
+    free(text_abs);
     return (texte);
 }
 
 hud update_hud(hud hud_player, env_t *env)
 {
-    char *wave;
+    char *w_txt = my_dec_to_base(env->c_game.player_stats.wave, "0123456789");
+    char *wave = malloc(sizeof(char) * (7 + (env->langue[0] == 'F') + my_strlen(w_txt)));
     char *energy = formating_hud(env->c_game.player_stats.energy);
-    char *e_incom = formating_hud(env->c_game.player_stats.energy_income);
+    char *e_incom = formating_hud_in(env->c_game.player_stats.energy_income);
     char *steel = formating_hud(env->c_game.player_stats.steel);
-    char *s_incom = formating_hud(env->c_game.player_stats.steel_income);
+    char *s_incom = formating_hud_in(env->c_game.player_stats.steel_income);
 
-    my_strcat(e_incom, "/s");
-    my_strcat(s_incom, "/s");
     sfText_setString(hud_player.text_health.text, my_nbr_to_str(env->c_game.player_stats.health));
     sfText_setString(hud_player.text_energy.text, energy);
     sfText_setString(hud_player.text_energy_income.text, e_incom);
     sfText_setString(hud_player.text_steel.text, steel);
     sfText_setString(hud_player.text_steel_income.text, s_incom);
     if (env->langue[0] == 'F') {
-        wave = my_strdup("Vague: ");
-        my_strcat(wave,  my_dec_to_base(env->c_game.player_stats.wave, "0123456789"));
-        sfText_setString(hud_player.wave.text, wave);
+        wave = my_strcpy(wave, "Vague: ");
+        my_strcat(wave,  w_txt);
     } else {
-        wave = my_strdup("Wave: ");
-        my_strcat(wave, my_dec_to_base(env->c_game.player_stats.wave, "0123456789"));
-        sfText_setString(hud_player.wave.text, wave);
+        wave = my_strcpy(wave, "Wave: ");
+        my_strcat(wave, w_txt);
     }
+    sfText_setString(hud_player.wave.text, wave);
     free(energy);
     free(e_incom);
     free(steel);
     free(s_incom);
     free(wave);
+    free(w_txt);
     return (hud_player);
 }

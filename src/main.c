@@ -289,4 +289,3 @@ int main(void)
 
 // Coding syle
 // Lose screen
-// change size in options
