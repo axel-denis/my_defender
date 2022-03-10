@@ -11,7 +11,7 @@
 #include "enemy.h"
 #include "map.h"
 
-#define nextpath env->map[(int) pos.y / 60][(int) pos.x / 60].next_path
+#define nextpath env->c_game.map[(int) pos.y / 60][(int) pos.x / 60].next_path
 
 enemy *create_null_enemy(void)
 {
@@ -50,7 +50,7 @@ void create_enemy_type_1(env_t *env)
     actual->next = template_enemy(1, 1, 100);
     actual->next->sprite = sfSprite_create();
     actual->next->disp = VC{0, 0};
-    sfSprite_setPosition(actual->next->sprite, VC{env->starting_square.x * 60 + 30 + rand() % 30 - 15, env->starting_square.y * 60 + 30 + rand() % 30 - 15});
+    sfSprite_setPosition(actual->next->sprite, VC{env->c_game.starting_square.x * 60 + 30 + rand() % 30 - 15, env->c_game.starting_square.y * 60 + 30 + rand() % 30 - 15});
     actual->next->texture = sfTexture_createFromFile("img/type1.png", NULL);
     sfSprite_setTexture(actual->next->sprite, actual->next->texture, sfFalse);
     sfSprite_setOrigin(actual->next->sprite, VC{sfSprite_getGlobalBounds(actual->next->sprite).width / 2, sfSprite_getGlobalBounds(actual->next->sprite).height / 2});
@@ -70,7 +70,7 @@ void create_test_enemy(env_t *env, int health)
     actual->next = template_enemy(1, 1, health);
     actual->next->sprite = sfSprite_create();
     actual->next->disp = VC{0, 0};
-    sfSprite_setPosition(actual->next->sprite, VC{env->starting_square.x * 60 + 30 + rand() % 30 - 15, env->starting_square.y * 60 + 30 + rand() % 30 - 15});
+    sfSprite_setPosition(actual->next->sprite, VC{env->c_game.starting_square.x * 60 + 30 + rand() % 30 - 15, env->c_game.starting_square.y * 60 + 30 + rand() % 30 - 15});
     actual->next->texture = sfTexture_createFromFile("img/type1.png", NULL);
     sfSprite_setTexture(actual->next->sprite, actual->next->texture, sfFalse);
     sfSprite_setOrigin(actual->next->sprite, VC{sfSprite_getGlobalBounds(actual->next->sprite).width / 2, sfSprite_getGlobalBounds(actual->next->sprite).height / 2});

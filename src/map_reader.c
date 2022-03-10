@@ -25,7 +25,7 @@ sfSprite *create_sprite(env_t *env, int type, sfVector2f pos)
         sfSprite_setTexture(sprite, env->data.path_texture, sfFalse);
     if (type == 2) {
         sfSprite_setTexture(sprite, env->data.path_texture, sfFalse);
-        env->starting_square = pos;
+        env->c_game.starting_square = pos;
     }
     pos.x *= CASE_SIZE;
     pos.y *= CASE_SIZE;
@@ -88,6 +88,6 @@ int read_map(env_t *game, char *path)
         if (final_tab[i] == NULL)
             return 1;
     }
-    game->map = final_tab;
+    game->c_game.map = final_tab;
     return 0;
 }

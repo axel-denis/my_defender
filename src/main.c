@@ -20,46 +20,46 @@
 void update_player_data(env_t *env, sfClock *clock)
 {
     if (sfTime_asSeconds(sfClock_getElapsedTime(clock)) > 1) {
-        env->player_stats.energy.x += env->player_stats.energy_income.x;
-        env->player_stats.energy.y += env->player_stats.energy_income.y;
-        env->player_stats.steel.x += env->player_stats.steel_income.x;
-        env->player_stats.steel.y += env->player_stats.steel_income.y;
-        if (env->player_stats.energy.x + env->player_stats.energy.y * 0.1 > 0) {
-            while (env->player_stats.energy.y > 9) {
-                env->player_stats.energy.y -= 10;
-                env->player_stats.energy.x += 1;
+        env->c_game.player_stats.energy.x += env->c_game.player_stats.energy_income.x;
+        env->c_game.player_stats.energy.y += env->c_game.player_stats.energy_income.y;
+        env->c_game.player_stats.steel.x += env->c_game.player_stats.steel_income.x;
+        env->c_game.player_stats.steel.y += env->c_game.player_stats.steel_income.y;
+        if (env->c_game.player_stats.energy.x + env->c_game.player_stats.energy.y * 0.1 > 0) {
+            while (env->c_game.player_stats.energy.y > 9) {
+                env->c_game.player_stats.energy.y -= 10;
+                env->c_game.player_stats.energy.x += 1;
             }
-            while (env->player_stats.energy.y < 0) {
-                env->player_stats.energy.y += 10;
-                env->player_stats.energy.x -= 1;
+            while (env->c_game.player_stats.energy.y < 0) {
+                env->c_game.player_stats.energy.y += 10;
+                env->c_game.player_stats.energy.x -= 1;
             }
         } else {
-            while (env->player_stats.energy.y < -9) {
-                env->player_stats.energy.y = 0;
-                env->player_stats.energy.x -= 1;
+            while (env->c_game.player_stats.energy.y < -9) {
+                env->c_game.player_stats.energy.y = 0;
+                env->c_game.player_stats.energy.x -= 1;
             }
-            while (env->player_stats.energy.y > 0) {
-                env->player_stats.energy.y -= 10;
-                env->player_stats.energy.x += 1;
+            while (env->c_game.player_stats.energy.y > 0) {
+                env->c_game.player_stats.energy.y -= 10;
+                env->c_game.player_stats.energy.x += 1;
             }
         }
-        if (env->player_stats.steel.x + env->player_stats.steel.y * 0.1 > 0) {
-            while (env->player_stats.steel.y > 9 ) {
-                env->player_stats.steel.y -= 10;
-                env->player_stats.steel.x += 1;
+        if (env->c_game.player_stats.steel.x + env->c_game.player_stats.steel.y * 0.1 > 0) {
+            while (env->c_game.player_stats.steel.y > 9 ) {
+                env->c_game.player_stats.steel.y -= 10;
+                env->c_game.player_stats.steel.x += 1;
             }
-            while (env->player_stats.steel.y < 0) {
-                env->player_stats.steel.y += 10;
-                env->player_stats.steel.x -= 1;
+            while (env->c_game.player_stats.steel.y < 0) {
+                env->c_game.player_stats.steel.y += 10;
+                env->c_game.player_stats.steel.x -= 1;
             }
         } else {
-            while (env->player_stats.steel.y < -9) {
-                env->player_stats.steel.y = 0;
-                env->player_stats.steel.x -= 1;
+            while (env->c_game.player_stats.steel.y < -9) {
+                env->c_game.player_stats.steel.y = 0;
+                env->c_game.player_stats.steel.x -= 1;
             }
-            while (env->player_stats.steel.y > 0) {
-                env->player_stats.steel.y -= 10;
-                env->player_stats.steel.x += 1;
+            while (env->c_game.player_stats.steel.y > 0) {
+                env->c_game.player_stats.steel.y -= 10;
+                env->c_game.player_stats.steel.x += 1;
             }
         }
         sfClock_restart(clock);
@@ -132,14 +132,14 @@ int pickup_turrets(pop_button *but, sfVector2f mouse_pos, int pick, int *keys, e
         if (keys[leftMouse] == 2 || keys[leftMouse] == 1) {
             sfVector2i coo = get_case_coords(mouse_pos);
 
-            if (coo.x > 0 && coo.y > 0 && coo.x < 32 && coo.y < 18 && env->map[coo.y][coo.x].type == 0)
+            if (coo.x > 0 && coo.y > 0 && coo.x < 32 && coo.y < 18 && env->c_game.map[coo.y][coo.x].type == 0)
                 sfSprite_setPosition(but[pick].icon.sprite, VC{coo.x * 60 + 30, coo.y * 60 + 30});
             else
                 sfSprite_setPosition(but[pick].icon.sprite, mouse_pos);
             return pick;
         }
         if (keys[leftMouse] == 3 || keys[leftMouse] == 0) {
-            //if (coo.x < 32 && coo.y < 18 && env->map[coo.y][coo.x].type == 0)                                             //                     HERE TO CREATE TURETTE
+            //if (coo.x < 32 && coo.y < 18 && env->c_game.map[coo.y][coo.x].type == 0)                                             //                     HERE TO CREATE TURETTE
             //    create_turret(coo.x, coo.y, but[pick].type.cequetuveuxdelastructturret);                                  //
             sfSprite_setPosition(but[pick].icon.sprite, VC{pick * 180 + 90, sfSprite_getPosition(but[pick].onglet.sprite).y + 80});
             return -1;
@@ -160,14 +160,33 @@ void display_picked_turret(int pickedup, pop_button *buttons, sfRenderWindow *w)
     }
 }
 
+void create_game(env_t *env)
+{
+    env->c_game.player_stats.health = 100;
+    env->c_game.player_stats.energy.x = -200;
+    env->c_game.player_stats.energy.y = 0;
+    env->c_game.player_stats.steel.x = -10;
+    env->c_game.player_stats.steel.y = -5;
+    env->c_game.player_stats.energy_income.x = 2;
+    env->c_game.player_stats.energy_income.y = 5;
+    env->c_game.player_stats.steel_income.x = 0;
+    env->c_game.player_stats.steel_income.y = 1;
+    env->c_game.player_stats.wave = 1;
+    env->c_game.enemies = NULL;
+    env->c_game.clock = sfClock_create();
+    if (read_map(env, "map") == 1)
+        my_errorstr("Error on map\n");
+}
+
 void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
 {
     int open = 1;
+    create_game(env);
     int pick = -1; // -1 == rien, sinon numéro du popup button
     sfClock *clock = sfClock_create();
     hud hud_player = create_hud();
     object background = create_object("img/background.jpg", VC{0, 0}, VC{1, 1});
-    object worm_hole = create_object("img/icon.png", VC{env->starting_square.x * 60 , env->starting_square.y * 60 - 58}, VC{.3, 1});
+    object worm_hole = create_object("img/icon.png", VC{env->c_game.starting_square.x * 60 , env->c_game.starting_square.y * 60 - 58}, VC{.3, 1});
     //turret tourelle = create_turret_1(5, 5);
     pop_button *buttons = create_turret_button_ui(7);
 
@@ -222,15 +241,6 @@ env_t *create_env(void)
     env->screen_type = 0;
     env->vsync = 1;
     env->resolution = 1920;
-    env->player_stats.health = 100;
-    env->player_stats.energy.x = -200;
-    env->player_stats.energy.y = 0;
-    env->player_stats.steel.x = -10;
-    env->player_stats.steel.y = -5;
-    env->player_stats.energy_income.x = 2;
-    env->player_stats.energy_income.y = 5;
-    env->player_stats.steel_income.x = 0;
-    env->player_stats.steel_income.y = 1;
     env->data.music = sfMusic_createFromFile("sounds/uncharted-worlds.ogg");
     sfMusic_play(env->data.music);
     sfMusic_setLoop(env->data.music, sfTrue);
@@ -240,9 +250,6 @@ env_t *create_env(void)
     env->data.ground_texture =
         sfTexture_createFromFile("img/grass.png", NULL);
     env->data.path_texture = sfTexture_createFromFile("img/dirt.png", NULL);
-    env->player_stats.wave = 1;
-    env->c_game.enemies = NULL;
-    env->c_game.clock = sfClock_create();
     return env;
 }
 
@@ -258,10 +265,6 @@ int main(void)
     sfRenderWindow_setFramerateLimit(window, env->fps);
     sfRenderWindow_setMouseCursorVisible(window, sfFalse);
     sfRenderWindow_setVerticalSyncEnabled(window, sfTrue);
-    if (read_map(env, "map") == 1) {
-        my_errorstr("Error on map\n");
-        return 84;
-    }
     main_menu(window, mouse, keys, env);
     sfMusic_destroy(env->data.music);
     destroy_object(mouse);
@@ -272,4 +275,4 @@ int main(void)
 // Lose screen
 // change size in options
 
-// Size in options # Vsync # Fullscreen # env # annimation cursor fps indépendant
+// # annimation cursor fps indépendant

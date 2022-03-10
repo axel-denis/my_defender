@@ -116,18 +116,18 @@ typedef struct current_game_s {
     enemy *enemies;
     turret *turrets;
     sfClock *clock;
+    map_block **map;
+    sfVector2f starting_square;
+    player_stats player_stats;
 } current_game_t;
 
 typedef struct env_s {
-    map_block **map;
     int volume;
     int fps;
     int vsync;
     int screen_type;
     char *langue;
     int resolution;
-    sfVector2f starting_square;
-    player_stats player_stats;
     game_data data;
     current_game_t c_game;
 } env_t;
