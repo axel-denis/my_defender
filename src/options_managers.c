@@ -78,3 +78,20 @@ void volume_manager2(button *but, sfRenderWindow *window, int *keys, env_t *env)
         sfSound_setVolume(but[i].hover, env->volume/1.4);
     }
 }
+
+char *set_screen_txt(env_t *env)
+{
+    char *screen;
+
+    if (env->screen_type == 0)
+        screen = my_strdup("normal");
+    if (env->screen_type == 1 && ENGLISH)
+        screen = my_strdup("borderless");
+    if (env->screen_type == 1 && !ENGLISH)
+        screen = my_strdup("sans bords");
+    if (env->screen_type == 2 && ENGLISH)
+        screen = my_strdup("fullscreen");
+    if (env->screen_type == 2 && !ENGLISH)
+        screen = my_strdup("plein ecran");
+    return (screen);
+}

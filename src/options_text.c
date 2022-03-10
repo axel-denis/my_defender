@@ -13,21 +13,14 @@
 
 void set_button_screen_txt(button *buttons, env_t *env)
 {
-    char *screen;
+    char *screen = set_screen_txt(env);
     char *screen_txt;
 
-    if (env->screen_type == 0)
-        screen = my_strdup("normal");
-    if (env->screen_type == 1 && env->langue[0] == 'E')
-        screen = my_strdup("borderless");
-    if (env->screen_type == 1 && env->langue[0] == 'F')
-        screen = my_strdup("sans bords");
-    if (env->screen_type == 2 && env->langue[0] == 'E')
-        screen = my_strdup("fullscreen");
-    if (env->screen_type == 2 && env->langue[0] == 'F')
-        screen = my_strdup("plein ecran");
-    screen_txt = malloc(sizeof(char) * (9 + my_strlen(screen)));
-    screen_txt = my_strcpy(screen_txt, "Screen: ");
+    screen_txt = malloc(sizeof(char) * (8 + my_strlen(screen) + ENGLISH));
+    if (ENGLISH)
+        screen_txt = my_strcpy(screen_txt, "Screen: ");
+    else
+        screen_txt = my_strcpy(screen_txt, "Ecran: ");
     screen_txt = my_strcat(screen_txt, screen);
     sfText_setString(buttons->text.text, screen_txt);
     center_button_text(buttons);
