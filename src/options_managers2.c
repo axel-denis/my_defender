@@ -67,6 +67,8 @@ void screen_manager(button *but, sfRenderWindow *window, int *keys, env_t *env)
         return;
     if (env->screen_type == 0) {
         env->screen_type = 1;
+        env->resolution = 1920;
+        set_button_resolution_txt(&(but[6]), env);
         sfRenderWindow_destroy(window);
         window = create_windows(env);
     } else if (env->screen_type == 1) {
