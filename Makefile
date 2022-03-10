@@ -10,6 +10,8 @@ MAIN		=	src/hud.c				\
 				src/enemy.c				\
 				src/events.c			\
 				src/options.c			\
+				src/turrets.c			\
+				src/options2.c			\
 				src/main_menu.c			\
 				src/pause_menu.c		\
 				src/map_reader.c		\

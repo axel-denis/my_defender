@@ -16,6 +16,7 @@
 #include "maths.h"
 #include "map.h"
 #include "hud.h"
+#include "turrets.h"
 
 void update_player_data(env_t *env, sfClock *clock)
 {
@@ -73,6 +74,7 @@ pop_button *create_turret_button_ui(int nbr)
         button[i].titre = setup_text("Base Turret", "font/Xero.ttf", 15);
         button[i].onglet = create_object("img/onglet.png", VC{i * 180, 820}, VC{2, 2});
         button[i].icon = create_object("img/turret1_1.png", VC{i * 180 + 90, 900}, VC{0.2, 0.2});
+        button[i].type = create_turret_1();
         sfText_setPosition(button[i].titre.text, VC{i * 180 + 12, 840});
         sfSprite_setOrigin(button[i].icon.sprite, VC{150, 250});
         sfSprite_setRotation(button[i].icon.sprite, 90);
@@ -128,8 +130,8 @@ int pickup_turrets(pop_button *but, sfVector2f mouse_pos, int pick, int *keys, e
             }
         }
     } else {
+        sfVector2i coo = get_case_coords(mouse_pos);
         if (keys[leftMouse] == 2 || keys[leftMouse] == 1) {
-            sfVector2i coo = get_case_coords(mouse_pos);
 
             if (coo.x > 0 && coo.y > 0 && coo.x < 32 && coo.y < 18 && env->c_game.map[coo.y][coo.x].type == 0)
                 sfSprite_setPosition(but[pick].icon.sprite, VC{coo.x * 60 + 30, coo.y * 60 + 30});
@@ -138,8 +140,13 @@ int pickup_turrets(pop_button *but, sfVector2f mouse_pos, int pick, int *keys, e
             return pick;
         }
         if (keys[leftMouse] == 3 || keys[leftMouse] == 0) {
+<<<<<<< HEAD
             //if (coo.x < 32 && coo.y < 18 && env->c_game.map[coo.y][coo.x].type == 0)                                             //                     HERE TO CREATE TURETTE
             //    create_turret(coo.x, coo.y, but[pick].type.cequetuveuxdelastructturret);                                  //
+=======
+            if (coo.x < 32 && coo.y < 18 && env->map[coo.y][coo.x].type == 0)
+                clone_turret(env, but[pick].type, VC{coo.x, coo.y});
+>>>>>>> d084a83 ([EDIT] Starting to add interractions between turrets and enemies)
             sfSprite_setPosition(but[pick].icon.sprite, VC{pick * 180 + 90, sfSprite_getPosition(but[pick].onglet.sprite).y + 80});
             return -1;
         }
@@ -213,6 +220,7 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
         display_hud(hud_player, env, window);
         sfRenderWindow_drawSprite(window, worm_hole.sprite, NULL);
         display_turrets_button_ui(buttons, window, pick);
+        display_turrets(window, env);
         display_enemies(window, env);
         display_picked_turret(pick, buttons, window);
         update_mouse_cursor(window, mouse, env->tempo);
@@ -250,6 +258,13 @@ env_t *create_env(void)
     env->data.ground_texture =
         sfTexture_createFromFile("img/grass.png", NULL);
     env->data.path_texture = sfTexture_createFromFile("img/dirt.png", NULL);
+<<<<<<< HEAD
+=======
+    env->player_stats.wave = 1;
+    env->c_game.enemies = NULL;
+    env->c_game.turrets = NULL;
+    env->c_game.clock = sfClock_create();
+>>>>>>> d084a83 ([EDIT] Starting to add interractions between turrets and enemies)
     return env;
 }
 

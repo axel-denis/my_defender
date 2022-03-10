@@ -10,6 +10,7 @@
 #include "structs.h"
 #include "enemy.h"
 #include "map.h"
+#include "maths.h"
 
 #define nextpath env->c_game.map[(int) pos.y / 60][(int) pos.x / 60].next_path
 
@@ -95,4 +96,26 @@ void evolve_enemy(env_t *env, enemy *mob)
     mob->disp.x += ((mob->disp.x < 0) - (mob->disp.x > 0)) * mob->speed * clock_mult;
     mob->disp.y += ((mob->disp.y < 0) - (mob->disp.y > 0)) * mob->speed * clock_mult;
     sfSprite_move(mob->sprite, movement);
+}
+
+enemy *get_nearest(env_t *env, sfVector2f pos)
+{
+    enemy *actual = env->c_game.enemies;
+    enemy *output = NULL;
+    float nearest = 2000;
+    sfVector2f act_pos;
+
+    while (actual != NULL) {
+        if (actual->type == 0) {
+            actual = actual->next;
+            continue;
+        }
+        act_pos = sfSprite_getPosition(actual->sprite);
+        if (dist_two_points(act_pos, pos) < nearest && actual->type != 0) {
+            nearest = dist_two_points(act_pos, pos);
+            output = actual;
+        }
+        actual = actual->next;
+    }
+    return output;
 }

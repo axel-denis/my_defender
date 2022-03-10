@@ -72,7 +72,21 @@ typedef struct turret_s {
     int damage_speed;
     int damage_per_action;
     struct turret_s *next;
-} turret;
+} turret_t;
+
+typedef struct pop_button_s {
+    text titre;
+    object icon;
+    object onglet;
+    turret_t *type;
+} pop_button;
+
+typedef struct map_block_s {
+    int type;
+    sfVector2f next_path;
+    sfSprite *sprite;
+    turret_t *turret;
+} map_block;
 
 typedef struct map_block_s {
     int type;
@@ -109,12 +123,12 @@ typedef struct hud_s {
 
 typedef struct entities_s {
     enemy *enemies;
-    turret *turrets;
+    turret_t *turrets;
 } entities_t;
 
 typedef struct current_game_s {
     enemy *enemies;
-    turret *turrets;
+    turret_t *turrets;
     sfClock *clock;
     map_block **map;
     sfVector2f starting_square;

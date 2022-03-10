@@ -24,7 +24,7 @@ int get_turret_nb(FILE *fd, int len, char *buffer)
     //prendre le nombre sous le commentaire
 }
 
-turret *load_t_inventory(char *filepath)
+turret_t *load_t_inventory(char *filepath)
 {
     FILE *fd = fopen(filepath, "r");
     int len = 0;
