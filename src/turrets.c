@@ -72,6 +72,7 @@ turret_t *create_turret_1()
     sfSprite_setScale(turret->sprite, VC{.2, .2});
     sfSprite_setOrigin(turret->sprite, VC{150, 250});
     turret->position = VC{0, 0};
+    turret->range = 400;
     sfSprite_setPosition(turret->sprite, turret->position);
     return turret;
 }

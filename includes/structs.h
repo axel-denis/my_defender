@@ -71,6 +71,7 @@ typedef struct turret_s {
     sfVector2f position;
     int damage_speed;
     int damage_per_action;
+    int range;
     struct turret_s *next;
 } turret_t;
 
