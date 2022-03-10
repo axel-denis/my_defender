@@ -217,8 +217,8 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
         display_picked_turret(pick, buttons, window);
         update_mouse_cursor(window, mouse, env->tempo);
         sfRenderWindow_display(window);
-        evolve_all_enemies(env);
 
+        evolve_all_enemies(env);
         if (keys[sfKeyEscape] == 3) {
             if (pause_menu(window, mouse, keys, env) == 1)
                 open = 0;
