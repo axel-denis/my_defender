@@ -50,20 +50,25 @@ void print_events(int *keys)
     printf("\n");
 }
 */
-
-int *get_events(sfRenderWindow *window, int *keys)
+void fix_window_size(sfRenderWindow *window)
 {
-    sfEvent event;
     sfVector2u window_size = sfRenderWindow_getSize(window);
 
     if (window_size.x < 800)
         sfRenderWindow_setSize(window, (sfVector2u){800, window_size.y});
     if (window_size.y < 600)
         sfRenderWindow_setSize(window, (sfVector2u){window_size.x, 600});
-     if (window_size.x > 1920)
+    if (window_size.x > 1920)
         sfRenderWindow_setSize(window, (sfVector2u){1920, window_size.y});
-    if (window_size.y < 1080)
+    if (window_size.y > 1080)
         sfRenderWindow_setSize(window, (sfVector2u){window_size.x, 1080});
+}
+
+int *get_events(sfRenderWindow *window, int *keys)
+{
+    sfEvent event;
+
+    fix_window_size(window);
     evolve_mouse(keys);
     evolve_keys(keys);
     while (sfRenderWindow_pollEvent(window, &event)) {

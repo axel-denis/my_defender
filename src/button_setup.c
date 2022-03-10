@@ -35,7 +35,8 @@ void setup_button_text(button *bouton, char *string, char *font, int char_size)
     bouton->text.text = sfText_create();
     bouton->text.font = sfFont_createFromFile(font);
     sfText_setFont((*bouton).text.text, (*bouton).text.font);
-    sfText_setString((*bouton).text.text, string);
+    if (string != NULL)
+        sfText_setString((*bouton).text.text, string);
     sfText_setCharacterSize((*bouton).text.text, char_size);
     center_button_text(bouton);
 }

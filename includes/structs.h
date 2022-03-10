@@ -37,13 +37,6 @@ typedef struct text_s {
     sfFont *font;
 } text;
 
-typedef struct pop_button_s {
-    text titre;
-    object icon;
-    object onglet;
-    turret type;
-} pop_button;
-
 typedef struct button_s {
     sfSprite *sprite;
     sfTexture *texture;
@@ -54,13 +47,6 @@ typedef struct button_s {
     sfSoundBuffer *click_buf;
     text text;
 } button;
-
-typedef struct map_block_s {
-    int type;
-    sfVector2f next_path;
-    sfSprite *sprite;
-    turret *turret;
-} map_block;
 
 typedef struct game_data_s {
     sfTexture *ground_texture;
@@ -87,6 +73,20 @@ typedef struct turret_s {
     int damage_per_action;
     struct turret_s *next;
 } turret;
+
+typedef struct map_block_s {
+    int type;
+    sfVector2f next_path;
+    sfSprite *sprite;
+    turret *turret;
+} map_block;
+
+typedef struct pop_button_s {
+    text titre;
+    object icon;
+    object onglet;
+    turret type;
+} pop_button;
 
 typedef struct hud_s {
     object icon_health;
@@ -122,7 +122,10 @@ typedef struct env_s {
     map_block **map;
     int volume;
     int fps;
+    int vsync;
+    int screen_type;
     char *langue;
+    int resolution;
     sfVector2f starting_square;
     player_stats player_stats;
     game_data data;

@@ -10,20 +10,22 @@ MAIN		=	src/hud.c				\
 				src/enemy.c				\
 				src/events.c			\
 				src/options.c			\
-				src/options2.c			\
 				src/main_menu.c			\
 				src/pause_menu.c		\
 				src/map_reader.c		\
 				src/math_utils.c		\
 				src/csfml_utils.c 		\
 				src/map_display.c		\
+				src/options_text.c		\
 				src/button_setup.c 		\
 				src/button_utils.c 		\
 				src/csfml_utils2.c		\
 				src/mouse_manager.c		\
 				src/enemy_display.c		\
 				src/enemies_chain.c		\
+				src/options_creation.c	\
 				src/options_managers.c	\
+				src/options_managers2.c	\
 
 SRC			=						\
 

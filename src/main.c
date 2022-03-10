@@ -219,6 +219,9 @@ env_t *create_env(void)
     env_t *env = malloc(sizeof(env_t));
 
     env->fps = 75;
+    env->screen_type = 0;
+    env->vsync = 1;
+    env->resolution = 1920;
     env->player_stats.health = 100;
     env->player_stats.energy.x = -200;
     env->player_stats.energy.y = 0;
@@ -233,7 +236,7 @@ env_t *create_env(void)
     sfMusic_setLoop(env->data.music, sfTrue);
     env->volume = 100;
     sfMusic_setVolume(env->data.music, env->volume / 2);
-    env->langue = my_strdup("EN");
+    env->langue = my_strdup("FR");
     env->data.ground_texture =
         sfTexture_createFromFile("img/grass.png", NULL);
     env->data.path_texture = sfTexture_createFromFile("img/dirt.png", NULL);
@@ -246,7 +249,7 @@ env_t *create_env(void)
 int main(void)
 {
     int *keys = init_keys();
-    sfVideoMode main_w = {1920, 1080, 64};
+    sfVideoMode main_w = {1920, 1080, 24};
     sfRenderWindow *window;
     object mouse = setup_mouse("img/cursor.png", VC{1.7, 1.7});
     env_t *env = create_env();
@@ -254,6 +257,7 @@ int main(void)
     window = sfRenderWindow_create(main_w, "My defender", sfDefaultStyle, NULL);
     sfRenderWindow_setFramerateLimit(window, env->fps);
     sfRenderWindow_setMouseCursorVisible(window, sfFalse);
+    sfRenderWindow_setVerticalSyncEnabled(window, sfTrue);
     if (read_map(env, "map") == 1) {
         my_errorstr("Error on map\n");
         return 84;
@@ -266,5 +270,6 @@ int main(void)
 
 // Coding syle
 // Lose screen
-// Pick up turrets
 // change size in options
+
+// Size in options # Vsync # Fullscreen # env # annimation cursor fps indépendant
