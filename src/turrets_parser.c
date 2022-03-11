@@ -37,6 +37,8 @@ turret_t create_turret_from_file(char *titre)
         }
         if (i == 3)
             returned.type = my_get_nbr(buffer);
+        if (i == 4)
+            returned.range = my_get_nbr(buffer);
     }
     returned.sprite = sfSprite_create();
     sfSprite_setTexture(returned.sprite, returned.texture, sfFalse);

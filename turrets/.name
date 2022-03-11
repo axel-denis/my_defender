@@ -2,5 +2,6 @@ damage_speed
 damage
 image
 type
+range
 x of the rect || NULL
 y of the rect ||

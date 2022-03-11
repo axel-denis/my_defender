@@ -213,13 +213,10 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
     sfCircleShape *range = create_range();
     pop_button *buttons = create_turret_button_ui();
 
-    create_test_enemy(env, 100);
-    create_test_enemy(env, 50);
-    create_test_enemy(env, 75);
     setmap_opacity(env);
     sfClock_restart(env->c_game.clock);
     while (sfRenderWindow_isOpen(window) && open) {
-
+        create_test_enemy(env, 75);
         /* Act */
 
         sfRenderWindow_clear(window, sfBlack);

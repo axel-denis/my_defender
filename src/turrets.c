@@ -53,7 +53,6 @@ void clone_turret(env_t *env, turret_t *turret, sfVector2f pos)
     actual->next->range = turret->range;
     actual->next->sprite = sfSprite_create();
     //sfSprite_setTexture(actual->next->sprite, turret->texture, sfFalse);
-
     actual->next->texture = turret->texture;
     sfSprite_setTexture(actual->next->sprite, actual->next->texture, sfFalse);
 

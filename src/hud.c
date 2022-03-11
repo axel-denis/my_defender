@@ -122,7 +122,7 @@ hud update_hud(hud hud_player, env_t *env)
     char *steel = formating_hud(env->c_game.player_stats.steel);
     char *s_incom = formating_hud_in(env->c_game.player_stats.steel_income);
 
-    sfText_setString(hud_player.text_health.text, my_nbr_to_str(env->c_game.player_stats.health));
+    sfText_setString(hud_player.text_health.text, my_dec_to_base(env->c_game.player_stats.health, "0123456789"));
     sfText_setString(hud_player.text_energy.text, energy);
     sfText_setString(hud_player.text_energy_income.text, e_incom);
     sfText_setString(hud_player.text_steel.text, steel);

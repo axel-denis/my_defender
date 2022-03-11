@@ -70,6 +70,7 @@ void create_test_enemy(env_t *env, int health)
         actual = actual->next;
     actual->next = template_enemy(1, 1, health);
     actual->next->sprite = sfSprite_create();
+    actual->next->speed = 1;
     actual->next->disp = VC{0, 0};
     sfSprite_setPosition(actual->next->sprite, VC{env->c_game.starting_square.x * 60 + 30 + rand() % 30 - 15, env->c_game.starting_square.y * 60 + 30 + rand() % 30 - 15});
     actual->next->texture = sfTexture_createFromFile("img/type1.png", NULL);
@@ -94,10 +95,10 @@ void evolve_enemy(env_t *env, enemy *mob)
         movement.x = 1;
         movement.y = 0;
     } else {
-        movement.x = ((mob->disp.x > 0) - (mob->disp.x < 0)) * mob->speed * 2;
-        movement.y = ((mob->disp.y > 0) - (mob->disp.y < 0)) * mob->speed * 2;
-        mob->disp.x += ((mob->disp.x < 0) - (mob->disp.x > 0)) * mob->speed * 2;
-        mob->disp.y += ((mob->disp.y < 0) - (mob->disp.y > 0)) * mob->speed * 2;
+        movement.x = ((mob->disp.x > 0) - (mob->disp.x < 0)) * mob->speed;
+        movement.y = ((mob->disp.y > 0) - (mob->disp.y < 0)) * mob->speed;
+        mob->disp.x += ((mob->disp.x < 0) - (mob->disp.x > 0)) * mob->speed;
+        mob->disp.y += ((mob->disp.y < 0) - (mob->disp.y > 0)) * mob->speed;
     }
     sfSprite_move(mob->sprite, movement);
 }
