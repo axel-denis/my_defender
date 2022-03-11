@@ -1,5 +1,6 @@
 health
 speed
+speed diviseur
 image
 type
 x of the rect || NULL

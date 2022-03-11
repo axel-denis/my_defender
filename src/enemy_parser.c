@@ -22,6 +22,7 @@ enemy create_enemy_from_file(char *titre)
     my_strcat(file, titre);
     FILE *fd = fopen(file, "r");
     size_t size = 0;
+    int speed = 0;
     char *buffer = NULL;
     enemy returned;
 
@@ -29,12 +30,14 @@ enemy create_enemy_from_file(char *titre)
         if (i == 0)
             returned.health = my_get_nbr(buffer);
         if (i == 1)
-            returned.speed = my_get_nbr(buffer);                                // Only take int for now
-        if (i == 2) {
+            speed = my_get_nbr(buffer);
+        if (i == 2)
+            returned.speed = speed / my_get_nbr(buffer);
+        if (i == 3) {
             texture = my_split(buffer, '\n');
             returned.texture = sfTexture_createFromFile(texture[0], NULL);
         }
-        if (i == 3)
+        if (i == 4)
             returned.type = my_get_nbr(buffer);
     }
     returned.sprite = sfSprite_create();

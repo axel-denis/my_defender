@@ -181,6 +181,19 @@ void create_game(env_t *env)
         my_errorstr("Error on map\n");
 }
 
+sfCircleShape *create_range()
+{
+    sfCircleShape *range = sfCircleShape_create();
+
+    sfCircleShape_setOutlineColor(range, sfColor_fromRGBA(200, 200, 200, 200));
+    sfCircleShape_setOutlineThickness(range, 5);
+    sfCircleShape_setFillColor(range, sfColor_fromRGBA(200, 200, 200, 50));
+    sfCircleShape_setPosition(range, VC{WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2});
+    sfCircleShape_setRadius(range, WINDOW_HEIGHT / 2);
+    sfCircleShape_setOrigin(range, VC{WINDOW_HEIGHT / 2, WINDOW_HEIGHT / 2});
+    return (range);
+}
+
 void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
 {
     enemy *enemies = create_enemies_type();
@@ -193,6 +206,7 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
     object worm_hole = create_object("img/icon.png", VC{env->c_game.starting_square.x * 60 , env->c_game.starting_square.y * 60 - 58}, VC{.3, 1});
     //turret tourelle = create_turret_1(5, 5);
     pop_button *buttons = create_turret_button_ui(7);
+    sfCircleShape *range = create_range();
 
     create_test_enemy(env, 100);
     create_test_enemy(env, 50);
@@ -205,7 +219,6 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
 
         sfRenderWindow_clear(window, sfBlack);
         get_events(window, keys);
-        //sfSprite_setRotation(tourelle.sprite, A_regarde_B(tourelle.position, sfSprite_getPosition(env->c_game.enemies->next->next->sprite)));
         pick = pickup_turrets(buttons, get_true_mouse_pos(window), pick, keys, env);
         update_player_data(env, clock);
         update_hud(hud_player, env);
@@ -217,7 +230,7 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
         display_hud(hud_player, env, window);
         sfRenderWindow_drawSprite(window, worm_hole.sprite, NULL);
         display_turrets_button_ui(buttons, window, pick);
-        display_turrets(window, env);
+        display_turrets(window, env, range, get_true_mouse_pos(window));
         display_enemies(window, env);
         display_picked_turret(pick, buttons, window);
         update_mouse_cursor(window, mouse, env->tempo);

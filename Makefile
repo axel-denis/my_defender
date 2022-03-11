@@ -25,7 +25,8 @@ MAIN		=	src/hud.c				\
 				src/mouse_manager.c		\
 				src/enemy_display.c		\
 				src/enemies_chain.c		\
-				src/turret_parser.c		\
+				src/turrets_parser.c	\
+				src/turrets_display.c	\
 				src/options_creation.c	\
 				src/options_managers.c	\
 				src/options_managers2.c	\
