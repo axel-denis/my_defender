@@ -67,19 +67,24 @@ void update_player_data(env_t *env, sfClock *clock)
     }
 }
 
-pop_button *create_turret_button_ui(int nbr)
+pop_button *create_turret_button_ui()
 {
-    pop_button *button = malloc(sizeof(pop_button) * (nbr + 1));
-    for (int i = 0; i < nbr; i++) {
-        button[i].titre = setup_text("Base Turret", "font/Xero.ttf", 15);
+    pop_button *button = NULL;
+    turret_t *turrets = create_turret_type();
+    int i = 0;
+
+    for (i = 0; turrets[i].type != 0; i++);
+    button = malloc(sizeof(pop_button) * (i + 1));
+    for (i = 0; turrets[i].type != 0; i++) {
+        button[i].titre = setup_text(my_nbr_to_str(turrets[i].type), "font/Xero.ttf", 15);
         button[i].onglet = create_object("img/onglet.png", VC{i * 180, 820}, VC{2, 2});
-        button[i].icon = create_object("img/turret1_1.png", VC{i * 180 + 90, 900}, VC{0.2, 0.2});
-        button[i].type = create_turret_1();
+        button[i].icon = create_textured_object(turrets[i].texture, VC{i * 180 + 90, 900}, VC{0.2, 0.2});
+        button[i].type = &(turrets[i]);
         sfText_setPosition(button[i].titre.text, VC{i * 180 + 12, 840});
         sfSprite_setOrigin(button[i].icon.sprite, VC{150, 250});
         sfSprite_setRotation(button[i].icon.sprite, 90);
     }
-    button[nbr].onglet.sprite = NULL;
+    button[i].onglet.sprite = NULL;
     return button;
 }
 
@@ -131,8 +136,8 @@ int pickup_turrets(pop_button *but, sfVector2f mouse_pos, int pick, int *keys, e
         }
     } else {
         sfVector2i coo = get_case_coords(mouse_pos);
-        if (keys[leftMouse] == 2 || keys[leftMouse] == 1) {
 
+        if (keys[leftMouse] == 2 || keys[leftMouse] == 1) {
             if (coo.x > 0 && coo.y > 0 && coo.x < 32 && coo.y < 18 && env->c_game.map[coo.y][coo.x].type == 0)
                 sfSprite_setPosition(but[pick].icon.sprite, VC{coo.x * 60 + 30, coo.y * 60 + 30});
             else
@@ -205,8 +210,8 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
     object background = create_object("img/background.jpg", VC{0, 0}, VC{1, 1});
     object worm_hole = create_object("img/icon.png", VC{env->c_game.starting_square.x * 60 , env->c_game.starting_square.y * 60 - 58}, VC{.3, 1});
     //turret tourelle = create_turret_1(5, 5);
-    pop_button *buttons = create_turret_button_ui(7);
     sfCircleShape *range = create_range();
+    pop_button *buttons = create_turret_button_ui();
 
     create_test_enemy(env, 100);
     create_test_enemy(env, 50);

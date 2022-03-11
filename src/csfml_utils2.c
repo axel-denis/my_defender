@@ -20,6 +20,18 @@ object create_object(char *file, sfVector2f pos, sfVector2f scale)
     return (objet);
 }
 
+object create_textured_object(sfTexture *img, sfVector2f pos, sfVector2f scale)
+{
+    object objet;
+
+    objet.sprite = sfSprite_create();
+    objet.texture = img;
+    sfSprite_setTexture(objet.sprite, objet.texture, sfFalse);
+    sfSprite_setScale(objet.sprite, scale);
+    sfSprite_setPosition(objet.sprite, pos);
+    return (objet);
+}
+
 sfVector2i ftoiv2(sfVector2f vector)
 {
     sfVector2i result;

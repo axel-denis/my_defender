@@ -39,6 +39,7 @@ void destroy_object(object);
 text setup_text(char *string, char *font, int char_size);
 sfVector2i ftoiv2(sfVector2f vector);
 object create_object(char *file, sfVector2f pos, sfVector2f scale);
+object create_textured_object(sfTexture *img, sfVector2f pos, sfVector2f scale);
 sfRenderWindow *create_windows(env_t *env);
 
 #endif

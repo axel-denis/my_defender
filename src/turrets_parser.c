@@ -18,7 +18,7 @@
 turret_t create_turret_from_file(char *titre)
 {
     char *file = malloc(sizeof(char) * (1 + my_strlen(titre) + 8));
-    my_strcpy(file, "enemies/");
+    my_strcpy(file, "turrets/");
     char **texture;
     my_strcat(file, titre);
     FILE *fd = fopen(file, "r");
