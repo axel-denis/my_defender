@@ -17,6 +17,7 @@ MAIN		=	src/hud.c				\
 				src/math_utils.c		\
 				src/csfml_utils.c 		\
 				src/map_display.c		\
+				src/player_data.c		\
 				src/options_text.c		\
 				src/button_setup.c 		\
 				src/button_utils.c 		\

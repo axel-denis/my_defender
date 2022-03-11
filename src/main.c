@@ -18,55 +18,6 @@
 #include "hud.h"
 #include "turrets.h"
 
-void update_player_data(env_t *env, sfClock *clock)
-{
-    if (sfTime_asSeconds(sfClock_getElapsedTime(clock)) > 1) {
-        env->c_game.player_stats.energy.x += env->c_game.player_stats.energy_income.x;
-        env->c_game.player_stats.energy.y += env->c_game.player_stats.energy_income.y;
-        env->c_game.player_stats.steel.x += env->c_game.player_stats.steel_income.x;
-        env->c_game.player_stats.steel.y += env->c_game.player_stats.steel_income.y;
-        if (env->c_game.player_stats.energy.x + env->c_game.player_stats.energy.y * 0.1 > 0) {
-            while (env->c_game.player_stats.energy.y > 9) {
-                env->c_game.player_stats.energy.y -= 10;
-                env->c_game.player_stats.energy.x += 1;
-            }
-            while (env->c_game.player_stats.energy.y < 0) {
-                env->c_game.player_stats.energy.y += 10;
-                env->c_game.player_stats.energy.x -= 1;
-            }
-        } else {
-            while (env->c_game.player_stats.energy.y < -9) {
-                env->c_game.player_stats.energy.y = 0;
-                env->c_game.player_stats.energy.x -= 1;
-            }
-            while (env->c_game.player_stats.energy.y > 0) {
-                env->c_game.player_stats.energy.y -= 10;
-                env->c_game.player_stats.energy.x += 1;
-            }
-        }
-        if (env->c_game.player_stats.steel.x + env->c_game.player_stats.steel.y * 0.1 > 0) {
-            while (env->c_game.player_stats.steel.y > 9 ) {
-                env->c_game.player_stats.steel.y -= 10;
-                env->c_game.player_stats.steel.x += 1;
-            }
-            while (env->c_game.player_stats.steel.y < 0) {
-                env->c_game.player_stats.steel.y += 10;
-                env->c_game.player_stats.steel.x -= 1;
-            }
-        } else {
-            while (env->c_game.player_stats.steel.y < -9) {
-                env->c_game.player_stats.steel.y = 0;
-                env->c_game.player_stats.steel.x -= 1;
-            }
-            while (env->c_game.player_stats.steel.y > 0) {
-                env->c_game.player_stats.steel.y -= 10;
-                env->c_game.player_stats.steel.x += 1;
-            }
-        }
-        sfClock_restart(clock);
-    }
-}
-
 pop_button *create_turret_button_ui()
 {
     pop_button *button = NULL;
