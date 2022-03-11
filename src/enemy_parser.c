@@ -49,11 +49,11 @@ enemy create_enemy_from_file(char *titre)
     return (returned);
 }
 
-int count_files_in_folder()
+int count_files_in_folder(char *name)
 {
     int conti = 1;
     int nbr = 0;
-    DIR *fd = opendir("enemies");
+    DIR *fd = opendir(name);
     struct dirent *dir;
 
     for (int i = 0; conti == 1; i++) {

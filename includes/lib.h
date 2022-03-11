@@ -8,7 +8,7 @@
 #ifndef LIB_H
     #define LIB_H
 
-    #define ABS(x) (x < 0) ? -x : x;
+    #define ABS(x) (x < 0) ? -x : x
 
 char *my_revstr(char *str);
 char *my_dec_to_base(long nb, char *base);
