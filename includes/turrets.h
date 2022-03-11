@@ -19,5 +19,7 @@
     turret_t *create_turret_1();
     void clone_turret(env_t *env, turret_t *turret, sfVector2f pos);
     void display_turrets(sfRenderWindow *window, env_t *env);
+    turret_t create_turret_from_file(char *titre);
+    turret_t *create_turret_type(void);
 
 #endif

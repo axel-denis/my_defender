@@ -1,5 +1,5 @@
-health
-speed
+damage_speed
+damage
 image
 type
 x of the rect || NULL
