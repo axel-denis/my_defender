@@ -18,7 +18,6 @@ void display_turrets(sfRenderWindow *window, env_t *env, sfCircleShape *range, s
     enemy *nearest = NULL;
     sfVector2f near_pos = {0, 1};
     sfVector2f pos = {0, 0};
-    sfFloatRect rect;
 
     while (actual != NULL) {
         if (actual->type == 0) {
@@ -32,7 +31,6 @@ void display_turrets(sfRenderWindow *window, env_t *env, sfCircleShape *range, s
             sfSprite_setRotation(actual->sprite, A_regarde_B(pos, near_pos));
         }
         if (pos_in_square(mouse_pos, (sfFloatRect){pos.x - 30, pos.y - 30, 60, 60})) {
-            rect = sfCircleShape_getGlobalBounds(range);
             sfCircleShape_setRadius(range, actual->range);
             sfCircleShape_setPosition(range, VC{pos.x + actual->range * 2, pos.y + actual->range * 2});
             sfRenderWindow_drawCircleShape(window, range, NULL);

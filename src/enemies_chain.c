@@ -26,11 +26,20 @@ void evolve_all_enemies(env_t *env)
 {
     enemy *actual = env->c_game.enemies;
     enemy *last = actual;
+    sfVector2f pos;
+    sfFloatRect scale;
 
     if (sfTime_asMilliseconds(sfClock_getElapsedTime(env->c_game.clock)) < 13)
         return;
     while (actual != NULL) {
         if (actual->type != 0) {
+            pos = sfSprite_getPosition(actual->sprite);
+            scale = sfSprite_getGlobalBounds(actual->sprite);
+            printf("%f %f \n", scale.left, scale.top);
+            if (pos.x >= WINDOW_WIDTH + 15 || pos.y >= WINDOW_HEIGHT + 15) {
+                env->c_game.player_stats.health -= 1;
+                actual->health = 0;
+            }
             evolve_enemy(env, actual);
             actual = remove_next_enemy_if_needed(last);
         }

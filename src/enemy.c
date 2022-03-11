@@ -82,19 +82,23 @@ void evolve_enemy(env_t *env, enemy *mob)
 {
     sfVector2f pos = sfSprite_getPosition(mob->sprite);
     sfVector2f movement = {0, 0};
-    int clock_mult = sfTime_asMilliseconds(sfClock_getElapsedTime(env->c_game.clock)) / 17;
 
-    if (mob->disp.x == 0 && mob->disp.y == 0) {
+    if (mob->disp.x == 0 && mob->disp.y == 0 &&
+        pos.x < MAP_LEN * 60 - 15&& pos.y < MAP_HEIGHT * 60 - 15) {
         mob->disp.x = ((nextpath.x > get_case_coords(pos).x) - (nextpath.x < get_case_coords(pos).x));
         mob->disp.y = ((nextpath.y > get_case_coords(pos).y) - (nextpath.y < get_case_coords(pos).y));
         mob->disp.x *= 1 / mob->speed * 60;
         mob->disp.y *= 1 / mob->speed * 60;
     }
-
-    movement.x = ((mob->disp.x > 0) - (mob->disp.x < 0)) * mob->speed * clock_mult;
-    movement.y = ((mob->disp.y > 0) - (mob->disp.y < 0)) * mob->speed * clock_mult;
-    mob->disp.x += ((mob->disp.x < 0) - (mob->disp.x > 0)) * mob->speed * clock_mult;
-    mob->disp.y += ((mob->disp.y < 0) - (mob->disp.y > 0)) * mob->speed * clock_mult;
+    if (pos.x >= MAP_LEN * 60 - 15 && pos.y >= MAP_HEIGHT * 60 - 15) {
+        movement.x = 1;
+        movement.y = 0;
+    } else {
+        movement.x = ((mob->disp.x > 0) - (mob->disp.x < 0)) * mob->speed * 2;
+        movement.y = ((mob->disp.y > 0) - (mob->disp.y < 0)) * mob->speed * 2;
+        mob->disp.x += ((mob->disp.x < 0) - (mob->disp.x > 0)) * mob->speed * 2;
+        mob->disp.y += ((mob->disp.y < 0) - (mob->disp.y > 0)) * mob->speed * 2;
+    }
     sfSprite_move(mob->sprite, movement);
 }
 
