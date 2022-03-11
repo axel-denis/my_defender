@@ -140,8 +140,10 @@ int pickup_turrets(pop_button *but, sfVector2f mouse_pos, int pick, int *keys, e
             return pick;
         }
         if (keys[leftMouse] == 3 || keys[leftMouse] == 0) {
-            if (coo.x < 32 && coo.y < 18 && env->c_game.map[coo.y][coo.x].type == 0)
+            if (coo.x < 32 && coo.y < 18 && env->c_game.map[coo.y][coo.x].type == 0) {
                 clone_turret(env, but[pick].type, VC{coo.x, coo.y});
+                env->c_game.map[coo.y][coo.x].type = 3;
+            }
             sfSprite_setPosition(but[pick].icon.sprite, VC{pick * 180 + 90, sfSprite_getPosition(but[pick].onglet.sprite).y + 80});
             return -1;
         }

@@ -9,21 +9,6 @@
 #include "csfml.h"
 #include "structs.h"
 
-//move ce define dans un .h une fois fini
-#define info_per_turret 4
-
-int get_turret_nb(FILE *fd, int len, char *buffer)
-{
-    getline(&buffer, &len, fd);
-    while (buffer[0] != '#') {
-        free(buffer);
-        getline(&buffer, &len, fd);
-    }
-    free(buffer);
-    getline(&buffer, &len, fd);
-    //prendre le nombre sous le commentaire
-}
-
 turret_t *load_t_inventory(char *filepath)
 {
     FILE *fd = fopen(filepath, "r");
