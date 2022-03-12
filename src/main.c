@@ -74,6 +74,11 @@ void game(sfRenderWindow *window, object mouse, env_t *env)
         sfRenderWindow_display(window);
 
         evolve_all_enemies(env);
+        if (env->c_game.player_stats.health <= 0) {
+            open = 0;
+            lose_menu(window, mouse, env->keys, env);
+            sfClock_restart(env->c_game.clock);
+        }
         if (env->keys[sfKeyEscape] == 3) {
             if (pause_menu(window, mouse, env->keys, env) == 1)
                 open = 0;
@@ -148,6 +153,5 @@ int main(void)
 
 // fix volume not modified on some buttons
 // destroy everything
-// cost working
 // Coding syle
 // Lose screen

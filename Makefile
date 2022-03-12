@@ -14,6 +14,7 @@ SRC			=	src/ui.c 				\
 				src/options.c			\
 				src/turrets.c			\
 				src/bullets.c			\
+				src/lose_menu.c			\
 				src/ui_create.c 		\
 				src/main_menu.c			\
 				src/ui_display.c 		\
