@@ -58,7 +58,7 @@ hud create_hud(void)
     sfText_setPosition(h_p.text_energy.text, VC{1468, 75});
     h_p.text_energy_income = setup_text("" , "font/o_drift.ttf", 45);
     sfText_setPosition(h_p.text_energy_income.text,  VC{1718, 75});
-    h_p.icon_steel = create_object("img/Metal.png", VC{1444, 147}, VC{.12, .12});
+    h_p.icon_steel = create_object("img/steel.png", VC{1444, 147}, VC{.12, .12});
     h_p.icon_steel_income_pos = create_object("img/green_arrow.png", VC{1661, 147}, VC{.12, .12});
     h_p.icon_steel_income_neu = create_object("img/Neutral.png", VC{1661, 147}, VC{.12, .12});
     h_p.icon_steel_income_neg = create_object("img/red_arrow.png", VC{1661, 147}, VC{.12, .12});

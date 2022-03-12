@@ -64,7 +64,7 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
         display_map(env, window);
         display_hud(hud_player, env, window);
         sfRenderWindow_drawSprite(window, worm_hole.sprite, NULL);
-        display_turrets_button_ui(buttons, window, pick);
+        display_turrets_button_ui(buttons, window, pick, env);
         display_turrets(window, env, range, get_true_mouse_pos(window));
         display_enemies(window, env);
         display_picked_turret(pick, buttons, window);
@@ -144,5 +144,8 @@ int main(void)
     return (0);
 }
 
+// fix volume not modified on some buttons
+// destroy everything
+// cost working
 // Coding syle
 // Lose screen

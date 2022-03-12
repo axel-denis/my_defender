@@ -73,13 +73,29 @@ typedef struct turret_s {
     int damage_speed;
     int damage_per_action;
     float range;
+    int energy_cost;
+    int energy_per_s;
+    int steel_cost;
+    int steel_per_s;
     struct turret_s *next;
 } turret_t;
 
 typedef struct pop_button_s {
     text titre;
+    text energy_cost;
+    text energy_per_s;
+    text steel_cost;
+    text steel_per_s;
     object icon;
     object onglet;
+    object energy;
+    object steel;
+    object energy_income_pos;
+    object steel_income_pos;
+    object energy_income_neu;
+    object steel_income_neu;
+    object energy_income_neg;
+    object steel_income_neg;
     turret_t *type;
 } pop_button;
 

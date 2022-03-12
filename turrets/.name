@@ -3,9 +3,9 @@ damage
 image
 type
 range
-cost elecricity
-cost metal
-cost elecricity /s
-cost metal /s
+cost energy
+cost steel
+cost energy /s
+cost steel /s
 x of the rect || NULL
 y of the rect ||

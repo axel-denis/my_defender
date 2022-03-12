@@ -40,6 +40,14 @@ turret_t create_turret_from_file(char *titre)
             returned.type = my_get_nbr(buffer);
         if (i == 4)
             returned.range = my_get_nbr(buffer);
+        if (i == 5)
+            returned.energy_cost = my_get_nbr(buffer);
+        if (i == 6)
+            returned.steel_cost = my_get_nbr(buffer);
+        if (i == 7)
+            returned.energy_per_s = my_get_nbr(buffer);
+        if (i == 8)
+            returned.steel_per_s = my_get_nbr(buffer);
     }
     returned.sprite = sfSprite_create();
     sfSprite_setTexture(returned.sprite, returned.texture, sfFalse);
