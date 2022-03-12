@@ -26,6 +26,7 @@ turret_t create_turret_from_file(char *titre)
     char *buffer = NULL;
     turret_t returned;
 
+    returned.name = my_strdup(titre);
     for (int i = 0; getline(&buffer, &size, fd) != -1; i++) {
         if (i == 0)
             returned.damage_speed = my_get_nbr(buffer);
@@ -45,6 +46,7 @@ turret_t create_turret_from_file(char *titre)
     for (int i = 0; texture[i] != NULL; i++)
         free(texture[i]);
     free(texture);
+    free(file);
     fclose(fd);
     return (returned);
 }

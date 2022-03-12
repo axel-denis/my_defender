@@ -66,6 +66,7 @@ typedef struct enemy_s {
 
 typedef struct turret_s {
     int type;
+    char *name;
     sfSprite *sprite;
     sfTexture *texture;
     sfVector2f position;

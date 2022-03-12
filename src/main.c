@@ -27,7 +27,7 @@ pop_button *create_turret_button_ui()
     for (i = 0; turrets[i].type != 0; i++);
     button = malloc(sizeof(pop_button) * (i + 1));
     for (i = 0; turrets[i].type != 0; i++) {
-        button[i].titre = setup_text(my_nbr_to_str(turrets[i].type), "font/Xero.ttf", 15);
+        button[i].titre = setup_text(turrets[i].name, "font/Xero.ttf", 17);
         button[i].onglet = create_object("img/onglet.png", VC{i * 180, 820}, VC{2, 2});
         button[i].icon = create_textured_object(turrets[i].texture, VC{i * 180 + 90, 900}, VC{0.2, 0.2});
         button[i].type = &(turrets[i]);
