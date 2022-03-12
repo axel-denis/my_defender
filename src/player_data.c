@@ -6,10 +6,26 @@
 */
 
 #include "csfml.h"
+#include "map.h"
 #include "lib.h"
 #include "structs.h"
 #include "events.h"
 #include "hud.h"
+
+void create_game(env_t *env)
+{
+    env->c_game.player_stats.health = 100;
+    env->c_game.player_stats.energy = -2000;
+    env->c_game.player_stats.steel = -100;
+    env->c_game.player_stats.energy_income = 25;
+    env->c_game.player_stats.steel_income = 1;
+    env->c_game.player_stats.wave = 1;
+    env->c_game.enemies = NULL;
+    env->c_game.turrets = NULL;
+    env->c_game.clock = sfClock_create();
+    if (read_map(env, "map") == 1)
+        my_errorstr("Error on map\n");
+}
 
 void update_player_data(env_t *env, sfClock *clock)
 {

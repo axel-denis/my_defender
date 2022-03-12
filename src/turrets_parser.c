@@ -53,7 +53,7 @@ turret_t create_turret_from_file(char *titre)
 
 turret_t *create_turret_type(void)
 {
-    turret_t *turrets = malloc(sizeof(turret_t) * (count_files_in_folder("turrets") + 1));
+    turret_t *turrets = malloc(sizeof(turret_t) * (count_files("turrets") + 1));
     int conti = 1;
     struct dirent *dir;
     DIR *fd = opendir("turrets");

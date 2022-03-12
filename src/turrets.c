@@ -29,7 +29,7 @@ turret_t *template_turret(int type, int dpa, int dmg_spd)
 {
     turret_t *output = malloc(sizeof(turret_t));
 
-    output->type = 1;
+    output->type = type;
     output->range = 60;
     output->damage_per_action = dpa;
     output->damage_speed = dmg_spd;
@@ -48,7 +48,7 @@ void clone_turret(env_t *env, turret_t *turret, sfVector2f pos)
     }
     while (actual->next != NULL)
         actual = actual->next;
-    actual->next = template_turret(turret->type, turret->damage_per_action, 0);
+    actual->next = template_turret(turret->type, turret->damage_per_action, turret->damage_speed);
     actual->next->damage_speed = turret->damage_speed;
     actual->next->range = turret->range;
     actual->next->sprite = sfSprite_create();

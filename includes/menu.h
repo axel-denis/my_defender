@@ -33,6 +33,7 @@ void set_button_vsync_txt(button *buttons, env_t *env);
 void set_button_screen_txt(button *buttons, env_t *env);
 void screen_manager(button *but, sfRenderWindow *window, int *keys, env_t *env);
 void langue_manager(button *but, sfRenderWindow *window, int *keys, env_t *env);
+void create_game(env_t *env);
 char *set_screen_txt(env_t *env);
 
 #endif /* !MENU_H_ */

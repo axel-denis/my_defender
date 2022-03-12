@@ -8,6 +8,6 @@
 #ifndef FILES_H
     #define FILES_H
 
-int count_files_in_folder(char *name);
+int count_files(char *name);
 
 #endif

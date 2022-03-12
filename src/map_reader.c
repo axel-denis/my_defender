@@ -72,6 +72,7 @@ int read_map(env_t *game, char *path)
 {
     FILE *fd = fopen(path, "r");
     size_t size = 0;
+    ssize_t size_s = 0;
     char *buffer = NULL;
     map_block **final_tab = malloc(sizeof(map_block *) * 19);
 
@@ -79,8 +80,8 @@ int read_map(env_t *game, char *path)
     if (fd == NULL)
         return 1;
     for (int i = 0; i < 18; i++) {
-        size = getline(&buffer, &size, fd);
-        if (size < 0) {
+        size_s = getline(&buffer, &size, fd);
+        if (size_s < 0) {
             free(buffer);
             return 1;
         }

@@ -17,6 +17,8 @@
     #define release 3
     #define evntMousePressed event.type == sfEvtMouseButtonPressed
     #define evntMouseReleased event.type == sfEvtMouseButtonReleased
+    #define RELEASED (keys[leftMouse] == 0 || keys[leftMouse] == 3)
+    #define CLICKED (keys[leftMouse] == 1 || keys[leftMouse] == 2)
 
 object setup_mouse(char *, sfVector2f);
 void update_mouse_cursor(sfRenderWindow *window, object mouse, sfClock *clock);

@@ -50,9 +50,9 @@ void display_button(sfRenderWindow *window, button *bouton, int *keys)
         sfSound_play((*bouton).hover);
         (*bouton).already_hoverd = 1;
     }
-    if (pos_in_square(mouse_pos, rect) == sfTrue && (keys[leftMouse] == 0 || keys[leftMouse] == 3))
+    if (pos_in_square(mouse_pos, rect) == sfTrue && RELEASED)
         sfSprite_setTextureRect((*bouton).sprite, create_rect(size.x / 3, 0, size.x / 3, size.y));
-    if (pos_in_square(mouse_pos, rect) == sfTrue && (keys[leftMouse] == 1 || keys[leftMouse] == 2))
+    if (pos_in_square(mouse_pos, rect) == sfTrue && CLICKED)
         sfSprite_setTextureRect((*bouton).sprite, create_rect((size.x / 3) * 2 , 0, size.x / 3, size.y));
     if (pos_in_square(mouse_pos, rect) == sfTrue && keys[leftMouse] == 3)
         if ((*bouton).click != NULL)

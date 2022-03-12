@@ -49,7 +49,7 @@ enemy create_enemy_from_file(char *titre)
     return (returned);
 }
 
-int count_files_in_folder(char *name)
+int count_files(char *name)
 {
     int conti = 1;
     int nbr = 0;
@@ -69,7 +69,7 @@ int count_files_in_folder(char *name)
 
 enemy *create_enemies_type(void)
 {
-    enemy *enemies = malloc(sizeof(enemy) * (count_files_in_folder("enemies") + 1));
+    enemy *enemies = malloc(sizeof(enemy) * (count_files("enemies") + 1));
     int conti = 1;
     struct dirent *dir;
     DIR *fd = opendir("enemies");
