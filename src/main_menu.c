@@ -47,7 +47,7 @@ button *create_buttons_menu(env_t *env)
 }
 
 
-void main_menu(sfRenderWindow *window, object mouse, int *keys, env_t *env)
+void main_menu(sfRenderWindow *window, object mouse, env_t *env)
 {
     button *buttons = create_buttons_menu(env);
     int open = 1;
@@ -59,23 +59,23 @@ void main_menu(sfRenderWindow *window, object mouse, int *keys, env_t *env)
     while (sfRenderWindow_isOpen(window) && open) {
         sfRenderWindow_clear(window, sfBlack);
         sfRenderWindow_drawSprite(window, background.sprite, NULL);
-        get_events(window, keys);
+        get_events(window, env->keys);
         sfRenderWindow_drawText(window, texte.text, NULL);
         for (int i = 0; i < 3; i++)
-            display_button(window, &(buttons[i]), keys);
+            display_button(window, &(buttons[i]), env->keys);
         update_mouse_cursor(window, mouse, env->tempo);
-        if (is_pressed(buttons[0], window, keys) == sfTrue) {
-            game(window, mouse, keys, env);
+        if (is_pressed(buttons[0], window, env->keys) == sfTrue) {
+            game(window, mouse, env);
         }
-        if (is_pressed(buttons[1], window, keys) == sfTrue) {
-            options(window, mouse, keys, env);
+        if (is_pressed(buttons[1], window, env->keys) == sfTrue) {
+            options(window, mouse, env->keys, env);
             change_button_text(buttons, env);
             for (int i = 0; i < 3; i++) {
                 sfSound_setVolume(buttons[i].click, env->volume);
                 sfSound_setVolume(buttons[i].hover, env->volume/1.4);
             }
         }
-        if (is_pressed(buttons[2], window, keys) == sfTrue)
+        if (is_pressed(buttons[2], window, env->keys) == sfTrue)
             open = 0;
         sfRenderWindow_display(window);
     }

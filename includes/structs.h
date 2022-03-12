@@ -146,6 +146,7 @@ typedef struct env_s {
     int screen_type;
     char *langue;
     int resolution;
+    int *keys;
     sfClock *tempo;
     game_data data;
     current_game_t c_game;

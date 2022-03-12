@@ -32,7 +32,7 @@ sfCircleShape *create_range()
     return (range);
 }
 
-void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
+void game(sfRenderWindow *window, object mouse, env_t *env)
 {
     enemy *enemies = create_enemies_type();
     int open = 1;
@@ -42,7 +42,6 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
     hud hud_player = create_hud();
     object background = create_object("img/background.jpg", VC{0, 0}, VC{1, 1});
     object worm_hole = create_object("img/icon.png", VC{env->c_game.starting_square.x * 60 , env->c_game.starting_square.y * 60 - 58}, VC{.3, 1});
-    //turret tourelle = create_turret_1(5, 5);
     sfCircleShape *range = create_range();
     pop_button *buttons = create_turret_button_ui();
 
@@ -53,8 +52,8 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
         /* Act */
 
         sfRenderWindow_clear(window, sfBlack);
-        get_events(window, keys);
-        pick = pickup_turrets(buttons, get_true_mouse_pos(window), pick, keys, env);
+        get_events(window, env->keys);
+        pick = pickup_turrets(buttons, get_true_mouse_pos(window), pick, env);
         update_player_data(env, clock);
         update_hud(hud_player, env);
 
@@ -72,8 +71,8 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
         sfRenderWindow_display(window);
 
         evolve_all_enemies(env);
-        if (keys[sfKeyEscape] == 3) {
-            if (pause_menu(window, mouse, keys, env) == 1)
+        if (env->keys[sfKeyEscape] == 3) {
+            if (pause_menu(window, mouse, env->keys, env) == 1)
                 open = 0;
             sfClock_restart(env->c_game.clock);
         }
@@ -82,7 +81,7 @@ void game(sfRenderWindow *window, object mouse, int *keys, env_t *env)
             sfClock_restart(env->c_game.clock);
     }
     sfClock_destroy(clock);
-    keys[sfKeyEscape] = 0;
+    env->keys[sfKeyEscape] = 0;
 }
 
 env_t *create_env(void)
@@ -133,12 +132,12 @@ sfRenderWindow *create_windows(env_t *env)
 
 int main(void)
 {
-    int *keys = init_keys();
     object mouse = setup_mouse("img/cursor.png", VC{1.7, 1.7});
     env_t *env = create_env();
+    env->keys = init_keys();
     sfRenderWindow *window = create_windows(env);
 
-    main_menu(window, mouse, keys, env);
+    main_menu(window, mouse, env);
     sfMusic_destroy(env->data.music);
     destroy_object(mouse);
     return (0);
