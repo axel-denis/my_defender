@@ -31,7 +31,7 @@ bullet_t *create_bullet(enemy *target, turret_t *shooter)
     sfVector2f target_pos = sfSprite_getPosition(target->sprite);
     sfVector2f shooter_pos = sfSprite_getPosition(shooter->sprite);
     float angle = A_regarde_B(shooter_pos, target_pos);
-    sfVector2f direction = {cos(angle), sin(angle)};
+    sfVector2f direction = {cos(angle * (2) * M_PI / 360), sin(angle * (2) * M_PI / 360)};
 
     output->direction = direction;
     output->target = target;

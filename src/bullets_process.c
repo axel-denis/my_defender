@@ -45,7 +45,7 @@ int evolve_bullet(bullet_t *bullet)
     movement.x *= bullet->speed;
     movement.y *= bullet->speed;
     sfSprite_move(bullet->sprite, movement);
-    if (dist_two_points(pos, enemy_pos) < 2) {
+    if (dist_two_points(pos, enemy_pos) < 15) {
         bullet->target->health -= bullet->damage;
         return 1;
     }
