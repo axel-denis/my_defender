@@ -127,9 +127,12 @@ typedef struct hud_s {
 
 typedef struct bullet_s {
     int is_null;
-    sfSprite *sprite;
+    float speed;
+    int damage;
     sfVector2f direction;
-    sfVector2f destination;
+    enemy *target;
+    turret_t *shooter;
+    sfSprite *sprite;
     struct bullet_s *next;
 } bullet_t;
 

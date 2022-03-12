@@ -13,6 +13,7 @@ SRC			=	src/ui.c 				\
 				src/events.c			\
 				src/options.c			\
 				src/turrets.c			\
+				src/bullets.c			\
 				src/ui_create.c 		\
 				src/main_menu.c			\
 				src/ui_display.c 		\
@@ -32,6 +33,7 @@ SRC			=	src/ui.c 				\
 				src/enemies_chain.c		\
 				src/turrets_parser.c	\
 				src/turrets_display.c	\
+				src/bullets_process.c	\
 				src/options_creation.c	\
 				src/options_managers.c	\
 				src/options_managers2.c	\

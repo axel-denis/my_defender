@@ -18,6 +18,7 @@
 #include "hud.h"
 #include "turrets.h"
 #include "ui.h"
+#include "bullets.h"
 
 sfCircleShape *create_range()
 {
@@ -66,6 +67,7 @@ void game(sfRenderWindow *window, object mouse, env_t *env)
         display_turrets_button_ui(buttons, window, pick, env);
         display_turrets(window, env, range, get_true_mouse_pos(window));
         display_enemies(window, env);
+        evolve_display_bullets(env, window);
         display_picked_turret(pick, buttons, window);
         update_mouse_cursor(window, mouse, env->tempo);
         sfRenderWindow_drawSprite(window, worm_hole2.sprite, NULL);
