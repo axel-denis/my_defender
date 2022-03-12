@@ -12,27 +12,6 @@
 #include "map.h"
 #include "maths.h"
 
-void evolve_display_bullets(env_t *env, sfRenderWindow *win)
-{
-    bullet_t *actual = env->c_game.bullets;
-    bullet_t *prec = env->c_game.bullets;
-
-    while (actual != NULL) {
-        if (actual->is_null == 1) {
-            actual = actual->next;
-            continue;
-        }
-        sfRenderWindow_drawSprite(win, actual->sprite, NULL);
-        if (evolve_bullet(actual)) {
-            prec->next = actual->next;
-            free_bullet(&actual);
-            actual = prec;
-        }
-        prec = actual;
-        actual = actual->next;
-    }
-}
-
 int evolve_bullet(bullet_t *bullet)
 {
     sfVector2f movement = bullet->direction;
@@ -59,4 +38,25 @@ void free_bullet(bullet_t **bullet)
 {
     sfSprite_destroy((*bullet)->sprite);
     free(*bullet);
+}
+
+void evolve_display_bullets(env_t *env, sfRenderWindow *win)
+{
+    bullet_t *actual = env->c_game.bullets;
+    bullet_t *prec = env->c_game.bullets;
+
+    while (actual != NULL) {
+        if (actual->is_null == 1) {
+            actual = actual->next;
+            continue;
+        }
+        sfRenderWindow_drawSprite(win, actual->sprite, NULL);
+        if (evolve_bullet(actual)) {
+            prec->next = actual->next;
+            free_bullet(&actual);
+            actual = prec;
+        }
+        prec = actual;
+        actual = actual->next;
+    }
 }
