@@ -41,14 +41,14 @@ void game(sfRenderWindow *window, object mouse, env_t *env)
     sfClock *clock = sfClock_create();
     hud hud_player = create_hud();
     object background = create_object("img/background.jpg", VC{0, 0}, VC{1, 1});
-    object worm_hole = create_object("img/icon.png", VC{env->c_game.starting_square.x * 60 , env->c_game.starting_square.y * 60 - 58}, VC{.3, 1});
+    object worm_hole = create_object("img/icon.png", VC{env->c_game.starting_square.x * 60 - 5, env->c_game.starting_square.y * 60 - 58}, VC{.4, 1});
+    object worm_hole2 = create_object("img/icon2.png", VC{env->c_game.starting_square.x * 60 - 5, env->c_game.starting_square.y * 60 - 58}, VC{.4, 1});
     sfCircleShape *range = create_range();
     pop_button *buttons = create_turret_button_ui();
 
     setmap_opacity(env);
     sfClock_restart(env->c_game.clock);
     while (sfRenderWindow_isOpen(window) && open) {
-        create_test_enemy(env, 75);
         /* Act */
 
         sfRenderWindow_clear(window, sfBlack);
@@ -68,6 +68,7 @@ void game(sfRenderWindow *window, object mouse, env_t *env)
         display_enemies(window, env);
         display_picked_turret(pick, buttons, window);
         update_mouse_cursor(window, mouse, env->tempo);
+        sfRenderWindow_drawSprite(window, worm_hole2.sprite, NULL);
         sfRenderWindow_display(window);
 
         evolve_all_enemies(env);

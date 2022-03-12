@@ -30,6 +30,7 @@ void create_game(env_t *env)
 void update_player_data(env_t *env, sfClock *clock)
 {
     if (sfTime_asSeconds(sfClock_getElapsedTime(clock)) > 1) {
+        create_test_enemy(env, 75);
         env->c_game.player_stats.energy
         += env->c_game.player_stats.energy_income;
         env->c_game.player_stats.steel += env->c_game.player_stats.steel_income;
