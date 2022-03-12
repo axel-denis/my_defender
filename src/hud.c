@@ -23,17 +23,17 @@ void display_hud(hud hud_p, env_t *env, sfRenderWindow *window)
     sfRenderWindow_drawSprite(window , hud_p.icon_health.sprite, NULL);
     sfRenderWindow_drawSprite(window , hud_p.icon_energy.sprite, NULL);
     sfRenderWindow_drawSprite(window , hud_p.icon_steel.sprite, NULL);
-    if (env->c_game.player_stats.steel_income.x + env->c_game.player_stats.steel_income.y * 0.1 > 0)
+    if (env->c_game.player_stats.steel_income > 0)
         sfRenderWindow_drawSprite(window , hud_p.icon_steel_income_pos.sprite, NULL);
-    if (env->c_game.player_stats.steel_income.x + env->c_game.player_stats.steel_income.y * 0.1 == 0)
+    if (env->c_game.player_stats.steel_income == 0)
         sfRenderWindow_drawSprite(window , hud_p.icon_steel_income_neu.sprite, NULL);
-    if (env->c_game.player_stats.steel_income.x + env->c_game.player_stats.steel_income.y * 0.1 < 0)
+    if (env->c_game.player_stats.steel_income < 0)
         sfRenderWindow_drawSprite(window , hud_p.icon_steel_income_neg.sprite, NULL);
-    if (env->c_game.player_stats.energy_income.x + env->c_game.player_stats.energy_income.y * 0.1 > 0)
+    if (env->c_game.player_stats.energy_income > 0)
     sfRenderWindow_drawSprite(window , hud_p.icon_energy_income_pos.sprite, NULL);
-    if (env->c_game.player_stats.energy_income.x + env->c_game.player_stats.energy_income.y * 0.1 == 0)
+    if (env->c_game.player_stats.energy_income == 0)
         sfRenderWindow_drawSprite(window , hud_p.icon_energy_income_neu.sprite, NULL);
-    if (env->c_game.player_stats.energy_income.x + env->c_game.player_stats.energy_income.y * 0.1 < 0)
+    if (env->c_game.player_stats.energy_income < 0)
     sfRenderWindow_drawSprite(window , hud_p.icon_energy_income_neg.sprite, NULL);
     sfRenderWindow_drawText(window, hud_p.text_health.text, NULL);
     sfRenderWindow_drawText(window, hud_p.text_energy.text, NULL);
@@ -72,19 +72,14 @@ hud create_hud(void)
     return (h_p);
 }
 
-char *formating_hud_in(sfVector2i value)
+char *formating_hud_in(int value)
 {
-    char *text_val = my_dec_to_base(value.x, "0123456789");
-    int absolute = ABS(value.y);
-    char *text_abs = my_dec_to_base(absolute, "0123456789");
-    int len =  + my_strlen(text_val) + (value.y < 0 && value.x >= 0);
+    char *text_val = my_dec_to_base(value / 10, "0123456789");
+    char *text_abs = my_dec_to_base(ABS(value % 10), "0123456789");
+    int len =  + my_strlen(text_val);
     char *texte = malloc(sizeof(char) * (4 + my_strlen(text_abs) + len));
 
-    if (value.y < 0 && value.x >= 0) {
-        texte = my_strcpy(texte, "-");
-        my_strcat(texte, text_val);
-    } else
-        texte = my_strcpy(texte, text_val);
+    texte = my_strcpy(texte, text_val);
     my_strcat(texte, ".");
     my_strcat(texte, text_abs);
     my_strcat(texte, "/s");
@@ -93,19 +88,14 @@ char *formating_hud_in(sfVector2i value)
     return (texte);
 }
 
-char *formating_hud(sfVector2i value)
+char *formating_hud(int value)
 {
-    char *text_val = my_dec_to_base(value.x, "0123456789");
-    int absolute = ABS(value.y);
-    char *text_abs = my_dec_to_base(absolute, "0123456789");
-    int len =  + my_strlen(text_val) + (value.y < 0 && value.x >= 0);
+    char *text_val = my_dec_to_base(value / 10, "0123456789");
+    char *text_abs = my_dec_to_base(ABS(value % 10), "0123456789");
+    int len =  + my_strlen(text_val);
     char *texte = malloc(sizeof(char) * (2 + my_strlen(text_abs) + len));
 
-    if (value.y < 0 && value.x >= 0) {
-        texte = my_strcpy(texte, "-");
-        my_strcat(texte, text_val);
-    } else
-        texte = my_strcpy(texte, text_val);
+    texte = my_strcpy(texte, text_val);
     my_strcat(texte, ".");
     my_strcat(texte, text_abs);
     free(text_val);

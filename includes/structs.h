@@ -23,10 +23,10 @@ typedef struct map_s {
 } map;
 
 typedef struct player_stats_s {
-    sfVector2i energy;
-    sfVector2i energy_income;
-    sfVector2i steel;
-    sfVector2i steel_income;
+    int energy;
+    int energy_income;
+    int steel;
+    int steel_income;
     int health;
     int wave;
 } player_stats;

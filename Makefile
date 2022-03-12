@@ -5,8 +5,10 @@
 ## Makefile
 ##
 
-MAIN		=	src/hud.c				\
-				src/main.c 				\
+MAIN		=	src/main.c				\
+
+SRC			=	src/ui.c 				\
+				src/hud.c				\
 				src/enemy.c				\
 				src/events.c			\
 				src/options.c			\
@@ -31,8 +33,6 @@ MAIN		=	src/hud.c				\
 				src/options_creation.c	\
 				src/options_managers.c	\
 				src/options_managers2.c	\
-
-SRC			=						\
 
 MAINOBJ		=	$(MAIN:.c=.o)
 OBJ			=	$(SRC:.c=.o)
