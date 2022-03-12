@@ -125,14 +125,18 @@ typedef struct hud_s {
     object cadre;
 } hud;
 
-typedef struct entities_s {
-    enemy *enemies;
-    turret_t *turrets;
-} entities_t;
+typedef struct bullet_s {
+    int is_null;
+    sfSprite *sprite;
+    sfVector2f direction;
+    sfVector2f destination;
+    struct bullet_s *next;
+} bullet_t;
 
 typedef struct current_game_s {
     enemy *enemies;
     turret_t *turrets;
+    bullet_t *bullets;
     sfClock *clock;
     map_block **map;
     sfVector2f starting_square;
