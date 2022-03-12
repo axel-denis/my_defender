@@ -113,6 +113,7 @@ env_t *create_env(void)
     env->c_game.player_stats.wave = 1;
     env->c_game.enemies = NULL;
     env->c_game.turrets = NULL;
+    env->c_game.bullets = NULL;
     env->c_game.clock = sfClock_create();
     return env;
 }
