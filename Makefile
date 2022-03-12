@@ -13,7 +13,9 @@ SRC			=	src/ui.c 				\
 				src/events.c			\
 				src/options.c			\
 				src/turrets.c			\
+				src/ui_create.c 		\
 				src/main_menu.c			\
+				src/ui_display.c 		\
 				src/pause_menu.c		\
 				src/map_reader.c		\
 				src/math_utils.c		\
