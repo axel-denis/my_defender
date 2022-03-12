@@ -35,10 +35,9 @@ void setmap_opacity(env_t *env)
 {
     for (int i = 0; i < 18; i++) {
         for (int j = 0; j < 32; j++) {
-            if (env->c_game.map[i][j].type == 0 || env->c_game.map[i][j].type == 3)
-                sfSprite_setColor(env->c_game.map[i][j].sprite, sfColor_fromRGBA(255, 255, 255, 100));
-            if (env->c_game.map[i][j].type == 1 || env->c_game.map[i][j].type == 2)
-                sfSprite_setColor(env->c_game.map[i][j].sprite, sfColor_fromRGBA(255, 255, 255, 150));
+            sfSprite_setColor(env->c_game.map[i][j].sprite, sfColor_fromRGBA(
+                255, 255, 255, 100 + (env->c_game.map[i][j].type == 1
+                || env->c_game.map[i][j].type == 2) * 50));
         }
     }
 }

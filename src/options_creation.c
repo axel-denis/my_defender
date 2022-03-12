@@ -44,6 +44,7 @@ void set_textures_options(button *buttons)
 button *create_buttons_options(env_t *env)
 {
     button *buttons = malloc(sizeof(button) * 10);
+    char *click = "sounds/click.ogg";
 
     buttons[0] = create_button(VC{.4, .4}, VC{440 + 200, 400 + 261}, sfFalse);
     buttons[1] = create_button(VC{-.4, .4}, VC{440 - 200, 400 + 261}, sfFalse);
@@ -58,7 +59,7 @@ button *create_buttons_options(env_t *env)
     set_textures_options(buttons);
     set_text_options(buttons, env);
     for (int i = 0; i < 10 ; i++)
-        setup_button_sounds(&(buttons[i]), "sounds/click.ogg", "sounds/hover.ogg", env);
+        setup_button_sounds(&(buttons[i]), click, "sounds/hover.ogg", env);
     return (buttons);
 }
 
