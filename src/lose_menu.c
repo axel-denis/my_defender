@@ -18,8 +18,10 @@ button *create_buttons_lose(env_t *env)
     button *buttons = malloc(sizeof(button) * 2);
     sfIntRect square = create_rect(0, 0, 6065 / 3, 833);
 
-    buttons[0] = create_button(VC{0.2, 0.2}, VC{258, WINDOW_HEIGHT / 2 + 50}, sfTrue);
-    buttons[1] = create_button(VC{0.2, 0.2}, VC{258, WINDOW_HEIGHT / 2 + 250}, sfTrue);
+    //buttons[0] = create_button(VC{0.2, 0.2}, VC{258, WINDOW_HEIGHT / 2 - 100}, sfTrue);
+    //buttons[1] = create_button(VC{0.2, 0.2}, VC{258, WINDOW_HEIGHT / 2 + 100}, sfTrue);
+    buttons[0] = create_button(VC{0.2, 0.2}, VC{WINDOW_WIDTH / 2 - ((6065/3)*0.2)/2, WINDOW_HEIGHT / 2 - 100}, sfTrue);
+    buttons[1] = create_button(VC{0.2, 0.2}, VC{WINDOW_WIDTH / 2 - ((6065/3)*0.2)/2, WINDOW_HEIGHT / 2 + 100}, sfTrue);
     for (int i = 0; i < 2; i++) {
         setup_button_texture(&(buttons[i]), &square, "img/Blue_button.png");
         setup_button_sounds(&(buttons[i]), "sounds/click.ogg", "sounds/hover.ogg", env);
@@ -41,14 +43,14 @@ void lose_menu(sfRenderWindow *window, object mouse, int *keys, env_t *env)
     int open = 1;
     button *buttons = create_buttons_lose(env);
     text texte;
-    object backfr = create_object("img/pause_fr.jpg", VC{0, 0}, VC{1, 1});
-    object backen = create_object("img/pause_en.jpg", VC{0, 0}, VC{1, 1});
+    object backfr = create_object("img/lose.jpg", VC{0, 0}, VC{1, 1});
+    object backen = create_object("img/lose.jpg", VC{0, 0}, VC{1, 1});
 
-    if (env->langue[0] == 'E')
+    if (env->langue[0] == 'E') {
         texte = setup_text("   Lose", "font/o_driftbold.ttf", 150);
-    else
+    } else
         texte = setup_text(" Defaite", "font/o_driftbold.ttf", 150);
-    sfText_setPosition(texte.text, VC{135, 120});
+    sfText_setPosition(texte.text, VC{670, 200});
     while (sfRenderWindow_isOpen(window) && open) {
         sfRenderWindow_clear(window, sfBlack);
         get_events(window, keys);

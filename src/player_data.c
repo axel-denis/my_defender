@@ -23,6 +23,7 @@ void create_game(env_t *env)
     env->c_game.player_stats.wave = 1;
     env->c_game.enemies = NULL;
     env->c_game.turrets = NULL;
+    env->c_game.bullets = NULL;
     env->c_game.clock = sfClock_create();
     if (read_map(env, "map") == 1)
         my_errorstr("Error on map\n");

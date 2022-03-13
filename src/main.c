@@ -51,6 +51,8 @@ void game(sfRenderWindow *window, object mouse, env_t *env)
     sfClock_restart(env->c_game.clock);
     while (sfRenderWindow_isOpen(window) && open) {
         /* Act */
+        printf("%f %f\n", get_true_mouse_pos(window).x, get_true_mouse_pos(window).y);
+
 
         sfRenderWindow_clear(window, sfBlack);
         get_events(window, env->keys);
@@ -155,4 +157,4 @@ int main(void)
 // fix volume not modified on some buttons
 // destroy everything
 // Coding syle
-// Lose screen
+// How to play
