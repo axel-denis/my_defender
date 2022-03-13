@@ -45,14 +45,12 @@ void game(sfRenderWindow *window, object mouse, env_t *env)
     object worm_hole = create_object("img/icon.png", VC{env->c_game.starting_square.x * 60 - 5, env->c_game.starting_square.y * 60 - 58}, VC{.4, 1});
     object worm_hole2 = create_object("img/icon2.png", VC{env->c_game.starting_square.x * 60 - 5, env->c_game.starting_square.y * 60 - 58}, VC{.4, 1});
     sfCircleShape *range = create_range();
-    pop_button *buttons = create_turret_button_ui();
+    pop_button *buttons = create_turret_button_ui(env);
 
     setmap_opacity(env);
     sfClock_restart(env->c_game.clock);
     while (sfRenderWindow_isOpen(window) && open) {
         /* Act */
-        printf("%f %f\n", get_true_mouse_pos(window).x, get_true_mouse_pos(window).y);
-
 
         sfRenderWindow_clear(window, sfBlack);
         get_events(window, env->keys);

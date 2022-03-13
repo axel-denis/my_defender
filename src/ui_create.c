@@ -36,10 +36,10 @@ void setup_popup_text(pop_button *bouton, turret_t turret, int i)
     free(s_per_s);
 }
 
-pop_button *create_turret_button_ui(void)
+pop_button *create_turret_button_ui(env_t *env)
 {
     pop_button *button = NULL;
-    turret_t *turrets = create_turret_type();
+    turret_t *turrets = create_turret_type(env);
     sfVector2f scale;
     sfVector2f pos;
     int i = 0;

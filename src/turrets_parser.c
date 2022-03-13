@@ -15,7 +15,7 @@
 #include <sys/types.h>
 #include <dirent.h>
 
-turret_t create_turret_from_file(char *titre)
+turret_t create_turret_from_file(env_t *env, char *titre)
 {
     char *file = malloc(sizeof(char) * (1 + my_strlen(titre) + 8));
     my_strcpy(file, "turrets/");
@@ -26,27 +26,30 @@ turret_t create_turret_from_file(char *titre)
     char *buffer = NULL;
     turret_t returned;
 
-    returned.name = my_strdup(titre);
+    if (env->langue[0] == 'E')
+        returned.name = my_strdup(titre);
     for (int i = 0; getline(&buffer, &size, fd) != -1; i++) {
-        if (i == 0)
-            returned.damage_speed = my_get_nbr(buffer);
+        if (env->langue[0] != 'E' && i == 0)
+            returned.name = my_strdup(buffer);
         if (i == 1)
+            returned.damage_speed = my_get_nbr(buffer);
+        if (i == 2)
             returned.damage_per_action = my_get_nbr(buffer);
-        if (i == 2) {
+        if (i == 3) {
             texture = my_split(buffer, '\n');
             returned.texture = sfTexture_createFromFile(texture[0], NULL);
         }
-        if (i == 3)
-            returned.type = my_get_nbr(buffer);
         if (i == 4)
-            returned.range = my_get_nbr(buffer);
+            returned.type = my_get_nbr(buffer);
         if (i == 5)
-            returned.energy_cost = my_get_nbr(buffer);
+            returned.range = my_get_nbr(buffer);
         if (i == 6)
-            returned.steel_cost = my_get_nbr(buffer);
+            returned.energy_cost = my_get_nbr(buffer);
         if (i == 7)
-            returned.energy_per_s = my_get_nbr(buffer);
+            returned.steel_cost = my_get_nbr(buffer);
         if (i == 8)
+            returned.energy_per_s = my_get_nbr(buffer);
+        if (i == 9)
             returned.steel_per_s = my_get_nbr(buffer);
     }
     returned.sprite = sfSprite_create();
@@ -59,7 +62,7 @@ turret_t create_turret_from_file(char *titre)
     return (returned);
 }
 
-turret_t *create_turret_type(void)
+turret_t *create_turret_type(env_t *env)
 {
     turret_t *turrets = malloc(sizeof(turret_t) * (count_files("turrets") + 1));
     int conti = 1;
@@ -74,7 +77,7 @@ turret_t *create_turret_type(void)
         if (dir == NULL)
             conti = 0;
         if (dir != NULL && dir->d_name[0] != '.') {
-            turrets[number] = create_turret_from_file(dir->d_name);
+            turrets[number] = create_turret_from_file(env, dir->d_name);
             number += 1;
         }
     }
