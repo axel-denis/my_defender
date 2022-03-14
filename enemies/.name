@@ -3,5 +3,8 @@ speed
 speed diviseur
 image
 type
+difficulty
+scale x / 1000
+scale y / 1000
 x of the rect || NULL
 y of the rect ||

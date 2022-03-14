@@ -8,14 +8,24 @@
 #ifndef STRUCT_H_
     #define STRUCT_H_
 
-    #include "csfml.h"
+    #include <SFML/Window.h>
+    #include <SFML/Graphics.h>
+    #include <SFML/Audio.h>
+    #include <SFML/System.h>
 
     #define VC (sfVector2f)
 
 typedef struct object_s {
     sfSprite *sprite;
     sfTexture *texture;
-}object;
+} object;
+
+typedef struct wave_s {
+    int type1;
+    int nbr1;
+    int type2;
+    int nbr2;
+} wave_t;
 
 typedef struct map_s {
     int index;
@@ -61,6 +71,8 @@ typedef struct enemy_s {
     sfVector2f disp;
     float speed;
     int health;
+    int difficulty;
+    char *name;
     struct enemy_s *next;
 } enemy;
 
@@ -140,6 +152,7 @@ typedef struct current_game_s {
     enemy *enemies;
     turret_t *turrets;
     bullet_t *bullets;
+    sfClock *wave_timer;
     sfClock *clock;
     map_block **map;
     sfVector2f starting_square;

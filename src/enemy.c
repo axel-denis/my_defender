@@ -38,6 +38,33 @@ enemy *template_enemy(int type, int speed, int health)
     return output;
 }
 
+void clone_enemy(env_t *env, enemy to_clone)
+{
+    enemy *actual = env->c_game.enemies;
+
+    if (actual == NULL) {
+        env->c_game.enemies = create_null_enemy();
+        actual = env->c_game.enemies;
+    }
+    while (actual->next != NULL)
+        actual = actual->next;
+    actual->next = malloc(sizeof(enemy));
+    actual->next->difficulty = to_clone.difficulty;
+    actual->next->health = to_clone.health;
+    actual->next->name = to_clone.name;
+    actual->next->speed = to_clone.speed;
+    actual->next->type = to_clone.type;
+    actual->next->sprite = sfSprite_create();
+    sfSprite_setScale(actual->next->sprite, sfSprite_getScale(to_clone.sprite));
+    sfSprite_setOrigin(actual->next->sprite, sfSprite_getOrigin(to_clone.sprite));
+    actual->next->disp = VC{0, 0};
+    sfSprite_setPosition(actual->next->sprite, VC{env->c_game.starting_square.x * 60 + 30 + rand() % 30 - 15, env->c_game.starting_square.y * 60 + 30 + rand() % 30 - 15});
+    actual->next->texture = to_clone.texture;
+    sfSprite_setTexture(actual->next->sprite, actual->next->texture, sfFalse);
+    sfSprite_setOrigin(actual->next->sprite, VC{sfSprite_getGlobalBounds(actual->next->sprite).width / 2, sfSprite_getGlobalBounds(actual->next->sprite).height / 2});
+    actual->next->next = NULL;
+}
+
 void create_enemy_type_1(env_t *env)
 {
     enemy *actual = env->c_game.enemies;

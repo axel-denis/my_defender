@@ -35,11 +35,13 @@ sfCircleShape *create_range()
 
 void game(sfRenderWindow *window, object mouse, env_t *env)
 {
-    enemy *enemies = create_enemies_type();
-    int open = 1;
     create_game(env);
+    enemy *enemies_type = create_enemies_type();
+    wave_t wave = wave_create(env, enemies_type);
+    int open = 1;
     int pick = -1;
     sfClock *clock = sfClock_create();
+    env->c_game.wave_timer = sfClock_create();
     hud hud_player = create_hud();
     object background = create_object("img/background.jpg", VC{0, 0}, VC{1, 1});
     object worm_hole = create_object("img/icon.png", VC{env->c_game.starting_square.x * 60 - 5, env->c_game.starting_square.y * 60 - 58}, VC{.4, 1});
@@ -50,6 +52,7 @@ void game(sfRenderWindow *window, object mouse, env_t *env)
     setmap_opacity(env);
     sfClock_restart(env->c_game.clock);
     while (sfRenderWindow_isOpen(window) && open) {
+        wave = wave_manage(env, enemies_type, wave);
         /* Act */
 
         sfRenderWindow_clear(window, sfBlack);
@@ -67,10 +70,10 @@ void game(sfRenderWindow *window, object mouse, env_t *env)
         display_turrets_button_ui(buttons, window, pick, env);
         display_turrets(window, env, range, get_true_mouse_pos(window));
         display_enemies(window, env);
+        sfRenderWindow_drawSprite(window, worm_hole2.sprite, NULL);
         evolve_display_bullets(env, window);
         display_picked_turret(pick, buttons, window);
         update_mouse_cursor(window, mouse, env->tempo);
-        sfRenderWindow_drawSprite(window, worm_hole2.sprite, NULL);
         sfRenderWindow_display(window);
 
         evolve_all_enemies(env);
@@ -84,7 +87,6 @@ void game(sfRenderWindow *window, object mouse, env_t *env)
                 open = 0;
             sfClock_restart(env->c_game.clock);
         }
-
         if (sfTime_asMilliseconds(sfClock_getElapsedTime(env->c_game.clock)) > 16)
             sfClock_restart(env->c_game.clock);
     }

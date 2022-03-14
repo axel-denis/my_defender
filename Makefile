@@ -24,6 +24,8 @@ SRC			=	src/ui.c 				\
 				src/csfml_utils.c 		\
 				src/map_display.c		\
 				src/player_data.c		\
+				src/wave_create.c		\
+				src/wave_manager.c		\
 				src/options_text.c		\
 				src/button_setup.c 		\
 				src/button_utils.c 		\
