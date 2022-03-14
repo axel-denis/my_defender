@@ -87,23 +87,17 @@ void evolve_enemy(env_t *env, enemy *mob)
     sfVector2f movement = {0, 0};
 
     if (mob->disp.x == 0 && mob->disp.y == 0 &&
-        pos.x < MAP_LEN * 60 - 15&& pos.y < MAP_HEIGHT * 60 - 15) {
+        pos.x < MAP_LEN * 60 - 15 && pos.y < MAP_HEIGHT * 60 - 15) {
         mob->disp.x = ((nextpath.x > get_case_coords(pos).x) - (nextpath.x < get_case_coords(pos).x));
         mob->disp.y = ((nextpath.y > get_case_coords(pos).y) - (nextpath.y < get_case_coords(pos).y));
         mob->disp.x *= 1 / mob->speed * 60;
         mob->disp.y *= 1 / mob->speed * 60;
-        //printf("disp is %f %f\n", mob->disp.x, mob->disp.y);
     }
 
-    //printf("olala disp %f speed %f result %f\n", ABS(mob->disp.x), mob->speed, MIN(mob->speed, ABS(mob->disp.x)));
-    movement.x = ((mob->disp.x > 0) - (mob->disp.x < 0)) * mob->speed; //MIN(mob->speed, ABS(mob->disp.x));
-    movement.y = ((mob->disp.y > 0) - (mob->disp.y < 0)) * mob->speed; //MIN(mob->speed, ABS(mob->disp.y));
-    //printf("movement updated to %f %f\n", movement.x, movement.y);
-    //printf("disp x %f moins %f | %f (%d * %f)\n", mob->disp.x, ((mob->disp.x < 0) - (mob->disp.x > 0)) * mob->speed,      ((mob->disp.x < 0) - (mob->disp.x > 0)) * MIN(mob->speed, ABS(mob->disp.x)),       ((mob->disp.x < 0) - (mob->disp.x > 0)),     MIN(mob->speed, ABS(mob->disp.x)));
-    mob->disp.x += ((mob->disp.x < 0) - (mob->disp.x > 0)) * mob->speed;
-    mob->disp.y += ((mob->disp.y < 0) - (mob->disp.y > 0)) * mob->speed;
-    //printf("disp updated to %f %f\n", mob->disp.x, mob->disp.y);
-    //printf("\n");
+    movement.x = ((mob->disp.x > 0) - (mob->disp.x < 0)) * (MIN(mob->speed, (ABS(mob->disp.x))));
+    movement.y = ((mob->disp.y > 0) - (mob->disp.y < 0)) * (MIN(mob->speed, (ABS(mob->disp.y))));
+    mob->disp.x += ((mob->disp.x < 0) - (mob->disp.x > 0)) * (MIN(mob->speed, (ABS(mob->disp.x))));
+    mob->disp.y += ((mob->disp.y < 0) - (mob->disp.y > 0)) * (MIN(mob->speed, (ABS(mob->disp.y))));
     sfSprite_move(mob->sprite, movement);
 }
 
