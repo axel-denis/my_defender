@@ -18,7 +18,7 @@ wave_t wave_manage(env_t *env, enemy *enemies_type, wave_t current_wave)
         return (wave_create(env, enemies_type));
     }
     if (sfTime_asSeconds(sfClock_getElapsedTime(env->c_game.wave_timer)) >
-        0.5 / env->c_game.player_stats.wave) {
+        0.5 / ((float) env->c_game.player_stats.wave / 10)) {
         sfClock_restart(env->c_game.wave_timer);
         if (current_wave.nbr1 > 0) {
             clone_enemy(env, enemies_type[current_wave.type1]);

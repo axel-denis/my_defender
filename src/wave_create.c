@@ -67,7 +67,7 @@ void second_adding_ennemies(enemy *enemies_type, wave_t *wave, int nb, int len)
 
 wave_t wave_create(env_t *env, enemy *enemies_type)
 {
-    int nbr_a = 10 * env->c_game.player_stats.wave;
+    int nbr_a = 10 * env->c_game.player_stats.wave / 5;
     int nbr_t = 1 + rand() % 3;
     wave_t current_wave = {0, 0, 0, 0};
     int len;
