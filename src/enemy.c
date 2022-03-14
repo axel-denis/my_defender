@@ -78,10 +78,14 @@ void create_enemy_type_1(env_t *env)
     actual->next = template_enemy(1, 4, 100);
     actual->next->sprite = sfSprite_create();
     actual->next->disp = VC{0, 0};
-    sfSprite_setPosition(actual->next->sprite, VC{env->c_game.starting_square.x * 60 + 30 + rand() % 30 - 15, env->c_game.starting_square.y * 60 + 30 + rand() % 30 - 15});
+    sfSprite_setPosition(actual->next->sprite, VC{
+        env->c_game.starting_square.x * 60 + 30 + rand() % 30 - 15,
+        env->c_game.starting_square.y * 60 + 30 + rand() % 30 - 15});
     actual->next->texture = sfTexture_createFromFile("img/type1.png", NULL);
     sfSprite_setTexture(actual->next->sprite, actual->next->texture, sfFalse);
-    sfSprite_setOrigin(actual->next->sprite, VC{sfSprite_getGlobalBounds(actual->next->sprite).width / 2, sfSprite_getGlobalBounds(actual->next->sprite).height / 2});
+    sfSprite_setOrigin(actual->next->sprite, VC{sfSprite_getGlobalBounds(
+        actual->next->sprite).width / 2,
+        sfSprite_getGlobalBounds(actual->next->sprite).height / 2});
     actual->next->next = NULL;
 }
 
@@ -98,10 +102,14 @@ void create_test_enemy(env_t *env, int health)
     actual->next = template_enemy(1, 1, health);
     actual->next->sprite = sfSprite_create();
     actual->next->disp = VC{0, 0};
-    sfSprite_setPosition(actual->next->sprite, VC{env->c_game.starting_square.x * 60 + 30 + rand() % 30 - 15, env->c_game.starting_square.y * 60 + 30 + rand() % 30 - 15});
+    sfSprite_setPosition(actual->next->sprite, VC{env->c_game.starting_square.x
+        * 60 + 30 + rand() % 30 - 15,
+        env->c_game.starting_square.y * 60 + 30 + rand() % 30 - 15});
     actual->next->texture = sfTexture_createFromFile("img/type1.png", NULL);
     sfSprite_setTexture(actual->next->sprite, actual->next->texture, sfFalse);
-    sfSprite_setOrigin(actual->next->sprite, VC{sfSprite_getGlobalBounds(actual->next->sprite).width / 2, sfSprite_getGlobalBounds(actual->next->sprite).height / 2});
+    sfSprite_setOrigin(actual->next->sprite, VC{sfSprite_getGlobalBounds(
+        actual->next->sprite).width / 2,
+        sfSprite_getGlobalBounds(actual->next->sprite).height / 2});
     actual->next->next = NULL;
 }
 
@@ -114,16 +122,21 @@ void evolve_enemy(env_t *env, enemy *mob)
 
     if (mob->disp.x == 0 && mob->disp.y == 0 &&
         pos.x < MAP_LEN * 60 - 15 && pos.y < MAP_HEIGHT * 60 - 15) {
-        mob->disp.x = ((nextpath.x > get_case_coords(pos).x) - (nextpath.x < get_case_coords(pos).x));
-        mob->disp.y = ((nextpath.y > get_case_coords(pos).y) - (nextpath.y < get_case_coords(pos).y));
+        mob->disp.x = ((nextpath.x > get_case_coords(pos).x)
+            - (nextpath.x < get_case_coords(pos).x));
+        mob->disp.y = ((nextpath.y > get_case_coords(pos).y)
+            - (nextpath.y < get_case_coords(pos).y));
         mob->disp.x *= 1 / mob->speed * 60;
         mob->disp.y *= 1 / mob->speed * 60;
     }
-
-    movement.x = ((mob->disp.x > 0) - (mob->disp.x < 0)) * (MIN(mob->speed, (ABS(mob->disp.x))));
-    movement.y = ((mob->disp.y > 0) - (mob->disp.y < 0)) * (MIN(mob->speed, (ABS(mob->disp.y))));
-    mob->disp.x += ((mob->disp.x < 0) - (mob->disp.x > 0)) * (MIN(mob->speed, (ABS(mob->disp.x))));
-    mob->disp.y += ((mob->disp.y < 0) - (mob->disp.y > 0)) * (MIN(mob->speed, (ABS(mob->disp.y))));
+    movement.x = ((mob->disp.x > 0) - (mob->disp.x < 0))
+        * (MIN(mob->speed, (ABS(mob->disp.x))));
+    movement.y = ((mob->disp.y > 0) - (mob->disp.y < 0))
+        * (MIN(mob->speed, (ABS(mob->disp.y))));
+    mob->disp.x += ((mob->disp.x < 0) - (mob->disp.x > 0))
+        * (MIN(mob->speed, (ABS(mob->disp.x))));
+    mob->disp.y += ((mob->disp.y < 0) - (mob->disp.y > 0))
+        * (MIN(mob->speed, (ABS(mob->disp.y))));
     sfSprite_move(mob->sprite, movement);
 }
 
