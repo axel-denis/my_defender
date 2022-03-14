@@ -48,7 +48,7 @@ void create_enemy_type_1(env_t *env)
     }
     while (actual->next != NULL)
         actual = actual->next;
-    actual->next = template_enemy(1, 1, 100);
+    actual->next = template_enemy(1, 4, 100);
     actual->next->sprite = sfSprite_create();
     actual->next->disp = VC{0, 0};
     sfSprite_setPosition(actual->next->sprite, VC{env->c_game.starting_square.x * 60 + 30 + rand() % 30 - 15, env->c_game.starting_square.y * 60 + 30 + rand() % 30 - 15});
@@ -70,7 +70,6 @@ void create_test_enemy(env_t *env, int health)
         actual = actual->next;
     actual->next = template_enemy(1, 1, health);
     actual->next->sprite = sfSprite_create();
-    actual->next->speed = 1;
     actual->next->disp = VC{0, 0};
     sfSprite_setPosition(actual->next->sprite, VC{env->c_game.starting_square.x * 60 + 30 + rand() % 30 - 15, env->c_game.starting_square.y * 60 + 30 + rand() % 30 - 15});
     actual->next->texture = sfTexture_createFromFile("img/type1.png", NULL);
