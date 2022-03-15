@@ -140,6 +140,7 @@ void evolve_enemy(env_t *env, enemy *mob)
     sfSprite_move(mob->sprite, movement);
 }
 
+//get nearest enemy
 enemy *get_nearest(env_t *env, sfVector2f pos)
 {
     enemy *actual = env->c_game.enemies;

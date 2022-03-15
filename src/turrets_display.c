@@ -36,6 +36,7 @@ void display_turrets(sfRenderWindow *window, env_t *env, sfCircleShape *range, s
             sfCircleShape_setPosition(range, VC{pos.x, pos.y});
             sfRenderWindow_drawCircleShape(window, range, NULL);
         }
+        new_bullet(env, get_nearest(env, sfSprite_getPosition(actual->sprite)), actual);
         sfRenderWindow_drawSprite(window, actual->sprite, NULL);
         actual = actual->next;
     }
