@@ -61,6 +61,7 @@ typedef struct button_s {
 typedef struct game_data_s {
     sfTexture *ground_texture;
     sfTexture *path_texture;
+    sfTexture *bullet_texture;
     sfMusic *music;
 } game_data;
 
@@ -139,6 +140,7 @@ typedef struct hud_s {
 
 typedef struct bullet_s {
     int is_null;
+    int type;
     float speed;
     int damage;
     sfVector2f direction;

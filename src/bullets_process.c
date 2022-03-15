@@ -11,12 +11,12 @@
 #include "enemy.h"
 #include "map.h"
 #include "maths.h"
+#include "bullets.h"
 
-int evolve_bullet(bullet_t *bullet)
+int evolve_bullet(bullet_t *bullet, env_t *env)
 {
     sfVector2f movement = bullet->direction;
     sfVector2f pos = sfSprite_getPosition(bullet->sprite);
-    sfVector2f enemy_pos = sfSprite_getPosition(bullet->target->sprite);
     sfVector2f shooter_pos = sfSprite_getPosition(bullet->shooter->sprite);
 
     if (bullet->is_null == 1)
@@ -24,10 +24,8 @@ int evolve_bullet(bullet_t *bullet)
     movement.x *= bullet->speed;
     movement.y *= bullet->speed;
     sfSprite_move(bullet->sprite, movement);
-    if (dist_two_points(pos, enemy_pos) < 15) {
-        bullet->target->health -= bullet->damage;
+    if (bullet_collision(bullet, env) == 1 && bullet->type != -5) // remplacer -5 par le type des bullets percants
         return 1;
-    }
     if (dist_two_points(pos, shooter_pos) > bullet->shooter->range) {
         return 1;
     }
@@ -51,7 +49,7 @@ void evolve_display_bullets(env_t *env, sfRenderWindow *win)
             continue;
         }
         sfRenderWindow_drawSprite(win, actual->sprite, NULL);
-        if (evolve_bullet(actual)) {
+        if (evolve_bullet(actual, env)) {
             prec->next = actual->next;
             free_bullet(&actual);
             actual = prec;

@@ -112,6 +112,7 @@ env_t *create_env(void)
     env->data.ground_texture =
         sfTexture_createFromFile("img/grass.png", NULL);
     env->data.path_texture = sfTexture_createFromFile("img/dirt.png", NULL);
+    env->data.bullet_texture = sfTexture_createFromFile("img/base_arrow.png", NULL);
     env->c_game.player_stats.wave = 1;
     env->c_game.enemies = NULL;
     env->c_game.turrets = NULL;

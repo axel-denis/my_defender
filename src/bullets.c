@@ -10,14 +10,35 @@
 #include "map.h"
 #include "maths.h"
 
+#define DIST_COLLISION 15
+
+int bullet_collision(bullet_t *bullet, env_t *env)
+{
+    enemy *actual = env->c_game.enemies;
+    sfVector2f pos = sfSprite_getPosition(bullet->sprite);
+
+    while (actual != NULL) {
+        if (actual->type == 0) {
+            actual = actual->next;
+            continue;
+        }
+        if (dist_two_points(pos, sfSprite_getPosition(actual->sprite)) < DIST_COLLISION) {
+            actual->health -= bullet->damage;
+            return 1;
+        }
+        actual = actual->next;
+    }
+    return 0;
+}
+
 bullet_t *null_bullet(void)
 {
     bullet_t *output = malloc(sizeof(bullet_t));
 
     output->is_null = 1;
+    output->type = 0;
     output->speed = 0;
     output->damage = 0;
-    output->target = NULL;
     output->shooter = NULL;
     output->direction = VC{0, 0};
     output->sprite = NULL;
@@ -25,7 +46,7 @@ bullet_t *null_bullet(void)
     return output;
 }
 
-bullet_t *create_bullet(enemy *target, turret_t *shooter)
+bullet_t *create_bullet(enemy *target, turret_t *shooter, env_t *env)
 {
     bullet_t *output = malloc(sizeof(bullet_t));
     sfVector2f target_pos = sfSprite_getPosition(target->sprite);
@@ -35,14 +56,13 @@ bullet_t *create_bullet(enemy *target, turret_t *shooter)
         sin(angle * 2 * M_PI / 360)};
 
     output->direction = direction;
-    output->target = target;
     output->shooter = shooter;
     output->is_null = 0;
+    output->type = 1;
     output->speed = 15;
     output->damage = 5;
     output->sprite = sfSprite_create();
-    sfTexture *texture = sfTexture_createFromFile("img/base_arrow.png", NULL);
-    sfSprite_setTexture(output->sprite, texture, sfFalse); //OPTIMIZE THIS SHIT, DON'T WANT TO PAY FOR THE CRIME OF LOADING IT AT EACH TIME
+    sfSprite_setTexture(output->sprite, env->data.bullet_texture, sfFalse);
     sfSprite_setPosition(output->sprite, shooter_pos);
     sfSprite_setScale(output->sprite, VC{.1, .1});
     sfSprite_setRotation(output->sprite, angle);
@@ -54,6 +74,8 @@ void new_bullet(env_t *env, enemy *target, turret_t *shooter)
 {
     bullet_t *actual = env->c_game.bullets;
 
+    if (target == NULL)
+        return;
     if (actual == NULL) {
         env->c_game.bullets = null_bullet();
         actual = env->c_game.bullets;
@@ -61,5 +83,5 @@ void new_bullet(env_t *env, enemy *target, turret_t *shooter)
     while (actual->next != NULL) {
         actual = actual->next;
     }
-    actual->next = create_bullet(target, shooter);
+    actual->next = create_bullet(target, shooter, env);
 }
