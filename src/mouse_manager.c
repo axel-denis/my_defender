@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2022
 ** My_Defender
 ** File description:
-** mouse_manager
+** mouse_manager c
 */
 
 #include "mouse.h"

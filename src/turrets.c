@@ -60,7 +60,6 @@ void clone_turret(env_t *env, turret_t *turret, sfVector2f pos)
     actual->next->position = VC{pos.x * 60 + 30, pos.y * 60 + 30};
     sfSprite_setPosition(actual->next->sprite, actual->next->position);
     actual->next->next = NULL;
-    new_bullet(env, get_nearest(env, sfSprite_getPosition(actual->next->sprite)), actual->next);
 }
 
 turret_t *create_turret_1()

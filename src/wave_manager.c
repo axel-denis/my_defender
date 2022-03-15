@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2022
 ** My_Defender
 ** File description:
-** wave_manager
+** wave_manager c
 */
 
 #include "enemy.h"

@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2022
 ** My_Defender
 ** File description:
-** options
+** options c
 */
 
 #include "csfml.h"
@@ -73,7 +73,7 @@ void volume_manager2(button *but, sfRenderWindow *window, int *keys, env_t *env)
             env->volume = 0;
         set_button_volume_txt(&(but[4]), env);
     }
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < 10; i++) {
         sfSound_setVolume(but[i].click, env->volume);
         sfSound_setVolume(but[i].hover, env->volume/1.4);
     }

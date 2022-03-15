@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2022
 ** My_Defender
 ** File description:
-** options_managers2
+** options_managers2 c
 */
 
 #include "csfml.h"

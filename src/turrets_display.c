@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2022
 ** My_Defender
 ** File description:
-** turrets_display
+** turrets_display c
 */
 
 #include "csfml.h"
@@ -12,32 +12,38 @@
 #include "map.h"
 #include "maths.h"
 
-void display_turrets(sfRenderWindow *window, env_t *env, sfCircleShape *range, sfVector2f mouse_pos)
+void d_range(sfVector2f mo, turret_t *ac, sfRenderWindow *win, sfCircleShape *r)
 {
-    turret_t *actual = env->c_game.turrets;
+    sfVector2f pos = sfSprite_getPosition(ac->sprite);
+
+    if (pos_in_square(mo, (sfFloatRect){pos.x - 30, pos.y - 30, 60, 60})) {
+        sfCircleShape_setRadius(r, ac->range);
+        sfCircleShape_setOrigin(r, VC{ac->range, ac->range});
+        sfCircleShape_setPosition(r, VC{pos.x, pos.y});
+        sfRenderWindow_drawCircleShape(win, r, NULL);
+    }
+}
+
+void display_turret(sfRenderWindow *w, env_t *e, sfCircleShape *r, sfVector2f m)
+{
+    turret_t *actu = e->c_game.turrets;
     enemy *nearest = NULL;
     sfVector2f near_pos = {0, 1};
-    sfVector2f pos = {0, 0};
 
-    while (actual != NULL) {
-        if (actual->type == 0) {
-            actual = actual->next;
+    while (actu != NULL) {
+        if (actu->type == 0) {
+            actu = actu->next;
             continue;
         }
-        nearest = get_nearest(env, sfSprite_getPosition(actual->sprite));
-        pos = sfSprite_getPosition(actual->sprite);
+        nearest = get_nearest(e, sfSprite_getPosition(actu->sprite));
         if (nearest != NULL) {
             near_pos = sfSprite_getPosition(nearest->sprite);
-            sfSprite_setRotation(actual->sprite, A_regarde_B(pos, near_pos));
+            sfSprite_setRotation(actu->sprite,
+            A_regarde_B(sfSprite_getPosition(actu->sprite), near_pos));
         }
-        if (pos_in_square(mouse_pos, (sfFloatRect){pos.x - 30, pos.y - 30, 60, 60})) {
-            sfCircleShape_setRadius(range, actual->range);
-            sfCircleShape_setOrigin(range, VC{actual->range, actual->range});
-            sfCircleShape_setPosition(range, VC{pos.x, pos.y});
-            sfRenderWindow_drawCircleShape(window, range, NULL);
-        }
-        new_bullet(env, get_nearest(env, sfSprite_getPosition(actual->sprite)), actual);
-        sfRenderWindow_drawSprite(window, actual->sprite, NULL);
-        actual = actual->next;
+        d_range(m, actu, w, r);
+        new_bullet(e, get_nearest(e, sfSprite_getPosition(actu->sprite)), actu);
+        sfRenderWindow_drawSprite(w, actu->sprite, NULL);
+        actu = actu->next;
     }
 }

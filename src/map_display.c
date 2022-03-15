@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2021
 ** mydefender
 ** File description:
-** map_reader.c
+** map_reader c
 */
 
 #include "csfml.h"
@@ -42,19 +42,25 @@ void setmap_opacity(env_t *env)
     }
 }
 
-void display_map(env_t *env, sfRenderWindow *window)
+void display_case(env_t *env, sfRenderWindow *window, int i, int j)
 {
     sfColor old_color;
 
+    if (get_case_from_mouse(env, get_true_mouse_pos(window)) ==
+        env->c_game.map[i][j].sprite) {
+        old_color = sfSprite_getColor(env->c_game.map[i][j].sprite);
+        sfSprite_setColor(env->c_game.map[i][j].sprite, sfWhite);
+        sfRenderWindow_drawSprite(window, env->c_game.map[i][j].sprite, NULL);
+        sfSprite_setColor(env->c_game.map[i][j].sprite, old_color);
+    } else
+        sfRenderWindow_drawSprite(window, env->c_game.map[i][j].sprite, NULL);
+}
+
+void display_map(env_t *env, sfRenderWindow *window)
+{
     for (int i = 0; i < 18; i++) {
         for (int j = 0; j < 32; j++) {
-            if (get_case_from_mouse(env, get_true_mouse_pos(window)) == env->c_game.map[i][j].sprite) {
-                old_color = sfSprite_getColor(env->c_game.map[i][j].sprite);
-                sfSprite_setColor(env->c_game.map[i][j].sprite, sfColor_fromRGBA(255, 255, 255, 255));
-                sfRenderWindow_drawSprite(window, env->c_game.map[i][j].sprite, NULL);
-                sfSprite_setColor(env->c_game.map[i][j].sprite, old_color);
-            } else
-                sfRenderWindow_drawSprite(window, env->c_game.map[i][j].sprite, NULL);
+            display_case(env, window, i, j);
         }
     }
 }

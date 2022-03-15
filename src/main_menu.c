@@ -28,24 +28,23 @@ void change_button_text(button *buttons, env_t *env)
         center_button_text(&(buttons[i]));
 }
 
-button *create_buttons_menu(env_t *env)
+button *create_buttons_menu(env_t *e)
 {
-    button *buttons = malloc(sizeof(button) * 3);
+    button *b = malloc(sizeof(button) * 3);
     sfIntRect square = create_rect(0, 0, 6065 / 3, 833);
 
-    buttons[0] = create_button(VC{0.2, 0.2}, VC{WINDOW_WIDTH / 2 - ((6065 / 3) / 2) * 0.2 + 500, WINDOW_HEIGHT / 2 - 150}, sfTrue);
-    buttons[1] = create_button(VC{0.2, 0.2}, VC{WINDOW_WIDTH / 2 - ((6065 / 3) / 2) * 0.2 + 500, WINDOW_HEIGHT / 2 + 50}, sfTrue);
-    buttons[2] = create_button(VC{0.2, 0.2}, VC{WINDOW_WIDTH / 2 - ((6065 / 3) / 2) * 0.2 + 500, WINDOW_HEIGHT / 2 + 250}, sfTrue);
+    b[0] = create_button(VC{.2, .2}, VC{1258, 390}, sfTrue);
+    b[1] = create_button(VC{.2, .2}, VC{1258, 590}, sfTrue);
+    b[2] = create_button(VC{.2, .2}, VC{1258, 790}, sfTrue);
     for (int i = 0; i < 3; i++) {
-        setup_button_texture(&(buttons[i]), &square, "img/Blue_button.png");
-        setup_button_sounds(&(buttons[i]), "sounds/click.ogg", "sounds/hover.ogg", env);
+        setup_button_texture(&(b[i]), &square, "img/Blue_button.png");
+        setup_button_sounds(&(b[i]), "sounds/click.ogg", "sounds/hover.ogg", e);
     }
-    setup_button_text(&(buttons[0]), "Start", "font/Xero.ttf", 40);
-    setup_button_text(&(buttons[1]), "Options", "font/Xero.ttf", 40);
-    setup_button_text(&(buttons[2]), "Quit", "font/Xero.ttf", 40);
-    return (buttons);
+    setup_button_text(&(b[0]), "Start", "font/Xero.ttf", 40);
+    setup_button_text(&(b[1]), "Options", "font/Xero.ttf", 40);
+    setup_button_text(&(b[2]), "Quit", "font/Xero.ttf", 40);
+    return (b);
 }
-
 
 void main_menu(sfRenderWindow *window, object mouse, env_t *env)
 {
@@ -53,9 +52,8 @@ void main_menu(sfRenderWindow *window, object mouse, env_t *env)
     int open = 1;
     object background = create_object("img/newbg.jpg", VC{0, 0}, VC{1, 1});
     text texte = setup_text("  Planet\nDefender", "font/o_driftbold.ttf", 150);
-    sfFloatRect ownscale = sfText_getGlobalBounds(texte.text);
 
-    sfText_setPosition(texte.text, VC{WINDOW_WIDTH / 2 - ownscale.width / 2 + 500, WINDOW_HEIGHT / 2 - 490});
+    sfText_setPosition(texte.text, VC{1131, 50});
     while (sfRenderWindow_isOpen(window) && open) {
         sfRenderWindow_clear(window, sfBlack);
         sfRenderWindow_drawSprite(window, background.sprite, NULL);
@@ -79,6 +77,10 @@ void main_menu(sfRenderWindow *window, object mouse, env_t *env)
             open = 0;
         sfRenderWindow_display(window);
     }
+    sfSprite_destroy(background.sprite);
+    sfTexture_destroy(background.texture);
+    sfText_destroy(texte.text);
+    sfFont_destroy(texte.font);
     for (int i = 0; i < 3; i++)
         destroy_button(buttons[i]);
 }

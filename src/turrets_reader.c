@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2021
 ** mydefender
 ** File description:
-** turrets_reader.c
+** turrets_reader c
 */
 
 #include <stdio.h>

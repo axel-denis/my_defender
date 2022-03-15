@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2022
 ** My_Defender
 ** File description:
-** math_utils
+** math_utils c
 */
 
 #include "csfml.h"

@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2022
 ** My_Defender
 ** File description:
-** ui_create
+** ui_create c
 */
 
 #include "csfml.h"
@@ -36,31 +36,41 @@ void setup_popup_text(pop_button *bouton, turret_t turret, int i)
     free(s_per_s);
 }
 
+void create_icons(pop_button *but, int i)
+{
+    but->energy = create_object("img/Elecricity.png",
+        VC{i * 180 + 12, 981 + 80}, VC{.05, .05});
+    but->steel = create_object("img/steel.png",
+        VC{i * 180 + 12, 1001+ 80}, VC{.05, .05});
+    but->energy_income_pos = create_object("img/green_arrow.png",
+        VC{i * 180 + 12, 1101}, VC{.05, .05});
+    but->energy_income_neu = create_object("img/Neutral.png",
+        VC{i * 180 + 12, 1101}, VC{.05, .05});
+    but->energy_income_neg = create_object("img/red_arrow.png",
+        VC{i * 180 + 12, 1101}, VC{.05, .05});
+    but->steel_income_pos = create_object("img/green_arrow.png",
+        VC{i * 180 + 12, 1041 + 80}, VC{.05, .05});
+    but->steel_income_neu = create_object("img/Neutral.png",
+        VC{i * 180 + 12, 1041 + 80}, VC{.05, .05});
+    but->steel_income_neg = create_object("img/red_arrow.png",
+        VC{i * 180 + 12, 1041 + 80}, VC{.05, .05});
+}
+
 pop_button *create_turret_button_ui(env_t *env)
 {
     pop_button *button = NULL;
     turret_t *turrets = create_turret_type(env);
-    sfVector2f scale;
-    sfVector2f pos;
     int i = 0;
 
     for (i = 0; turrets[i].type != 0; i++);
     button = malloc(sizeof(pop_button) * (i + 1));
     for (i = 0; turrets[i].type != 0; i++) {
         setup_popup_text(&button[i], turrets[i], i);
-        pos = VC{i * 180, 900};
-        button[i].energy = create_object("img/Elecricity.png", VC{i * 180 + 12, 981 + 80}, VC{.05, .05});
-        button[i].steel = create_object("img/steel.png", VC{i * 180 + 12, 1001+ 80}, VC{.05, .05});
-        button[i].energy_income_pos = create_object("img/green_arrow.png", VC{i * 180 + 12, 1021 + 80}, VC{.05, .05});
-        button[i].energy_income_neu = create_object("img/Neutral.png", VC{i * 180 + 12, 1021 + 80}, VC{.05, .05});
-        button[i].energy_income_neg = create_object("img/red_arrow.png", VC{i * 180 + 12, 1021 + 80}, VC{.05, .05});
-        button[i].steel_income_pos = create_object("img/green_arrow.png", VC{i * 180 + 12, 1041 + 80}, VC{.05, .05});
-        button[i].steel_income_neu = create_object("img/Neutral.png", VC{i * 180 + 12, 1041 + 80}, VC{.05, .05});
-        button[i].steel_income_neg = create_object("img/red_arrow.png", VC{i * 180 + 12, 1041 + 80}, VC{.05, .05});
-        button[i].onglet = create_object("img/onglet.png", pos, VC{2, 2.2});
-        pos = VC{i * 180 + 90, 900 + 80};
-        scale = VC{.2, .2};
-        button[i].icon = create_textured_object(turrets[i].texture, pos, scale);
+        button[i].onglet = create_object("img/onglet.png", VC{i * 180, 900},
+        VC{2, 2.2});
+        create_icons(&button[i], i);
+        button[i].icon = create_textured_object(turrets[i].texture,
+        VC{i * 180 + 90, 900 + 80}, VC{.2, .2});
         button[i].type = &(turrets[i]);
         sfSprite_setOrigin(button[i].icon.sprite, VC{150, 250});
         sfSprite_setRotation(button[i].icon.sprite, 90);

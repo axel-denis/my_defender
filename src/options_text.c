@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2022
 ** My_Defender
 ** File description:
-** options_text
+** options_text c
 */
 
 #include "csfml.h"
@@ -93,8 +93,7 @@ void set_button_vsync_txt(button *buttons, env_t *env)
     }
     vsync_txt = malloc(sizeof(char *) * (7 + my_strlen(vsync)));
     vsync_txt = my_strcpy(vsync_txt, "Vsync: ");
-    my_strcat(vsync_txt, vsync);
-    sfText_setString(buttons->text.text, vsync_txt);
+    sfText_setString(buttons->text.text, my_strcat(vsync_txt, vsync));
     center_button_text(buttons);
     free(vsync);
     free(vsync_txt);

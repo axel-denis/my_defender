@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2022
 ** My_Defender
 ** File description:
-** ui_display
+** ui_display c
 */
 
 #include "csfml.h"
@@ -12,32 +12,6 @@
 #include "turrets.h"
 #include "hud.h"
 #include "ui.h"
-
-void display_turret_icon(pop_button *bu, sfRenderWindow *w, int i)
-{
-    sfColor dark = sfColor_fromRGBA(220, 220, 220, 150);
-    sfVector2f p = get_true_mouse_pos(w);
-
-    if (pos_in_square(p, sfSprite_getGlobalBounds(bu[i].icon.sprite))) {
-        sfSprite_setColor(bu[i].icon.sprite, dark);
-        sfRenderWindow_drawSprite(w, bu[i].icon.sprite, NULL);
-        sfSprite_setColor(bu[i].icon.sprite, sfWhite);
-    } else {
-        sfRenderWindow_drawSprite(w, bu[i].icon.sprite, NULL);
-    }
-}
-
-void display_picked_turret(int pickedup, pop_button *buttons, sfRenderWindow *w)
-{
-    if (pickedup != -1) {
-        sfColor darken = sfColor_fromRGBA(220, 220, 220, 150);
-        sfColor normal = sfColor_fromRGBA(255, 255, 255, 255);
-
-        sfSprite_setColor(buttons[pickedup].icon.sprite, darken);
-        sfRenderWindow_drawSprite(w, buttons[pickedup].icon.sprite, NULL);
-        sfSprite_setColor(buttons[pickedup].icon.sprite, normal);
-    }
-}
 
 void draw_text_ui(int stock, int cost, text text, sfRenderWindow *window)
 {
@@ -71,7 +45,7 @@ void move_up(sfRenderWindow *window, pop_button *but)
     sfVector2f mouse_pos = get_true_mouse_pos(window);
     sfFloatRect rect = sfSprite_getGlobalBounds(but->onglet.sprite);
 
-    if (pos_in_square(mouse_pos, rect) == sfTrue && sfSprite_getPosition(but->onglet.sprite).y > 800) {
+    if (HOVER && sfSprite_getPosition(but->onglet.sprite).y > 800) {
         sfSprite_move(but->onglet.sprite, VC{0, -4});
         sfSprite_move(but->icon.sprite, VC{0, -4});
         sfSprite_move(but->energy_income_neg.sprite, VC{0, -4});
@@ -95,7 +69,7 @@ void move_down(sfRenderWindow *window, pop_button *but)
     sfVector2f mouse_pos = get_true_mouse_pos(window);
     sfFloatRect rect = sfSprite_getGlobalBounds(but->onglet.sprite);
 
-    if (pos_in_square(mouse_pos, rect) == sfFalse && sfSprite_getPosition(but->onglet.sprite).y < 900) {
+    if (NOT_HOVER && sfSprite_getPosition(but->onglet.sprite).y < 900) {
         sfSprite_move(but->onglet.sprite, VC{0, 4});
         sfSprite_move(but->icon.sprite, VC{0, 4});
         sfSprite_move(but->energy_income_neg.sprite, VC{0, 4});
@@ -114,25 +88,25 @@ void move_down(sfRenderWindow *window, pop_button *but)
     }
 }
 
-void display_turrets_button_ui(pop_button *buttons, sfRenderWindow *window, int pickedup, env_t *env)
+void display_turret_button_ui(pop_button *but, sfRenderWindow *win, int pick, env_t *env)
 {
-    for (int i = 0; buttons[i].onglet.sprite != NULL; i++) {
-        move_up(window, &buttons[i]);
-        move_down(window, &buttons[i]);
-        sfRenderWindow_drawSprite(window, buttons[i].onglet.sprite, NULL);
-        sfRenderWindow_drawText(window, buttons[i].titre.text, NULL);
-        sfRenderWindow_drawSprite(window, buttons[i].energy.sprite, NULL);
-        sfRenderWindow_drawSprite(window, buttons[i].steel.sprite, NULL);
-        draw_correct_arrow(buttons[i], window);
+    for (int i = 0; but[i].onglet.sprite != NULL; i++) {
+        move_up(win, &but[i]);
+        move_down(win, &but[i]);
+        sfRenderWindow_drawSprite(win, but[i].onglet.sprite, NULL);
+        sfRenderWindow_drawText(win, but[i].titre.text, NULL);
+        sfRenderWindow_drawSprite(win, but[i].energy.sprite, NULL);
+        sfRenderWindow_drawSprite(win, but[i].steel.sprite, NULL);
+        draw_correct_arrow(but[i], win);
         draw_text_ui(env->c_game.player_stats.energy,
-        buttons[i].type->energy_cost, buttons[i].energy_cost, window);
+        but[i].type->energy_cost, but[i].energy_cost, win);
         draw_text_ui(env->c_game.player_stats.energy_income,
-        buttons[i].type->energy_per_s, buttons[i].energy_per_s, window);
+        but[i].type->energy_per_s, but[i].energy_per_s, win);
         draw_text_ui(env->c_game.player_stats.steel,
-        buttons[i].type->steel_cost, buttons[i].steel_cost, window);
+        but[i].type->steel_cost, but[i].steel_cost, win);
         draw_text_ui(env->c_game.player_stats.steel_income,
-        buttons[i].type->steel_per_s, buttons[i].steel_per_s, window);
-        if (pickedup != i)
-            display_turret_icon(buttons, window, i);
+        but[i].type->steel_per_s, but[i].steel_per_s, win);
+        if (pick != i)
+            display_turret_icon(but, win, i);
     }
 }

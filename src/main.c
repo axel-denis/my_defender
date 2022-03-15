@@ -67,8 +67,8 @@ void game(sfRenderWindow *window, object mouse, env_t *env)
         display_map(env, window);
         display_hud(hud_player, env, window);
         sfRenderWindow_drawSprite(window, worm_hole.sprite, NULL);
-        display_turrets_button_ui(buttons, window, pick, env);
-        display_turrets(window, env, range, get_true_mouse_pos(window));
+        display_turret_button_ui(buttons, window, pick, env);
+        display_turret(window, env, range, get_true_mouse_pos(window));
         display_enemies(window, env);
         sfRenderWindow_drawSprite(window, worm_hole2.sprite, NULL);
         evolve_display_bullets(env, window);
@@ -83,7 +83,7 @@ void game(sfRenderWindow *window, object mouse, env_t *env)
             sfClock_restart(env->c_game.clock);
         }
         if (env->keys[sfKeyEscape] == 3) {
-            if (pause_menu(window, mouse, env->keys, env) == 1)
+            if (pause_menu(window, mouse, env) == 1)
                 open = 0;
             sfClock_restart(env->c_game.clock);
         }

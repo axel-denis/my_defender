@@ -14,6 +14,30 @@
 #include <sys/types.h>
 #include <dirent.h>
 
+int error_handling(char *name)
+{
+    int conti = 1;
+    int nbr = 0;
+    DIR *fd = opendir(name);
+    struct dirent *dir;
+
+    if (fd == NULL) {
+        write(2, "config folder missing\n", 22);
+        return (84);
+    }
+    for (int i = 0; conti == 1; i++) {
+        dir = readdir(fd);
+        if (dir == NULL)
+            conti = 0;
+        if (dir != NULL && dir->d_name[0] != '.')
+            nbr += 1;
+    }
+    closedir(fd);
+    if (nbr < 1)
+        return (84);
+    return (0);
+}
+
 enemy create_enemy_from_file(char *titre)
 {
     char *file = malloc(sizeof(char) * (1 + my_strlen(titre) + 8));

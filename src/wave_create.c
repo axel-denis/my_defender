@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2022
 ** My_Defender
 ** File description:
-** wave_create
+** wave_create c
 */
 
 #include "enemy.h"
