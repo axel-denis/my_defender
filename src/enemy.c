@@ -141,11 +141,11 @@ void evolve_enemy(env_t *env, enemy *mob)
 }
 
 //get nearest enemy
-enemy *get_nearest(env_t *env, sfVector2f pos)
+enemy *get_nearest(env_t *env, turret_t *turret)
 {
     enemy *actual = env->c_game.enemies;
     enemy *output = NULL;
-    float nearest = 2000;
+    sfVector2f pos = sfSprite_getPosition(turret->sprite);
     sfVector2f act_pos;
 
     while (actual != NULL) {
@@ -154,11 +154,11 @@ enemy *get_nearest(env_t *env, sfVector2f pos)
             continue;
         }
         act_pos = sfSprite_getPosition(actual->sprite);
-        if (dist_two_points(act_pos, pos) < nearest && actual->type != 0) {
-            nearest = dist_two_points(act_pos, pos);
-            output = actual;
+        if (dist_two_points(act_pos, pos) < turret->range
+            && actual->type != 0) {
+            return actual;
         }
         actual = actual->next;
     }
-    return output;
+    return NULL;
 }
