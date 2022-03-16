@@ -32,7 +32,7 @@ int pick_the_turret(pop_button *but, sfVector2f mouse_pos, int pick, env_t *env)
     sfVector2i co = get_case_coords(mouse_pos);
 
     if (env->keys[leftMouse] == 2 || env->keys[leftMouse] == 1) {
-        if (co.x > 0 && co.y > 0 && co.x < 32 && co.y < 18
+        if (co.x >= 0 && co.y >= 0 && co.x < 32 && co.y < 18
             && env->c_game.map[co.y][co.x].type == 0)
             sfSprite_setPosition(but[pick].icon.sprite, VC{co.x * 60 + 30, co.y * 60 + 30});
         else

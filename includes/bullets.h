@@ -1,3 +1,9 @@
+/*
+** EPITECH PROJECT, 2022
+** My_Defender
+** File description:
+** bullets
+*/
 
 #ifndef BULLETS_H
     #define BULLETS_H

@@ -15,8 +15,12 @@ pop_button *create_turret_button_ui(env_t *env);
 void display_turret_icon(pop_button *buttons, sfRenderWindow *window, int i);
 void display_turret_button_ui(pop_button *, sfRenderWindow *, int , env_t *env);
 int pickup_turrets(pop_button *but, sfVector2f mouse_pos, int pick, env_t *env);
-void display_picked_turret(int pickedup, pop_button *buttons, sfRenderWindow *w);
-void display_turret_icon(pop_button *bu, sfRenderWindow *w, int i);
+void display_picked_turret(int pickedup, pop_button *butt, sfRenderWindow *win);
+void display_turret_icon(pop_button *bu, sfRenderWindow *window, int i);
 void display_picked_turret(int pickedup, pop_button *buttons, sfRenderWindow *);
+void upgrade_menu(env_t *env, sfRenderWindow *window, upgrade_menu_t *, int);
+upgrade_menu_t upgrade_create(env_t *env);
+void upgrade_display(sfRenderWindow *window, upgrade_menu_t menu, env_t *env);
+void upgrade_destroy(upgrade_menu_t menu);
 
 #endif /* !UI_H_ */

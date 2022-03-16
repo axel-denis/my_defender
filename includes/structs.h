@@ -161,6 +161,12 @@ typedef struct current_game_s {
     player_stats player_stats;
 } current_game_t;
 
+typedef struct upgrade_menu_s {
+    int upgrading;
+    object back;
+    button close;
+} upgrade_menu_t;
+
 typedef struct env_s {
     int volume;
     int fps;

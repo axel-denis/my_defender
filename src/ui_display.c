@@ -45,7 +45,7 @@ void move_up(sfRenderWindow *window, pop_button *but)
     sfVector2f mouse_pos = get_true_mouse_pos(window);
     sfFloatRect rect = sfSprite_getGlobalBounds(but->onglet.sprite);
 
-    if (HOVER && sfSprite_getPosition(but->onglet.sprite).y > 800) {
+    if (HOVER && sfSprite_getPosition(but->onglet.sprite).y > 830) {
         sfSprite_move(but->onglet.sprite, VC{0, -4});
         sfSprite_move(but->icon.sprite, VC{0, -4});
         sfSprite_move(but->energy_income_neg.sprite, VC{0, -4});
@@ -69,7 +69,7 @@ void move_down(sfRenderWindow *window, pop_button *but)
     sfVector2f mouse_pos = get_true_mouse_pos(window);
     sfFloatRect rect = sfSprite_getGlobalBounds(but->onglet.sprite);
 
-    if (NOT_HOVER && sfSprite_getPosition(but->onglet.sprite).y < 900) {
+    if (NOT_HOVER && sfSprite_getPosition(but->onglet.sprite).y < 920) {
         sfSprite_move(but->onglet.sprite, VC{0, 4});
         sfSprite_move(but->icon.sprite, VC{0, 4});
         sfSprite_move(but->energy_income_neg.sprite, VC{0, 4});

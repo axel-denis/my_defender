@@ -40,6 +40,7 @@ void game(sfRenderWindow *window, object mouse, env_t *env)
     wave_t wave = wave_create(env, enemies_type);
     int open = 1;
     int pick = -1;
+    upgrade_menu_t upgrade = upgrade_create(env);
     sfClock *clock = sfClock_create();
     env->c_game.wave_timer = sfClock_create();
     hud hud_player = create_hud();
@@ -57,7 +58,9 @@ void game(sfRenderWindow *window, object mouse, env_t *env)
 
         sfRenderWindow_clear(window, sfBlack);
         get_events(window, env->keys);
-        pick = pickup_turrets(buttons, get_true_mouse_pos(window), pick, env);
+        upgrade_menu(env, window, &upgrade, pick);
+        if (upgrade.upgrading == -1)
+            pick = pickup_turrets(buttons, get_true_mouse_pos(window), pick, env);
         update_player_data(env, clock);
         update_hud(hud_player, env);
 
@@ -67,11 +70,13 @@ void game(sfRenderWindow *window, object mouse, env_t *env)
         display_map(env, window);
         display_hud(hud_player, env, window);
         sfRenderWindow_drawSprite(window, worm_hole.sprite, NULL);
-        display_turret_button_ui(buttons, window, pick, env);
+        if (upgrade.upgrading == -1)
+            display_turret_button_ui(buttons, window, pick, env);
         display_turret(window, env, range, get_true_mouse_pos(window));
         display_enemies(window, env);
         sfRenderWindow_drawSprite(window, worm_hole2.sprite, NULL);
         evolve_display_bullets(env, window);
+        upgrade_display(window, upgrade, env);
         display_picked_turret(pick, buttons, window);
         update_mouse_cursor(window, mouse, env->tempo);
         sfRenderWindow_display(window);
@@ -90,6 +95,7 @@ void game(sfRenderWindow *window, object mouse, env_t *env)
         if (sfTime_asMilliseconds(sfClock_getElapsedTime(env->c_game.clock)) > 16)
             sfClock_restart(env->c_game.clock);
     }
+    upgrade_destroy(upgrade);
     sfClock_destroy(clock);
     env->keys[sfKeyEscape] = 0;
 }
@@ -100,7 +106,7 @@ env_t *create_env(void)
 
     env->tempo = sfClock_create();
     env->fps = 75;
-    env->screen_type = 0;
+    env->screen_type = 2;
     env->vsync = 1;
     env->resolution = 1920;
     env->data.music = sfMusic_createFromFile("sounds/uncharted-worlds.ogg");

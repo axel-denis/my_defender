@@ -30,6 +30,8 @@
     #define WINDOW_WIDTH 1920
     #define WINDOW_HEIGHT 1080
 
+    #define SFWIN sfRenderWindow *
+
     #include "structs.h"
 
 sfIntRect create_rect(int left, int top, int width, int height);

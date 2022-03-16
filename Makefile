@@ -11,6 +11,7 @@ SRC			=	src/ui.c 				\
 				src/hud.c				\
 				src/enemy.c				\
 				src/events.c			\
+				src/upgrade.c			\
 				src/options.c			\
 				src/turrets.c			\
 				src/bullets.c			\
