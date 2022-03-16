@@ -24,9 +24,9 @@ void d_range(sfVector2f mo, turret_t *ac, sfRenderWindow *win, sfCircleShape *r)
     }
 }
 
-void display_turret(sfRenderWindow *w, env_t *e, sfCircleShape *r, sfVector2f m)
+void display_turret(SFWIN window, env_t *env, sfCircleShape *ra, sfVector2f mou)
 {
-    turret_t *actu = e->c_game.turrets;
+    turret_t *actu = env->c_game.turrets;
     enemy *nearest = NULL;
     sfVector2f near_pos = {0, 1};
 
@@ -35,15 +35,15 @@ void display_turret(sfRenderWindow *w, env_t *e, sfCircleShape *r, sfVector2f m)
             actu = actu->next;
             continue;
         }
-        nearest = get_nearest(e, actu);
+        nearest = get_nearest(env, actu);
         if (nearest != NULL) {
             near_pos = sfSprite_getPosition(nearest->sprite);
             sfSprite_setRotation(actu->sprite,
             A_regarde_B(sfSprite_getPosition(actu->sprite), near_pos));
         }
-        d_range(m, actu, w, r);
-        new_bullet(e, get_nearest(e, actu), actu);
-        sfRenderWindow_drawSprite(w, actu->sprite, NULL);
+        d_range(mou, actu, window, ra);
+        sfRenderWindow_drawSprite(window, actu->sprite, NULL);
+        new_bullet(env, get_nearest(env, actu), actu);
         actu = actu->next;
     }
 }

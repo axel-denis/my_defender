@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2021
 ** mydefender
 ** File description:
-** events.c
+** events c
 */
 
 #include "csfml.h"
@@ -42,14 +42,6 @@ void evolve_keys(int *keys)
     }
 }
 
-/*
-void print_events(int *keys)
-{
-    for (int i = 0; i < sfKeyCount + 2; i++)
-        printf("%d", keys[i]);
-    printf("\n");
-}
-*/
 void fix_window_size(sfRenderWindow *window)
 {
     sfVector2u window_size = sfRenderWindow_getSize(window);

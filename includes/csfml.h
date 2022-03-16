@@ -31,7 +31,7 @@
     #define WINDOW_HEIGHT 1080
 
     #define SFWIN sfRenderWindow *
-
+    #define CLICK "sounds/click.ogg"
     #include "structs.h"
 
 sfIntRect create_rect(int left, int top, int width, int height);

@@ -91,6 +91,9 @@ typedef struct turret_s {
     int steel_cost;
     int steel_per_s;
     struct turret_s *next;
+    char *name_upgrade1;
+    char *name_upgrade2;
+    int is_base;
 } turret_t;
 
 typedef struct pop_button_s {
@@ -164,6 +167,8 @@ typedef struct current_game_s {
 typedef struct upgrade_menu_s {
     int upgrading;
     object back;
+    object turret_1;
+    object turret_2;
     button close;
 } upgrade_menu_t;
 

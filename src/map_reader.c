@@ -38,10 +38,9 @@ int setup_block(env_t *env, map_block *bloc, char *buf, sfVector2f pos)
 {
     char *temp_str = NULL;
 
-    if (strlen(buf) < DATABLOCK)
+    if (my_strlen(buf) < DATABLOCK)
         return 1;
     bloc->type = buf[0] - '0';
-
     if (bloc->type == 1 || bloc->type == 2) {
         temp_str = max_strdup(&(buf[1]), 2);
         bloc->next_path.x = my_get_nbr(temp_str);

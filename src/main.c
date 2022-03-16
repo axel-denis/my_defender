@@ -20,7 +20,7 @@
 #include "ui.h"
 #include "bullets.h"
 
-sfCircleShape *create_range()
+sfCircleShape *create_range(void)
 {
     sfCircleShape *range = sfCircleShape_create();
 

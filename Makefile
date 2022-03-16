@@ -22,6 +22,7 @@ SRC			=	src/ui.c 				\
 				src/pause_menu.c		\
 				src/map_reader.c		\
 				src/math_utils.c		\
+				src/hud_display.c		\
 				src/ui_display2.c 		\
 				src/csfml_utils.c 		\
 				src/map_display.c		\

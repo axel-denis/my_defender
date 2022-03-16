@@ -26,22 +26,22 @@ void setup_text_pause(button *buttons, env_t *env)
     }
 }
 
-button *create_buttons_pause(env_t *e)
+button *create_buttons_pause(env_t *env)
 {
-    button *b = malloc(sizeof(button) * 3);
+    button *buttons = malloc(sizeof(button) * 3);
     sfIntRect square = create_rect(0, 0, 6065 / 3, 833);
 
-    b[0] = create_button(VC{0.2, 0.2}, VC{258, 1080 / 2 - 150}, sfTrue);
-    b[1] = create_button(VC{0.2, 0.2}, VC{258, 1080 / 2 + 50}, sfTrue);
-    b[2] = create_button(VC{0.2, 0.2}, VC{258, 1080 / 2 + 250}, sfTrue);
+    buttons[0] = create_button(VC{0.2, 0.2}, VC{258, 1080 / 2 - 150}, sfTrue);
+    buttons[1] = create_button(VC{0.2, 0.2}, VC{258, 1080 / 2 + 50}, sfTrue);
+    buttons[2] = create_button(VC{0.2, 0.2}, VC{258, 1080 / 2 + 250}, sfTrue);
     for (int i = 0; i < 3; i++) {
-        setup_button_texture(&(b[i]), &square, "img/Blue_button.png");
-        setup_button_sounds(&(b[i]), "sounds/click.ogg", "sounds/hover.ogg", e);
+        setup_button_texture(&(buttons[i]), &square, "img/Blue_button.png");
+        setup_button_sounds(&(buttons[i]), CLICK, "sounds/hover.ogg", env);
     }
-    setup_text_pause(b, e);
+    setup_text_pause(buttons, env);
     for (int i = 0; i < 3; i++)
-        center_button_text(&(b[i]));
-    return (b);
+        center_button_text(&(buttons[i]));
+    return (buttons);
 }
 
 void free_pause_menu(object backfr, object backen, text texte, button *buttons)
