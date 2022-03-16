@@ -44,7 +44,7 @@ button *create_buttons_pause(env_t *e)
     return (b);
 }
 
-int free_pause_menu(object backfr, object backen, text texte, button *buttons)
+void free_pause_menu(object backfr, object backen, text texte, button *buttons)
 {
     sfText_destroy(texte.text);
     sfFont_destroy(texte.font);
