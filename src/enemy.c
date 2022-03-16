@@ -52,7 +52,7 @@ void clone_base_e_data(enemy *to_clone, enemy *new)
 
 void clone_enemy(env_t *env, enemy to_clone)
 {
-    enemy *actu = env->c_game.enemies;
+    enemy *actual = env->c_game.enemies;
 
     if (actual == NULL)
         env->c_game.enemies = create_null_enemy();
