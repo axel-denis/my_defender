@@ -17,27 +17,6 @@
 #define nextpath env->c_game.map[(int) pos.y / 60][(int) pos.x / 60].next_path
 #define nextpath_type env->c_game.map[(int) pos.y / 60][(int) pos.x / 60].type
 
-enemy *create_null_enemy(void)
-{
-    enemy *output = malloc(sizeof(enemy));
-
-    output->disp = VC{0, 0};
-    output->health = 1;
-    output->speed = 0;
-    output->sprite = NULL;
-    output->texture = NULL;
-    output->type = 0;
-    output->next = NULL;
-    return output;
-}
-
-enemy *last_e_link(enemy *first)
-{
-    while (first->next != NULL)
-        first = first->next;
-    return first;
-}
-
 void clone_base_e_data(enemy *to_clone, enemy *new)
 {
     new->difficulty = to_clone->difficulty;
@@ -74,6 +53,19 @@ void clone_enemy(env_t *env, enemy to_clone)
     actual->next->next = NULL;
 }
 
+void point_mob_towards_next_tile(env_t *env, sfVector2f pos, enemy *mob)
+{
+    mob->age++;
+    if (nextpath_type == 5) {
+        mob->disp.x = 512;
+    } else {
+        mob->disp.x = ((nextpath.x * 60 > pos.x) -
+            (nextpath.x * 60 < pos.x)) * 60;
+        mob->disp.y = ((nextpath.y * 60 > pos.y) -
+            (nextpath.y * 60 < pos.y)) * 60;
+    }
+}
+
 void evolve_enemy(env_t *env, enemy *mob)
 {
     sfVector2f pos = sfSprite_getPosition(mob->sprite);
@@ -82,14 +74,7 @@ void evolve_enemy(env_t *env, enemy *mob)
     pos.x = pos.x - mob->offset.x - 30;
     pos.y = pos.y - mob->offset.y - 30;
     if (mob->disp.x == 0 && mob->disp.y == 0) {
-        if (nextpath_type == 5) {
-            mob->disp.x = 512;
-        } else {
-            mob->disp.x = ((nextpath.x * 60 > pos.x) -
-                (nextpath.x * 60 < pos.x)) * 60;
-            mob->disp.y = ((nextpath.y * 60 > pos.y) -
-                (nextpath.y * 60 < pos.y)) * 60;
-        }
+        point_mob_towards_next_tile(env, pos, mob);
     }
     movement.x = MIN(ABS(mob->disp.x), mob->speed) * SIGN(mob->disp.x);
     movement.y = MIN(ABS(mob->disp.y), mob->speed) * SIGN(mob->disp.y);
@@ -98,13 +83,13 @@ void evolve_enemy(env_t *env, enemy *mob)
     sfSprite_move(mob->sprite, movement);
 }
 
-//get oldest enemy
-enemy *get_nearest(env_t *env, turret_t *turret)
+enemy *get_oldest(env_t *env, turret_t *turret)
 {
     enemy *actual = env->c_game.enemies;
     enemy *output = NULL;
     sfVector2f pos = sfSprite_getPosition(turret->sprite);
     sfVector2f act_pos;
+    int age = 0;
 
     while (actual != NULL) {
         if (actual->type == 0) {
@@ -113,10 +98,11 @@ enemy *get_nearest(env_t *env, turret_t *turret)
         }
         act_pos = sfSprite_getPosition(actual->sprite);
         if (dist_two_points(act_pos, pos) < turret->range
-            && actual->type != 0) {
-            return actual;
+            && actual->age > age) {
+            age = actual->age;
+            output = actual;
         }
         actual = actual->next;
     }
-    return NULL;
+    return output;
 }

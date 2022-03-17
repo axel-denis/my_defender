@@ -35,7 +35,7 @@ void display_turret(SFWIN window, env_t *env, sfCircleShape *ra, sfVector2f mou)
             actu = actu->next;
             continue;
         }
-        nearest = get_nearest(env, actu);
+        nearest = get_oldest(env, actu);
         if (nearest != NULL) {
             near_pos = sfSprite_getPosition(nearest->sprite);
             sfSprite_setRotation(actu->sprite,
@@ -43,7 +43,7 @@ void display_turret(SFWIN window, env_t *env, sfCircleShape *ra, sfVector2f mou)
         }
         d_range(mou, actu, window, ra);
         sfRenderWindow_drawSprite(window, actu->sprite, NULL);
-        new_bullet(env, get_nearest(env, actu), actu);
+        new_bullet(env, get_oldest(env, actu), actu);
         actu = actu->next;
     }
 }
