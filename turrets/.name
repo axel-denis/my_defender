@@ -8,6 +8,5 @@ cost energy
 cost steel
 cost energy /s
 cost steel /s
-upgrade 1
-upgrade 2
-is base turret
+x of the rect || NULL
+y of the rect ||

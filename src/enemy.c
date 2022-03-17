@@ -12,88 +12,141 @@
 #include "map.h"
 #include "maths.h"
 
-#define TILE_SIZE 60
-#define SIGN(x) (x > 0 ? 1 : -1)
 #define nextpath env->c_game.map[(int) pos.y / 60][(int) pos.x / 60].next_path
-#define nextpath_type env->c_game.map[(int) pos.y / 60][(int) pos.x / 60].type
 
-void clone_base_e_data(enemy *to_clone, enemy *new)
+enemy *create_null_enemy(void)
 {
-    new->difficulty = to_clone->difficulty;
-    new->health = to_clone->health;
-    new->name = to_clone->name;
-    new->speed = to_clone->speed;
-    new->type = to_clone->type;
-    new->age = 0;
-    new->offset = VC{rand() % 30 - 15, rand() % 30 - 15};
-    new->sprite = sfSprite_create();
+    enemy *output = malloc(sizeof(enemy));
+
+    output->disp = VC{0, 0};
+    output->health = 1;
+    output->speed = 0;
+    output->sprite = NULL;
+    output->texture = NULL;
+    output->type = 0;
+    output->next = NULL;
+    return output;
+}
+
+enemy *template_enemy(int type, int speed, int health)
+{
+    enemy *output = malloc(sizeof(enemy));
+
+    output->type = type;
+    output->speed = speed;
+    output->health = health;
+    return output;
 }
 
 void clone_enemy(env_t *env, enemy to_clone)
 {
     enemy *actual = env->c_game.enemies;
 
-    if (actual == NULL)
+    if (actual == NULL) {
         env->c_game.enemies = create_null_enemy();
-    actual = env->c_game.enemies;
-    actual = last_e_link(actual);
+        actual = env->c_game.enemies;
+    }
+    while (actual->next != NULL)
+        actual = actual->next;
     actual->next = malloc(sizeof(enemy));
-    clone_base_e_data(&to_clone, actual->next);
+    actual->next->difficulty = to_clone.difficulty;
+    actual->next->health = to_clone.health;
+    actual->next->name = to_clone.name;
+    actual->next->speed = to_clone.speed;
+    actual->next->type = to_clone.type;
+    actual->next->sprite = sfSprite_create();
     sfSprite_setScale(actual->next->sprite, sfSprite_getScale(to_clone.sprite));
     sfSprite_setOrigin(actual->next->sprite, sfSprite_getOrigin(to_clone.sprite));
     actual->next->disp = VC{0, 0};
-    sfSprite_setPosition(actual->next->sprite,
-        VC{env->c_game.starting_square.x * TILE_SIZE + actual->next->offset.x + 30,
-        env->c_game.starting_square.y * TILE_SIZE + actual->next->offset.y + 30});
+    sfSprite_setPosition(actual->next->sprite, VC{env->c_game.starting_square.x * 60 + 30 + rand() % 30 - 15, env->c_game.starting_square.y * 60 + 30 + rand() % 30 - 15});
     actual->next->texture = to_clone.texture;
     sfSprite_setTexture(actual->next->sprite, actual->next->texture, sfFalse);
-    sfSprite_setOrigin(actual->next->sprite,
-        VC{sfSprite_getGlobalBounds(actual->next->sprite).width / 2,
+    sfSprite_setOrigin(actual->next->sprite, VC{sfSprite_getGlobalBounds(actual->next->sprite).width / 2, sfSprite_getGlobalBounds(actual->next->sprite).height / 2});
+    actual->next->next = NULL;
+}
+
+void create_enemy_type_1(env_t *env)
+{
+    enemy *actual = env->c_game.enemies;
+
+    if (actual == NULL) {
+        env->c_game.enemies = create_null_enemy();
+        actual = env->c_game.enemies;
+    }
+    while (actual->next != NULL)
+        actual = actual->next;
+    actual->next = template_enemy(1, 4, 100);
+    actual->next->sprite = sfSprite_create();
+    actual->next->disp = VC{0, 0};
+    sfSprite_setPosition(actual->next->sprite, VC{
+        env->c_game.starting_square.x * 60 + 30 + rand() % 30 - 15,
+        env->c_game.starting_square.y * 60 + 30 + rand() % 30 - 15});
+    actual->next->texture = sfTexture_createFromFile("img/type1.png", NULL);
+    sfSprite_setTexture(actual->next->sprite, actual->next->texture, sfFalse);
+    sfSprite_setOrigin(actual->next->sprite, VC{sfSprite_getGlobalBounds(
+        actual->next->sprite).width / 2,
         sfSprite_getGlobalBounds(actual->next->sprite).height / 2});
     actual->next->next = NULL;
 }
 
-void point_mob_towards_next_tile(env_t *env, sfVector2f pos, enemy *mob)
+void create_test_enemy(env_t *env, int health)
 {
-    mob->age++;
-    if (nextpath_type == 5) {
-        mob->disp.x = 512;
-    } else {
-        mob->disp.x = ((nextpath.x * 60 > pos.x) -
-            (nextpath.x * 60 < pos.x)) * 60;
-        mob->disp.y = ((nextpath.y * 60 > pos.y) -
-            (nextpath.y * 60 < pos.y)) * 60;
+    enemy *actual = env->c_game.enemies;
+
+    if (actual == NULL) {
+        env->c_game.enemies = create_null_enemy();
+        actual = env->c_game.enemies;
     }
+    while (actual->next != NULL)
+        actual = actual->next;
+    actual->next = template_enemy(1, 1, health);
+    actual->next->sprite = sfSprite_create();
+    actual->next->disp = VC{0, 0};
+    sfSprite_setPosition(actual->next->sprite, VC{env->c_game.starting_square.x
+        * 60 + 30 + rand() % 30 - 15,
+        env->c_game.starting_square.y * 60 + 30 + rand() % 30 - 15});
+    actual->next->texture = sfTexture_createFromFile("img/type1.png", NULL);
+    sfSprite_setTexture(actual->next->sprite, actual->next->texture, sfFalse);
+    sfSprite_setOrigin(actual->next->sprite, VC{sfSprite_getGlobalBounds(
+        actual->next->sprite).width / 2,
+        sfSprite_getGlobalBounds(actual->next->sprite).height / 2});
+    actual->next->next = NULL;
 }
+
+#define MIN(x, y) (y < x) ? y : x
 
 void evolve_enemy(env_t *env, enemy *mob)
 {
     sfVector2f pos = sfSprite_getPosition(mob->sprite);
     sfVector2f movement = {0, 0};
 
-    if (sfTime_asMilliseconds(sfClock_getElapsedTime(env->tempo))
-        - mob->cooldown < 13)
-        return;
-    mob->cooldown = sfTime_asMilliseconds(sfClock_getElapsedTime(env->tempo));
-    pos.x = pos.x - mob->offset.x - 30;
-    pos.y = pos.y - mob->offset.y - 30;
-    if (mob->disp.x == 0 && mob->disp.y == 0) {
-        point_mob_towards_next_tile(env, pos, mob);
+    if (mob->disp.x == 0 && mob->disp.y == 0 &&
+        pos.x < MAP_LEN * 60 - 15 && pos.y < MAP_HEIGHT * 60 - 15) {
+        mob->disp.x = ((nextpath.x > get_case_coords(pos).x)
+            - (nextpath.x < get_case_coords(pos).x));
+        mob->disp.y = ((nextpath.y > get_case_coords(pos).y)
+            - (nextpath.y < get_case_coords(pos).y));
+        mob->disp.x *= 1 / mob->speed * 60;
+        mob->disp.y *= 1 / mob->speed * 60;
     }
-    movement.x = MIN(ABS(mob->disp.x), mob->speed) * SIGN(mob->disp.x);
-    movement.y = MIN(ABS(mob->disp.y), mob->speed) * SIGN(mob->disp.y);
-    mob->disp.x -= movement.x;
-    mob->disp.y -= movement.y;
+    movement.x = ((mob->disp.x > 0) - (mob->disp.x < 0))
+        * (MIN(mob->speed, (ABS(mob->disp.x))));
+    movement.y = ((mob->disp.y > 0) - (mob->disp.y < 0))
+        * (MIN(mob->speed, (ABS(mob->disp.y))));
+    mob->disp.x += ((mob->disp.x < 0) - (mob->disp.x > 0))
+        * (MIN(mob->speed, (ABS(mob->disp.x))));
+    mob->disp.y += ((mob->disp.y < 0) - (mob->disp.y > 0))
+        * (MIN(mob->speed, (ABS(mob->disp.y))));
     sfSprite_move(mob->sprite, movement);
 }
 
-enemy *get_oldest(env_t *env, turret_t *turret)
+//get nearest enemy
+enemy *get_nearest(env_t *env, turret_t *turret)
 {
     enemy *actual = env->c_game.enemies;
     enemy *output = NULL;
     sfVector2f pos = sfSprite_getPosition(turret->sprite);
     sfVector2f act_pos;
-    int age = 0;
 
     while (actual != NULL) {
         if (actual->type == 0) {
@@ -102,11 +155,10 @@ enemy *get_oldest(env_t *env, turret_t *turret)
         }
         act_pos = sfSprite_getPosition(actual->sprite);
         if (dist_two_points(act_pos, pos) < turret->range
-            && actual->age > age) {
-            age = actual->age;
-            output = actual;
+            && actual->type != 0) {
+            return actual;
         }
         actual = actual->next;
     }
-    return output;
+    return NULL;
 }

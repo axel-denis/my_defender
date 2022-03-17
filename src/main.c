@@ -20,7 +20,7 @@
 #include "ui.h"
 #include "bullets.h"
 
-sfCircleShape *create_range(void)
+sfCircleShape *create_range()
 {
     sfCircleShape *range = sfCircleShape_create();
 
@@ -37,6 +37,7 @@ void game(sfRenderWindow *window, object mouse, env_t *env)
 {
     create_game(env);
     enemy *enemies_type = create_enemies_type();
+    wave_t wave = wave_create(env, enemies_type);
     int open = 1;
     int pick = -1;
     upgrade_menu_t upgrade = upgrade_create(env);
@@ -48,7 +49,6 @@ void game(sfRenderWindow *window, object mouse, env_t *env)
     object worm_hole2 = create_object("img/icon2.png", VC{env->c_game.starting_square.x * 60 - 5, env->c_game.starting_square.y * 60 - 58}, VC{.4, 1});
     sfCircleShape *range = create_range();
     pop_button *buttons = create_turret_button_ui(env);
-    wave_t wave = {0, 0, 0, 0};
 
     setmap_opacity(env);
     sfClock_restart(env->c_game.clock);
@@ -70,12 +70,12 @@ void game(sfRenderWindow *window, object mouse, env_t *env)
         display_map(env, window);
         display_hud(hud_player, env, window);
         sfRenderWindow_drawSprite(window, worm_hole.sprite, NULL);
-        display_enemies(window, env);
-        evolve_display_bullets(env, window);
-        display_turret(window, env, range, get_true_mouse_pos(window));
-        sfRenderWindow_drawSprite(window, worm_hole2.sprite, NULL);
         if (upgrade.upgrading == -1)
             display_turret_button_ui(buttons, window, pick, env);
+        display_turret(window, env, range, get_true_mouse_pos(window));
+        display_enemies(window, env);
+        sfRenderWindow_drawSprite(window, worm_hole2.sprite, NULL);
+        evolve_display_bullets(env, window);
         upgrade_display(window, upgrade, env);
         display_picked_turret(pick, buttons, window);
         update_mouse_cursor(window, mouse, env->tempo);

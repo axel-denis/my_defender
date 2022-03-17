@@ -18,11 +18,13 @@ button *create_buttons_lose(env_t *env)
     button *buttons = malloc(sizeof(button) * 2);
     sfIntRect square = create_rect(0, 0, 6065 / 3, 833);
 
-    buttons[0] = create_button(VC{0.2, 0.2}, VC{788, 540 - 100}, sfTrue);
-    buttons[1] = create_button(VC{0.2, 0.2}, VC{788, 540 + 100}, sfTrue);
+    //buttons[0] = create_button(VC{0.2, 0.2}, VC{258, WINDOW_HEIGHT / 2 - 100}, sfTrue);
+    //buttons[1] = create_button(VC{0.2, 0.2}, VC{258, WINDOW_HEIGHT / 2 + 100}, sfTrue);
+    buttons[0] = create_button(VC{0.2, 0.2}, VC{WINDOW_WIDTH / 2 - ((6065/3)*0.2)/2, WINDOW_HEIGHT / 2 - 100}, sfTrue);
+    buttons[1] = create_button(VC{0.2, 0.2}, VC{WINDOW_WIDTH / 2 - ((6065/3)*0.2)/2, WINDOW_HEIGHT / 2 + 100}, sfTrue);
     for (int i = 0; i < 2; i++) {
         setup_button_texture(&(buttons[i]), &square, "img/Blue_button.png");
-        setup_button_sounds(&(buttons[i]), CLICK, "sounds/hover.ogg", env);
+        setup_button_sounds(&(buttons[i]), "sounds/click.ogg", "sounds/hover.ogg", env);
     }
     if (env->langue[0] == 'E') {
         setup_button_text(&(buttons[0]), "Main menu", "font/Xero.ttf", 40);
@@ -34,18 +36,6 @@ button *create_buttons_lose(env_t *env)
     for (int i = 0; i < 2; i++)
         center_button_text(&(buttons[i]));
     return (buttons);
-}
-
-int lose_menu_controls(sfRenderWindow *window, int *keys, button *buttons)
-{
-    get_events(window, keys);
-    if (keys[sfKeyEscape] == 3)
-        return 0;
-    if (is_pressed(buttons[0], window, keys))
-        return 0;
-    if (is_pressed(buttons[1], window, keys))
-        sfRenderWindow_close(window);
-    return 1;
 }
 
 void lose_menu(sfRenderWindow *window, object mouse, int *keys, env_t *env)
@@ -63,7 +53,13 @@ void lose_menu(sfRenderWindow *window, object mouse, int *keys, env_t *env)
     sfText_setPosition(texte.text, VC{670, 200});
     while (sfRenderWindow_isOpen(window) && open) {
         sfRenderWindow_clear(window, sfBlack);
-        open = lose_menu_controls(window, keys, buttons);
+        get_events(window, keys);
+        if (keys[sfKeyEscape] == 3)
+            open = 0;
+        if (is_pressed(buttons[0], window, keys))
+            open = 0;
+        if (is_pressed(buttons[1], window, keys))
+            sfRenderWindow_close(window);
         display_background(window, backfr, backen, env);
         for (int i = 0; i < 2; i++)
             display_button(window, &(buttons[i]), keys);

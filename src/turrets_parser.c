@@ -26,8 +26,6 @@ turret_t create_turret_from_file(env_t *env, char *titre)
     char *buffer = NULL;
     turret_t returned;
 
-    returned.name_upgrade1 = NULL;
-    returned.name_upgrade2 = NULL;
     if (env->langue[0] == 'E')
         returned.name = my_strdup(titre);
     for (int i = 0; getline(&buffer, &size, fd) != -1; i++) {
@@ -53,14 +51,6 @@ turret_t create_turret_from_file(env_t *env, char *titre)
             returned.energy_per_s = my_get_nbr(buffer);
         if (i == 9)
             returned.steel_per_s = my_get_nbr(buffer);
-        if (i == 10)
-            if (my_strcmp(buffer, "NULL\n") != 0)
-                returned.name_upgrade1 = my_strdup(buffer);
-        if (i == 11)
-            if (my_strcmp(buffer, "NULL\n") != 0)
-                returned.name_upgrade2 = my_strdup(buffer);
-        if (i == 12)
-            returned.is_base = my_get_nbr(buffer);
     }
     returned.sprite = sfSprite_create();
     sfSprite_setTexture(returned.sprite, returned.texture, sfFalse);

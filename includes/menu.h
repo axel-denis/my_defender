@@ -25,7 +25,7 @@ void fps_manager(button *but, sfRenderWindow *window, int *keys, env_t *env);
 int pause_menu(sfRenderWindow *window, object mouse, env_t *env);
 void display_background(sfRenderWindow *win, object fr, object en, env_t *env);
 void vsync_manager(button *but, sfRenderWindow *window, int *keys, env_t *env);
-void resolution_manager(button *but, sfRenderWindow *wind, int *keys, env_t *);
+void resolution_manager(button *but, sfRenderWindow *wind, int *keys, env_t *e);
 void set_button_volume_txt(button *buttons, env_t *env);
 void set_button_fps_txt(button *buttons, env_t *env);
 void set_button_resolution_txt(button *buttons, env_t *env);
