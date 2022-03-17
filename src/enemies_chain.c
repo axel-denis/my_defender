@@ -35,8 +35,6 @@ void evolve_all_enemies(env_t *env)
     enemy *actual = env->c_game.enemies;
     enemy *last = actual;
 
-    if (sfTime_asMilliseconds(sfClock_getElapsedTime(env->c_game.clock)) < 13)
-        return;
     while (actual != NULL) {
         if (actual->type != 0) {
             enemy_end_of_track(env, actual);
