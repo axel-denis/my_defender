@@ -5,6 +5,8 @@
 ** button_utils
 */
 
+
+#include "csfml.h"
 #include "button.h"
 #include "mouse.h"
 
@@ -30,36 +32,40 @@ sfBool is_pressed(button bouton, sfRenderWindow *window, int *keys)
     return (sfFalse);
 }
 
-void button_set_position(button *bouton, sfVector2f pos)
+void button_update_state(sfVector2f mouse_pos, button *but, int *keys)
 {
-    sfSprite_setPosition((*bouton).sprite, pos);
-    center_button_text(bouton);
+    sfVector2u size = sfTexture_getSize((*but).texture);
+    sfFloatRect rect = sfSprite_getGlobalBounds((*but).sprite);
+
+    if (pos_in_square(mouse_pos, rect) == sfTrue && RELEASED)
+        SFTEXTU((*but).sprite, create_rect(size.x / 3, 0, size.x / 3, size.y));
+    if (pos_in_square(mouse_pos, rect) == sfTrue && CLICKED)
+        SFTEXTU((*but).sprite,
+            create_rect(size.x / 1.5 , 0, size.x / 3, size.y));
 }
 
-void display_button(sfRenderWindow *window, button *bouton, int *keys)
+void display_button(sfRenderWindow *window, button *but, int *keys)
 {
-    sfVector2u size = sfTexture_getSize((*bouton).texture);
+    sfVector2u size = sfTexture_getSize((*but).texture);
     sfVector2f mouse_pos = get_true_mouse_pos(window);
-    sfFloatRect rect = sfSprite_getGlobalBounds((*bouton).sprite);
+    sfFloatRect rect = sfSprite_getGlobalBounds((*but).sprite);
 
     if (pos_in_square(mouse_pos, rect) == sfFalse) {
-        (*bouton).already_hoverd = 0;
-        sfSprite_setTextureRect((*bouton).sprite, create_rect(0, 0, size.x / 3, size.y));
+        (*but).already_hoverd = 0;
+        SFTEXTU((*but).sprite, create_rect(0, 0, size.x / 3, size.y));
     }
-    if (pos_in_square(mouse_pos, rect) == sfTrue && (*bouton).hover != NULL && (*bouton).already_hoverd == 0) {
-        sfSound_play((*bouton).hover);
-        (*bouton).already_hoverd = 1;
+    if (pos_in_square(mouse_pos, rect) == sfTrue && (*but).hover != NULL
+        && (*but).already_hoverd == 0) {
+        sfSound_play((*but).hover);
+        (*but).already_hoverd = 1;
     }
-    if (pos_in_square(mouse_pos, rect) == sfTrue && RELEASED)
-        sfSprite_setTextureRect((*bouton).sprite, create_rect(size.x / 3, 0, size.x / 3, size.y));
-    if (pos_in_square(mouse_pos, rect) == sfTrue && CLICKED)
-        sfSprite_setTextureRect((*bouton).sprite, create_rect((size.x / 3) * 2 , 0, size.x / 3, size.y));
+    button_update_state(mouse_pos, but, keys);
     if (pos_in_square(mouse_pos, rect) == sfTrue && keys[leftMouse] == 3)
-        if ((*bouton).click != NULL)
-            sfSound_play((*bouton).click);
-    sfRenderWindow_drawSprite(window, (*bouton).sprite, NULL);
-    if ((*bouton).text.to_display == sfTrue)
-        sfRenderWindow_drawText(window, (*bouton).text.text, NULL);
+        if ((*but).click != NULL)
+            sfSound_play((*but).click);
+    sfRenderWindow_drawSprite(window, (*but).sprite, NULL);
+    if ((*but).text.to_display == sfTrue)
+        sfRenderWindow_drawText(window, (*but).text.text, NULL);
 }
 
 void destroy_button(button bouton)

@@ -98,7 +98,6 @@ void evolve_enemy(env_t *env, enemy *mob)
     sfSprite_move(mob->sprite, movement);
 }
 
-//get oldest enemy
 enemy *get_nearest(env_t *env, turret_t *turret)
 {
     enemy *actual = env->c_game.enemies;

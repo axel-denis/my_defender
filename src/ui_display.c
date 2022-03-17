@@ -88,7 +88,7 @@ void move_down(sfRenderWindow *window, pop_button *but)
     }
 }
 
-void display_turret_button_ui(pop_button *but, sfRenderWindow *win, int pick, env_t *env)
+void display_turret_button_ui(pop_button *but, SFWIN win, int pick, env_t *env)
 {
     for (int i = 0; but[i].onglet.sprite != NULL; i++) {
         move_up(win, &but[i]);

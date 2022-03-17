@@ -27,20 +27,31 @@ int detect_what_pickup(pop_button *but, sfVector2f mouse_pos, int *keys)
     return -1;
 }
 
-int pick_the_turret(pop_button *but, sfVector2f mouse_pos, int pick, env_t *env)
+int hold_the_turret(pop_button *but, sfVector2f mouse_pos, int pick, env_t *env)
 {
     sfVector2i co = get_case_coords(mouse_pos);
 
     if (env->keys[leftMouse] == 2 || env->keys[leftMouse] == 1) {
         if (co.x >= 0 && co.y >= 0 && co.x < 32 && co.y < 18
             && env->c_game.map[co.y][co.x].type == 0)
-            sfSprite_setPosition(but[pick].icon.sprite, VC{co.x * 60 + 30, co.y * 60 + 30});
+            sfSprite_setPosition(but[pick].icon.sprite,
+                VC{co.x * 60 + 30, co.y * 60 + 30});
         else
             sfSprite_setPosition(but[pick].icon.sprite, mouse_pos);
         return pick;
     }
+    return (-1);
+}
+
+int pick_the_turret(pop_button *but, sfVector2f mouse_pos, int pick, env_t *env)
+{
+    sfVector2i co = get_case_coords(mouse_pos);
+    int returned = hold_the_turret(but, mouse_pos, pick, env);
+
     if (env->keys[leftMouse] == 3 || env->keys[leftMouse] == 0) {
-        if (co.x < 32 && co.y < 18 && env->c_game.map[co.y][co.x].type == 0 && env->c_game.player_stats.energy > but[pick].type->energy_cost && env->c_game.player_stats.steel > but[pick].type->steel_cost) {
+        if (co.x < 32 && co.y < 18 && env->c_game.map[co.y][co.x].type == 0
+            && env->c_game.player_stats.energy > but[pick].type->energy_cost
+            && env->c_game.player_stats.steel > but[pick].type->steel_cost) {
             clone_turret(env, but[pick].type, VC{co.x, co.y});
             env->c_game.player_stats.energy -= but[pick].type->energy_cost;
             env->c_game.player_stats.steel -= but[pick].type->steel_cost;
@@ -49,7 +60,7 @@ int pick_the_turret(pop_button *but, sfVector2f mouse_pos, int pick, env_t *env)
         sfSprite_setPosition(but[pick].icon.sprite, VC{pick * 180 + 90,
         sfSprite_getPosition(but[pick].onglet.sprite).y + 80});
     }
-    return -1;
+    return (returned);
 }
 
 int pickup_turrets(pop_button *but, sfVector2f mouse_pos, int pick, env_t *env)

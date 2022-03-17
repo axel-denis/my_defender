@@ -24,7 +24,7 @@ int evolve_bullet(bullet_t *bullet, env_t *env)
     movement.x *= bullet->speed;
     movement.y *= bullet->speed;
     sfSprite_move(bullet->sprite, movement);
-    if (bullet_collision(bullet, env) == 1 && bullet->type != -5) // remplacer -5 par le type des bullets percants
+    if (bullet_collision(bullet, env) == 1 && bullet->type != -5)
         return 1;
     if (dist_two_points(pos, shooter_pos) > bullet->shooter->range) {
         return 1;

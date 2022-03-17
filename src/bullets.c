@@ -9,8 +9,7 @@
 #include "structs.h"
 #include "map.h"
 #include "maths.h"
-
-#define DIST_COLLISION 15
+#include "bullets.h"
 
 int bullet_collision(bullet_t *bullet, env_t *env)
 {
@@ -22,7 +21,7 @@ int bullet_collision(bullet_t *bullet, env_t *env)
             actual = actual->next;
             continue;
         }
-        if (dist_two_points(pos, sfSprite_getPosition(actual->sprite)) < DIST_COLLISION) {
+        if (DIST_ACTU < DIST_COLLISION) {
             actual->health -= bullet->damage;
             return 1;
         }
@@ -52,14 +51,13 @@ bullet_t *create_bullet(enemy *target, turret_t *shooter, env_t *env)
     sfVector2f target_pos = sfSprite_getPosition(target->sprite);
     sfVector2f shooter_pos = sfSprite_getPosition(shooter->sprite);
     float angle = A_regarde_B(shooter_pos, target_pos);
-    sfVector2f direction = {cos(angle * 2 * M_PI / 360),
-        sin(angle * 2 * M_PI / 360)};
+    sfVector2f direction = {ATOD};
 
     output->direction = direction;
     output->shooter = shooter;
     output->is_null = 0;
     output->type = 1;
-    output->speed = 15;
+    output->speed = 49;
     output->damage = 5;
     output->sprite = sfSprite_create();
     sfSprite_setTexture(output->sprite, env->data.bullet_texture, sfFalse);

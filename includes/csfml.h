@@ -30,6 +30,9 @@
     #define WINDOW_WIDTH 1920
     #define WINDOW_HEIGHT 1080
 
+    #define SFTEXTU sfSprite_setTextureRect
+    #define SFSPPOS sfSprite_setPosition
+
     #define SFWIN sfRenderWindow *
 
     #include "structs.h"

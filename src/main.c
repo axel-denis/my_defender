@@ -70,12 +70,12 @@ void game(sfRenderWindow *window, object mouse, env_t *env)
         display_map(env, window);
         display_hud(hud_player, env, window);
         sfRenderWindow_drawSprite(window, worm_hole.sprite, NULL);
-        if (upgrade.upgrading == -1)
-            display_turret_button_ui(buttons, window, pick, env);
+        evolve_display_bullets(env, window);
         display_turret(window, env, range, get_true_mouse_pos(window));
         display_enemies(window, env);
         sfRenderWindow_drawSprite(window, worm_hole2.sprite, NULL);
-        evolve_display_bullets(env, window);
+        if (upgrade.upgrading == -1)
+            display_turret_button_ui(buttons, window, pick, env);
         upgrade_display(window, upgrade, env);
         display_picked_turret(pick, buttons, window);
         update_mouse_cursor(window, mouse, env->tempo);
@@ -160,8 +160,3 @@ int main(void)
     destroy_object(mouse);
     return (0);
 }
-
-// fix volume not modified on some buttons
-// destroy everything
-// Coding syle
-// How to play
