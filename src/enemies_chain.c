@@ -61,6 +61,7 @@ enemy *create_null_enemy(void)
     output->texture = NULL;
     output->type = 0;
     output->next = NULL;
+    output->cooldown = 0;
     return output;
 }
 

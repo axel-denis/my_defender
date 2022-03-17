@@ -37,7 +37,6 @@ void game(sfRenderWindow *window, object mouse, env_t *env)
 {
     create_game(env);
     enemy *enemies_type = create_enemies_type();
-    wave_t wave = wave_create(env, enemies_type);
     int open = 1;
     int pick = -1;
     upgrade_menu_t upgrade = upgrade_create(env);
@@ -49,6 +48,7 @@ void game(sfRenderWindow *window, object mouse, env_t *env)
     object worm_hole2 = create_object("img/icon2.png", VC{env->c_game.starting_square.x * 60 - 5, env->c_game.starting_square.y * 60 - 58}, VC{.4, 1});
     sfCircleShape *range = create_range();
     pop_button *buttons = create_turret_button_ui(env);
+    wave_t wave = {0, 0, 0, 0};
 
     setmap_opacity(env);
     sfClock_restart(env->c_game.clock);

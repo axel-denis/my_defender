@@ -66,17 +66,19 @@ pop_button *create_turret_button_ui(env_t *env)
         if (turrets[i].is_base == 1)
             len++;
     button = malloc(sizeof(pop_button) * (len + 1));
+    len = 0;
     for (int i = 0; turrets[i].type != 0; i++) {
         if (turrets[i].is_base == 1) {
-            setup_popup_text(&button[i], turrets[i], i);
-            button[i].onglet = create_object("img/onglet.png", VC{i * 180, 920},
+            setup_popup_text(&button[len], turrets[i], i);
+            button[len].onglet = create_object("img/onglet.png", VC{i * 180, 920},
             VC{2, 2.2});
             create_icons(&button[i], i);
-            button[i].icon = create_textured_object(turrets[i].texture,
+            button[len].icon = create_textured_object(turrets[i].texture,
             VC{i * 180 + 90, 920 + 80}, VC{.2, .2});
-            button[i].type = &(turrets[i]);
-            sfSprite_setOrigin(button[i].icon.sprite, VC{150, 270});
-            sfSprite_setRotation(button[i].icon.sprite, 90);
+            button[len].type = &(turrets[i]);
+            sfSprite_setOrigin(button[len].icon.sprite, VC{150, 270});
+            sfSprite_setRotation(button[len].icon.sprite, 90);
+            len += 1;
         }
     }
     button[len].onglet.sprite = NULL;
