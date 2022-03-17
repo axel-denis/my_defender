@@ -9,7 +9,6 @@
     #define LIB_H
 
     #define ABS(x) ((x < 0) ? -x : x)
-    #define MIN(x, y) ((y < x) ? y : x)
 
 char *my_revstr(char *str);
 char *my_dec_to_base(long nb, char *base);

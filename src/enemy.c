@@ -71,6 +71,10 @@ void evolve_enemy(env_t *env, enemy *mob)
     sfVector2f pos = sfSprite_getPosition(mob->sprite);
     sfVector2f movement = {0, 0};
 
+    if (sfTime_asMilliseconds(sfClock_getElapsedTime(env->tempo))
+        - mob->cooldown < 0.013)
+        return;
+    mob->cooldown = sfTime_asMilliseconds(sfClock_getElapsedTime(env->tempo));
     pos.x = pos.x - mob->offset.x - 30;
     pos.y = pos.y - mob->offset.y - 30;
     if (mob->disp.x == 0 && mob->disp.y == 0) {

@@ -68,6 +68,7 @@ typedef struct game_data_s {
 typedef struct enemy_s {
     int type;
     int age;
+    int cooldown;
     sfVector2f offset;
     sfSprite *sprite;
     sfTexture *texture;

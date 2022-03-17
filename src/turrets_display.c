@@ -11,6 +11,7 @@
 #include "enemy.h"
 #include "map.h"
 #include "maths.h"
+#include "bullets.h"
 
 void d_range(sfVector2f mo, turret_t *ac, sfRenderWindow *win, sfCircleShape *r)
 {
