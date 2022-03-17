@@ -5,6 +5,7 @@
 ** main.c
 */
 
+#include "error_handling.h"
 #include "menu.h"
 #include "enemy.h"
 #include "csfml.h"
@@ -35,6 +36,8 @@ sfCircleShape *create_range()
 
 void game(sfRenderWindow *window, object mouse, env_t *env)
 {
+    if (error_handling() == 84)
+        return;
     create_game(env);
     enemy *enemies_type = create_enemies_type();
     wave_t wave = wave_create(env, enemies_type);
@@ -54,7 +57,6 @@ void game(sfRenderWindow *window, object mouse, env_t *env)
     sfClock_restart(env->c_game.clock);
     while (sfRenderWindow_isOpen(window) && open) {
         wave = wave_manage(env, enemies_type, wave);
-        /* Act */
 
         sfRenderWindow_clear(window, sfBlack);
         get_events(window, env->keys);
@@ -63,8 +65,6 @@ void game(sfRenderWindow *window, object mouse, env_t *env)
             pick = pickup_turrets(buttons, get_true_mouse_pos(window), pick, env);
         update_player_data(env, clock);
         update_hud(hud_player, env);
-
-        /* Display */
 
         sfRenderWindow_drawSprite(window, background.sprite, NULL);
         display_map(env, window);

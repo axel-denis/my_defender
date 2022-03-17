@@ -29,7 +29,7 @@ sfVector2f get_true_mouse_pos(sfRenderWindow *window)
     mouse_pos.x = mouse_pos.x / screen_size.x * WINDOW_WIDTH;
     mouse_pos.y = mouse_pos.y / screen_size.y * WINDOW_HEIGHT;
     return (mouse_pos);
- }
+}
 
 void update_mouse_cursor(sfRenderWindow *window, object mouse, sfClock *clock)
 {

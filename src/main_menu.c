@@ -24,7 +24,7 @@ void change_button_text(button *buttons, env_t *env)
         sfText_setString(buttons[1].text.text, "Options");
         sfText_setString(buttons[2].text.text, "Quitter");
     }
-    for (int i = 0; i < 3; i ++)
+    for (int i = 0; i < 3; i++)
         center_button_text(&(buttons[i]));
 }
 
