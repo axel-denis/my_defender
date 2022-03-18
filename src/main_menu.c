@@ -46,6 +46,27 @@ button *create_buttons_menu(env_t *e)
     return (b);
 }
 
+int main_menu_button_gestion(SFWIN win, button *but, object mouse, env_t *env)
+{
+    for (int i = 0; i < 3; i++)
+        display_button(win, &(but[i]), env->keys);
+    update_mouse_cursor(win, mouse, env->tempo);
+    if (is_pressed(but[0], win, env->keys) == sfTrue) {
+        game(win, mouse, env);
+    }
+    if (is_pressed(but[1], win, env->keys) == sfTrue) {
+        options(win, mouse, env->keys, env);
+        change_button_text(but, env);
+        for (int i = 0; i < 3; i++) {
+            sfSound_setVolume(but[i].click, env->volume);
+            sfSound_setVolume(but[i].hover, env->volume/1.4);
+        }
+    }
+    if (is_pressed(but[2], win, env->keys) == sfTrue)
+        return 0;
+    return 1;
+}
+
 void main_menu(sfRenderWindow *window, object mouse, env_t *env)
 {
     button *buttons = create_buttons_menu(env);
@@ -59,22 +80,7 @@ void main_menu(sfRenderWindow *window, object mouse, env_t *env)
         sfRenderWindow_drawSprite(window, background.sprite, NULL);
         get_events(window, env->keys);
         sfRenderWindow_drawText(window, texte.text, NULL);
-        for (int i = 0; i < 3; i++)
-            display_button(window, &(buttons[i]), env->keys);
-        update_mouse_cursor(window, mouse, env->tempo);
-        if (is_pressed(buttons[0], window, env->keys) == sfTrue) {
-            game(window, mouse, env);
-        }
-        if (is_pressed(buttons[1], window, env->keys) == sfTrue) {
-            options(window, mouse, env->keys, env);
-            change_button_text(buttons, env);
-            for (int i = 0; i < 3; i++) {
-                sfSound_setVolume(buttons[i].click, env->volume);
-                sfSound_setVolume(buttons[i].hover, env->volume/1.4);
-            }
-        }
-        if (is_pressed(buttons[2], window, env->keys) == sfTrue)
-            open = 0;
+        open = main_menu_button_gestion(window, buttons, mouse, env);
         sfRenderWindow_display(window);
     }
     sfSprite_destroy(background.sprite);
