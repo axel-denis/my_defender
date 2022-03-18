@@ -58,7 +58,7 @@ bullet_t *create_bullet(enemy *target, turret_t *shooter, env_t *env)
     output->is_null = 0;
     output->type = 1;
     output->speed = 49;
-    output->damage = 5;
+    output->damage = shooter->damage_per_action;
     output->sprite = sfSprite_create();
     sfSprite_setTexture(output->sprite, env->data.bullet_texture, sfFalse);
     sfSprite_setOrigin(output->sprite, VC{200, 200});

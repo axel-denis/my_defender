@@ -40,6 +40,10 @@ void turret_action(turret_t *turret, env_t *env)
         new_bullet(env, nearest, turret);
         turret->cooldown =
             sfTime_asMilliseconds(sfClock_getElapsedTime(env->tempo));
+        if (nearest != NULL) {
+            env->c_game.player_stats.steel -= turret->steel_per_s;
+            env->c_game.player_stats.energy -= turret->energy_per_s;
+        }
     }
 }
 
