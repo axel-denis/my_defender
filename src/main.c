@@ -5,23 +5,13 @@
 ** main.c
 */
 
-#include "error_handling.h"
 #include "menu.h"
-#include "enemy.h"
 #include "csfml.h"
+#include "events.h"
 #include "lib.h"
 #include "structs.h"
 #include "mouse.h"
-#include "button.h"
-#include "events.h"
-#include "maths.h"
-#include "map.h"
-#include "hud.h"
-#include "turrets.h"
-#include "ui.h"
-#include "bullets.h"
 #include "env.h"
-#include "range.h"
 
 int main(void)
 {
