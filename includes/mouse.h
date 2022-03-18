@@ -24,4 +24,4 @@ object setup_mouse(char *, sfVector2f);
 void update_mouse_cursor(sfRenderWindow *window, object mouse, sfClock *clock);
 sfVector2f get_true_mouse_pos(sfRenderWindow *);
 
-#endif /* !MOUSE_H_ */
+#endif

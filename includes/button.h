@@ -21,4 +21,4 @@ void display_button(sfRenderWindow *, button *, int *);
 void destroy_button(button);
 sfBool is_pressed(button, sfRenderWindow *, int *);
 
-#endif /* !BUTTON_H_ */
+#endif

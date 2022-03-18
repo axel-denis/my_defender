@@ -23,4 +23,4 @@ upgrade_menu_t upgrade_create(env_t *env);
 void upgrade_display(sfRenderWindow *window, upgrade_menu_t menu, env_t *env);
 void upgrade_destroy(upgrade_menu_t menu);
 
-#endif /* !UI_H_ */
+#endif

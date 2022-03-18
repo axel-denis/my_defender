@@ -18,4 +18,4 @@ char *formating_hud_in(int value);
 hud update_hud(hud hud_player, env_t *env);
 void update_player_data(env_t *env, sfClock *clock);
 
-#endif /* !HUD_H_ */
+#endif

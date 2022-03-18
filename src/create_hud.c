@@ -57,13 +57,15 @@ hud create_hud(void)
 {
     hud hud_object;
 
-    hud_object.icon_health = create_object("img/heart.png", VC{1373, 24}, VC{.12, .12});
+    hud_object.icon_health = create_object("img/heart.png",
+        VC{1373, 24}, VC{.12, .12});
     hud_object.text_health = setup_text("", "font/o_drift.ttf", 45);
     sfText_setPosition(hud_object.text_health.text, VC{1430, 14});
     set_hud_energy(&hud_object);
     set_hud_steel(&hud_object);
     hud_object.wave = setup_text("", "font/o_drift.ttf", 45);
     sfText_setPosition(hud_object.wave.text, VC{1670, 14});
-    hud_object.cadre = create_object("img/blue_display.png", VC{1285, 5}, VC{1, 1});
+    hud_object.cadre = create_object("img/blue_display.png",
+        VC{1285, 5}, VC{1, 1});
     return (hud_object);
 }

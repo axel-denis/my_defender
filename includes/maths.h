@@ -16,4 +16,4 @@
 float dist_two_points(sfVector2f point1, sfVector2f point2);
 float A_regarde_B(sfVector2f A, sfVector2f B);
 
-#endif /* !MATHS_H_ */
+#endif

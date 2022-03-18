@@ -202,4 +202,4 @@ typedef struct game_data {
     pop_button *buttons;
 } game_data_t;
 
-#endif /* !STRUCT_H_ */
+#endif
