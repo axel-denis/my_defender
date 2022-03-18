@@ -8,7 +8,6 @@
 MAIN		=	src/main.c					\
 
 SRC			=	src/ui.c 					\
-				src/hud.c					\
 				src/enemy.c					\
 				src/events.c				\
 				src/upgrade.c				\
@@ -22,17 +21,21 @@ SRC			=	src/ui.c 					\
 				src/pause_menu.c			\
 				src/map_reader.c			\
 				src/math_utils.c			\
+				src/create_hud.c			\
+				src/update_hud.c			\
 				src/ui_display2.c 			\
 				src/csfml_utils.c 			\
 				src/map_display.c			\
 				src/player_data.c			\
 				src/wave_create.c			\
+				src/display_hud.c			\
 				src/wave_manager.c			\
 				src/options_text.c			\
 				src/button_setup.c 			\
 				src/button_utils.c 			\
 				src/csfml_utils2.c			\
 				src/enemy_parser.c			\
+				src/formating_hud.c			\
 				src/mouse_manager.c			\
 				src/enemy_display.c			\
 				src/enemies_chain.c			\
