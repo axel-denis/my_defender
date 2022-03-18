@@ -19,7 +19,7 @@ int is_a_file(char *name)
     return 0;
 }
 
-int string_is_valid_nbr(char *name)
+int string_is_valid_nbr(char *name, int could_be_zero)
 {
     int len = my_strlen(name);
 
@@ -29,9 +29,10 @@ int string_is_valid_nbr(char *name)
         if (name[i] < '0' && name[i] > '9')
             return (84);
     }
-    if (name[len - 1] != '\n') {
+    if (name[len - 1] != '\n')
         return (84);
-    }
+    if (could_be_zero == 0 && my_get_nbr(name) == 0)
+        return (84);
     return (0);
 }
 

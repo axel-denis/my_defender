@@ -18,7 +18,7 @@
 
 int is_a_file(char *name);
 int has_correct_size(int correct_size, char *file);
-int string_is_valid_nbr(char *name);
+int string_is_valid_nbr(char *name, int could_be_zero);
 int error_handling(void);
 
 #endif /* !ERROR_HANDLING_H_ */

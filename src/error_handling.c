@@ -18,8 +18,10 @@ int error_file_turrets(char *titre)
     FILE *fd = fopen(file, "r");
 
     for (int i = 0; getline(&buffer, &size, fd) != -1; i++) {
-        if (i != 0 && i != 3 && i != 10 && i != 11)
-            return_val += string_is_valid_nbr(buffer);
+        if (i <= 9 && i >= 6)
+            return_val += string_is_valid_nbr(buffer, 1);
+        if (i != 0 && i != 3 && (i > 12 || i < 6))
+            return_val += string_is_valid_nbr(buffer, 0);
         if (i == 3 || i == 10 || i == 11)
             return_val += is_a_file(buffer);
     }
@@ -39,7 +41,7 @@ int error_file_ennemies(char *titre)
 
     for (int i = 0; getline(&buffer, &size, fd) != -1; i++) {
         if (i != 3)
-            return_val += string_is_valid_nbr(buffer);
+            return_val += string_is_valid_nbr(buffer, 0);
         else
             return_val += is_a_file(buffer);
     }
