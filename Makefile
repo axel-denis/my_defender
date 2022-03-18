@@ -29,6 +29,7 @@ SRC			=	src/ui.c 					\
 				src/player_data.c			\
 				src/wave_create.c			\
 				src/display_hud.c			\
+				src/enemy_reader.c			\
 				src/wave_manager.c			\
 				src/options_text.c			\
 				src/button_setup.c 			\
