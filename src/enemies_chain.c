@@ -28,8 +28,6 @@ void evolve_all_enemies(env_t *env)
     enemy *last = actual;
     sfVector2f pos;
 
-    if (sfTime_asMilliseconds(sfClock_getElapsedTime(env->c_game.clock)) < 13)
-        return;
     while (actual != NULL) {
         if (actual->type != 0) {
             pos = sfSprite_getPosition(actual->sprite);

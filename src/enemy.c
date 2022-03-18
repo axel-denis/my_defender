@@ -71,6 +71,7 @@ void clone_enemy(env_t *env, enemy to_clone)
     sfSprite_setOrigin(actual->next->sprite,
         VC{sfSprite_getGlobalBounds(actual->next->sprite).width / 2,
         sfSprite_getGlobalBounds(actual->next->sprite).height / 2});
+    actual->next->cooldown = 0;
     actual->next->next = NULL;
 }
 
@@ -90,17 +91,19 @@ void evolve_enemy(env_t *env, enemy *mob)
 {
     sfVector2f pos = sfSprite_getPosition(mob->sprite);
     sfVector2f movement = {0, 0};
+    int mult = sfTime_asMilliseconds(sfClock_getElapsedTime(
+        env->tempo)) - mob->cooldown;
 
-    //if (sfTime_asMilliseconds(sfClock_getElapsedTime(env->tempo))
-    //    - mob->cooldown < 13)
-    //    return;
-    //mob->cooldown = sfTime_asMilliseconds(sfClock_getElapsedTime(env->tempo));
+    if (mult < 13)
+        return;
+    mult = mult / 13;
+    mob->cooldown = sfTime_asMilliseconds(sfClock_getElapsedTime(env->tempo));
     pos.x = pos.x - mob->offset.x - 30;
     pos.y = pos.y - mob->offset.y - 30;
     if (mob->disp.x == 0 && mob->disp.y == 0)
         point_enemy_toward_next_case(mob, pos, env);
-    movement.x = MIN(ABS(mob->disp.x), mob->speed) * SIGN(mob->disp.x);
-    movement.y = MIN(ABS(mob->disp.y), mob->speed) * SIGN(mob->disp.y);
+    movement.x = MIN(ABS(mob->disp.x), mob->speed * mult) * SIGN(mob->disp.x);
+    movement.y = MIN(ABS(mob->disp.y), mob->speed * mult) * SIGN(mob->disp.y);
     mob->disp.x -= movement.x;
     mob->disp.y -= movement.y;
     sfSprite_move(mob->sprite, movement);
