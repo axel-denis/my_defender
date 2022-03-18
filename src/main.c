@@ -20,7 +20,7 @@
 #include "turrets.h"
 #include "ui.h"
 #include "bullets.h"
-
+#include "env.h"
 sfCircleShape *create_range()
 {
     sfCircleShape *range = sfCircleShape_create();
@@ -98,33 +98,6 @@ void game(sfRenderWindow *window, object mouse, env_t *env)
     upgrade_destroy(upgrade);
     sfClock_destroy(clock);
     env->keys[sfKeyEscape] = 0;
-}
-
-env_t *create_env(void)
-{
-    env_t *env = malloc(sizeof(env_t));
-
-    env->tempo = sfClock_create();
-    env->fps = 75;
-    env->screen_type = 2;
-    env->vsync = 1;
-    env->resolution = 1920;
-    env->data.music = sfMusic_createFromFile("sounds/uncharted-worlds.ogg");
-    sfMusic_play(env->data.music);
-    sfMusic_setLoop(env->data.music, sfTrue);
-    env->volume = 100;
-    sfMusic_setVolume(env->data.music, env->volume / 2);
-    env->langue = my_strdup("FR");
-    env->data.ground_texture =
-        sfTexture_createFromFile("img/grass.png", NULL);
-    env->data.path_texture = sfTexture_createFromFile("img/dirt.png", NULL);
-    env->data.bullet_texture = sfTexture_createFromFile("img/base_arrow.png", NULL);
-    env->c_game.player_stats.wave = 1;
-    env->c_game.enemies = NULL;
-    env->c_game.turrets = NULL;
-    env->c_game.bullets = NULL;
-    env->c_game.clock = sfClock_create();
-    return env;
 }
 
 sfRenderWindow *create_windows(env_t *env)
