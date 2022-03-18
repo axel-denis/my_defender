@@ -74,23 +74,31 @@ void clone_enemy(env_t *env, enemy to_clone)
     actual->next->next = NULL;
 }
 
+void point_enemy_toward_next_case(enemy *mob, sfVector2f pos, env_t *env)
+{
+    mob->age++;
+    if (nextpath_type == 5) {
+        mob->disp.x = 512;
+    } else {
+        mob->disp.x = ((nextpath.x * 60 > pos.x) -
+            (nextpath.x * 60 < pos.x)) * 60;
+        mob->disp.y = ((nextpath.y * 60 > pos.y) -
+            (nextpath.y * 60 < pos.y)) * 60;
+    }
+}
 void evolve_enemy(env_t *env, enemy *mob)
 {
     sfVector2f pos = sfSprite_getPosition(mob->sprite);
     sfVector2f movement = {0, 0};
 
+    //if (sfTime_asMilliseconds(sfClock_getElapsedTime(env->tempo))
+    //    - mob->cooldown < 13)
+    //    return;
+    //mob->cooldown = sfTime_asMilliseconds(sfClock_getElapsedTime(env->tempo));
     pos.x = pos.x - mob->offset.x - 30;
     pos.y = pos.y - mob->offset.y - 30;
-    if (mob->disp.x == 0 && mob->disp.y == 0) {
-        if (nextpath_type == 5) {
-            mob->disp.x = 512;
-        } else {
-            mob->disp.x = ((nextpath.x * 60 > pos.x) -
-                (nextpath.x * 60 < pos.x)) * 60;
-            mob->disp.y = ((nextpath.y * 60 > pos.y) -
-                (nextpath.y * 60 < pos.y)) * 60;
-        }
-    }
+    if (mob->disp.x == 0 && mob->disp.y == 0)
+        point_enemy_toward_next_case(mob, pos, env);
     movement.x = MIN(ABS(mob->disp.x), mob->speed) * SIGN(mob->disp.x);
     movement.y = MIN(ABS(mob->disp.y), mob->speed) * SIGN(mob->disp.y);
     mob->disp.x -= movement.x;
@@ -98,12 +106,13 @@ void evolve_enemy(env_t *env, enemy *mob)
     sfSprite_move(mob->sprite, movement);
 }
 
-enemy *get_nearest(env_t *env, turret_t *turret)
+enemy *get_oldest(env_t *env, turret_t *turret)
 {
     enemy *actual = env->c_game.enemies;
     enemy *output = NULL;
     sfVector2f pos = sfSprite_getPosition(turret->sprite);
     sfVector2f act_pos;
+    int age = -1;
 
     while (actual != NULL) {
         if (actual->type == 0) {
@@ -112,10 +121,11 @@ enemy *get_nearest(env_t *env, turret_t *turret)
         }
         act_pos = sfSprite_getPosition(actual->sprite);
         if (dist_two_points(act_pos, pos) < turret->range
-            && actual->type != 0) {
-            return actual;
+            && actual->age > age) {
+            age = actual->age;
+            output = actual;
         }
         actual = actual->next;
     }
-    return NULL;
+    return output;
 }
