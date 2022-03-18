@@ -46,5 +46,6 @@ sfVector2i ftoiv2(sfVector2f vector);
 object create_object(char *file, sfVector2f pos, sfVector2f scale);
 object create_textured_object(sfTexture *img, sfVector2f pos, sfVector2f scale);
 sfRenderWindow *create_windows(env_t *env);
+sfRenderWindow *create_windows(env_t *env);
 
 #endif

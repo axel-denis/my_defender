@@ -17,6 +17,7 @@ SRC			=	src/ui.c 					\
 				src/bullets.c				\
 				src/lose_menu.c				\
 				src/ui_create.c 			\
+				src/game_core.c				\
 				src/main_menu.c				\
 				src/ui_display.c 			\
 				src/pause_menu.c			\
@@ -31,6 +32,7 @@ SRC			=	src/ui.c 					\
 				src/player_data.c			\
 				src/wave_create.c			\
 				src/display_hud.c			\
+				src/window_setup.c			\
 				src/enemy_reader.c			\
 				src/wave_manager.c			\
 				src/options_text.c			\

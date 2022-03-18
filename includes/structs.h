@@ -189,4 +189,17 @@ typedef struct env_s {
     current_game_t c_game;
 } env_t;
 
+typedef struct game_data {
+    enemy *enemies_type;
+    wave_t wave;
+    upgrade_menu_t upgrade;
+    sfClock *clock;
+    hud hud_player;
+    object background;
+    object worm_hole;
+    object worm_hole2;
+    sfCircleShape *range;
+    pop_button *buttons;
+} game_data_t;
+
 #endif /* !STRUCT_H_ */

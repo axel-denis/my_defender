@@ -36,5 +36,6 @@ void langue_manager(button *but, sfRenderWindow *window, int *keys, env_t *env);
 void create_game(env_t *env);
 void lose_menu(sfRenderWindow *window, object mouse, int *keys, env_t *env);
 char *set_screen_txt(env_t *env);
+void game(sfRenderWindow *window, object mouse, env_t *env);
 
 #endif /* !MENU_H_ */
