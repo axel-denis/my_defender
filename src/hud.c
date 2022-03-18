@@ -17,59 +17,41 @@
 #include "map.h"
 #include "hud.h"
 
+void display_hud_incomes(hud hud_p, env_t *env, sfRenderWindow *window)
+{
+    if (env->c_game.player_stats.steel_income > 0)
+        sfRenderWindow_drawSprite(window,
+            hud_p.icon_steel_income_pos.sprite, NULL);
+    if (env->c_game.player_stats.steel_income == 0)
+        sfRenderWindow_drawSprite(window,
+            hud_p.icon_steel_income_neu.sprite, NULL);
+    if (env->c_game.player_stats.steel_income < 0)
+        sfRenderWindow_drawSprite(window,
+            hud_p.icon_steel_income_neg.sprite, NULL);
+    if (env->c_game.player_stats.energy_income > 0)
+    sfRenderWindow_drawSprite(window,
+        hud_p.icon_energy_income_pos.sprite, NULL);
+    if (env->c_game.player_stats.energy_income == 0)
+        sfRenderWindow_drawSprite(window,
+            hud_p.icon_energy_income_neu.sprite, NULL);
+    if (env->c_game.player_stats.energy_income < 0)
+        sfRenderWindow_drawSprite(window,
+            hud_p.icon_energy_income_neg.sprite, NULL);
+}
+
 void display_hud(hud hud_p, env_t *env, sfRenderWindow *window)
 {
     sfRenderWindow_drawSprite(window, hud_p.cadre.sprite, NULL);
     sfRenderWindow_drawSprite(window , hud_p.icon_health.sprite, NULL);
     sfRenderWindow_drawSprite(window , hud_p.icon_energy.sprite, NULL);
     sfRenderWindow_drawSprite(window , hud_p.icon_steel.sprite, NULL);
-    if (env->c_game.player_stats.steel_income > 0)
-        sfRenderWindow_drawSprite(window , hud_p.icon_steel_income_pos.sprite, NULL);
-    if (env->c_game.player_stats.steel_income == 0)
-        sfRenderWindow_drawSprite(window , hud_p.icon_steel_income_neu.sprite, NULL);
-    if (env->c_game.player_stats.steel_income < 0)
-        sfRenderWindow_drawSprite(window , hud_p.icon_steel_income_neg.sprite, NULL);
-    if (env->c_game.player_stats.energy_income > 0)
-    sfRenderWindow_drawSprite(window , hud_p.icon_energy_income_pos.sprite, NULL);
-    if (env->c_game.player_stats.energy_income == 0)
-        sfRenderWindow_drawSprite(window , hud_p.icon_energy_income_neu.sprite, NULL);
-    if (env->c_game.player_stats.energy_income < 0)
-    sfRenderWindow_drawSprite(window , hud_p.icon_energy_income_neg.sprite, NULL);
+    display_hud_incomes(hud_p, env, window);
     sfRenderWindow_drawText(window, hud_p.text_health.text, NULL);
     sfRenderWindow_drawText(window, hud_p.text_energy.text, NULL);
     sfRenderWindow_drawText(window, hud_p.text_energy_income.text, NULL);
     sfRenderWindow_drawText(window, hud_p.text_steel.text, NULL);
     sfRenderWindow_drawText(window, hud_p.text_steel_income.text, NULL);
     sfRenderWindow_drawText(window, hud_p.wave.text, NULL);
-}
-
-hud create_hud(void)
-{
-    hud h_p;
-
-    h_p.icon_health = create_object("img/heart.png", VC{1373, 24}, VC{.12, .12});
-    h_p.text_health = setup_text("", "font/o_drift.ttf", 45);
-    sfText_setPosition(h_p.text_health.text, VC{1430, 14});
-    h_p.icon_energy = create_object("img/Elecricity.png", VC{1411, 85}, VC{.12, .12});
-    h_p.icon_energy_income_pos = create_object("img/green_arrow.png", VC{1661, 85}, VC{.12, .12});
-    h_p.icon_energy_income_neu = create_object("img/Neutral.png", VC{1661, 85}, VC{.12, .12});
-    h_p.icon_energy_income_neg = create_object("img/red_arrow.png", VC{1661, 85}, VC{.12, .12});
-    h_p.text_energy = setup_text("" , "font/o_drift.ttf", 45);
-    sfText_setPosition(h_p.text_energy.text, VC{1468, 75});
-    h_p.text_energy_income = setup_text("" , "font/o_drift.ttf", 45);
-    sfText_setPosition(h_p.text_energy_income.text,  VC{1718, 75});
-    h_p.icon_steel = create_object("img/steel.png", VC{1444, 147}, VC{.12, .12});
-    h_p.icon_steel_income_pos = create_object("img/green_arrow.png", VC{1661, 147}, VC{.12, .12});
-    h_p.icon_steel_income_neu = create_object("img/Neutral.png", VC{1661, 147}, VC{.12, .12});
-    h_p.icon_steel_income_neg = create_object("img/red_arrow.png", VC{1661, 147}, VC{.12, .12});
-    h_p.text_steel = setup_text("" , "font/o_drift.ttf", 45);
-    sfText_setPosition(h_p.text_steel.text, VC{1501, 137});
-    h_p.text_steel_income = setup_text("" , "font/o_drift.ttf", 45);
-    sfText_setPosition(h_p.text_steel_income.text, VC{1718, 137});
-    h_p.wave = setup_text("", "font/o_drift.ttf", 45);
-    sfText_setPosition(h_p.wave.text, VC{1670, 14});
-    h_p.cadre = create_object("img/blue_display.png", VC{1285, 5}, VC{1, 1});
-    return (h_p);
 }
 
 char *formating_hud_in(int value)
