@@ -59,22 +59,8 @@ void clone_turret(env_t *env, turret_t *turret, sfVector2f pos)
     sfSprite_setOrigin(actual->next->sprite, VC{150, 250});
     actual->next->position = VC{pos.x * 60 + 30, pos.y * 60 + 30};
     sfSprite_setPosition(actual->next->sprite, actual->next->position);
+    actual->next->cooldown = 0;
     actual->next->next = NULL;
     new_bullet(env, get_oldest(env, actual->next), actual->next);
-}
-
-turret_t *create_turret_1()
-{
-    turret_t *turret = template_turret(1, 1, 1);
-
-    turret->sprite = sfSprite_create();
-    turret->texture = sfTexture_createFromFile("img/turret1_3.png", NULL);
-    sfSprite_setTexture(turret->sprite, turret->texture, sfFalse);
-    sfSprite_setScale(turret->sprite, VC{.2, .2});
-    sfSprite_setOrigin(turret->sprite, VC{150, 250});
-    turret->position = VC{0, 0};
-    turret->range = 180;
-    sfSprite_setPosition(turret->sprite, turret->position);
-    return turret;
 }
 
