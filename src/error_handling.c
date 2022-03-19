@@ -18,9 +18,9 @@ int error_file_turrets(char *titre)
     FILE *fd = fopen(file, "r");
 
     for (int i = 0; getline(&buffer, &size, fd) != -1; i++) {
-        if (i <= 9 && i >= 6)
+        if (i <= 9 && i >= 6 && i == 2)
             return_val += string_is_valid_nbr(buffer, 1);
-        if (i != 0 && i != 3 && (i > 12 || i < 6))
+        if (i != 0 && i != 2 && i != 3 && (i > 12 || i < 6))
             return_val += string_is_valid_nbr(buffer, 0);
         if ((i == 3) && my_strcmp(buffer, "NULL\n") != 0)
             return_val += is_a_file(buffer);
