@@ -29,6 +29,7 @@ void upgrade_menu_open(env_t *env, SFWIN window, upgrade_menu_t *menu, int pick)
             menu->upgrading = actual;
             setup_opened_menu_up1(menu);
             setup_opened_menu_up2(menu);
+            set_menu_icons(menu);
         }
         actual = actual->next;
     }
@@ -43,6 +44,16 @@ void upgrade_menu(env_t *env, SFWIN window, upgrade_menu_t *menu, int pick)
             pos_in_square(get_true_mouse_pos(window),
             sfSprite_getGlobalBounds(menu->close.sprite)) == sfTrue)
             menu->upgrading = NULL;
+        if (menu->upgrading != NULL && menu->upgrading->upgrade_1 != NULL &&
+            pos_in_square(get_true_mouse_pos(window),
+            sfSprite_getGlobalBounds(menu->upgrading->upgrade_1->sprite))
+            == sfTrue && env->keys[leftMouse] == 3)
+            menu->upgrading = NULL;
+        if (menu->upgrading != NULL && menu->upgrading->upgrade_2 != NULL &&
+            pos_in_square(get_true_mouse_pos(window),
+            sfSprite_getGlobalBounds(menu->upgrading->upgrade_2->sprite))
+            == sfTrue && env->keys[leftMouse] == 3)
+            menu->upgrading = NULL;
     }
     return;
 }
@@ -52,10 +63,14 @@ upgrade_menu_t upgrade_create(env_t *env)
     upgrade_menu_t upgrade;
 
     upgrade.upgrading = NULL;
-    upgrade.back = create_object("img/onglet.png", VC{0, 900}, VC{21.31, 1.5});
+    upgrade.back = create_object("img/panel.png", VC{-3, 900}, VC{1.259, 1});
     upgrade.close = create_button(VC{.1, .1}, VC{1850, 920}, sfFalse);
-    upgrade.name_1 = setup_text("empty", "font/o_drift.ttf", 40);
-    upgrade.name_2 = setup_text("empty", "font/o_drift.ttf", 40);
+    upgrade.name_1 = setup_text("", "font/o_driftbold.ttf", 40);
+    upgrade.name_2 = setup_text("", "font/o_driftbold.ttf", 40);
+    upgrade.cost_energy_1 = setup_text("", "font/o_drift.ttf", 35);
+    upgrade.cost_steel_1 = setup_text("", "font/o_drift.ttf", 35);
+    upgrade.cost_energy_2 = setup_text("", "font/o_drift.ttf", 35);
+    upgrade.cost_steel_2 = setup_text("", "font/o_drift.ttf", 35);
     sfIntRect rect = create_rect(0, 0, 399, 396);
     setup_button_texture(&upgrade.close, &rect, "img/close.png");
     setup_button_sounds(&upgrade.close, "sounds/click.ogg",
@@ -67,13 +82,22 @@ void upgrade_display(SFWIN win, upgrade_menu_t menu, env_t *env)
 {
     sfRenderWindow_drawSprite(win, menu.back.sprite, NULL);
     if (menu.upgrading->upgrade_1 != NULL) {
-        sfRenderWindow_drawText(win, menu.name_1.text, NULL);
         sfRenderWindow_drawSprite(win, menu.upgrading->upgrade_1->sprite, NULL);
+        sfRenderWindow_drawText(win, menu.cost_energy_1.text, NULL);
+        sfRenderWindow_drawText(win, menu.cost_steel_1.text, NULL);
+        sfRenderWindow_drawText(win, menu.name_1.text, NULL);
+        sfRenderWindow_drawSprite(win, menu.icon_energy_1.sprite, NULL);
+        sfRenderWindow_drawSprite(win, menu.icon_steel_1.sprite, NULL);
     }
     if (menu.upgrading->upgrade_2 != NULL) {
+        sfRenderWindow_drawText(win, menu.cost_energy_2.text, NULL);
+        sfRenderWindow_drawText(win, menu.cost_steel_2.text, NULL);
         sfRenderWindow_drawText(win, menu.name_2.text, NULL);
         sfRenderWindow_drawSprite(win, menu.upgrading->upgrade_2->sprite, NULL);
+        sfRenderWindow_drawSprite(win, menu.icon_energy_2.sprite, NULL);
+        sfRenderWindow_drawSprite(win, menu.icon_steel_2.sprite, NULL);
     }
+    display_colored_upgrades(win, menu);
     display_button(win, &menu.close, env->keys);
 }
 

@@ -173,6 +173,14 @@ typedef struct upgrade_menu_s {
     turret_t *upgrading;
     text name_1;
     text name_2;
+    object icon_energy_1;
+    object icon_steel_1;
+    object icon_energy_2;
+    object icon_steel_2;
+    text cost_energy_1;
+    text cost_steel_1;
+    text cost_energy_2;
+    text cost_steel_2;
     object back;
     button close;
 } upgrade_menu_t;
