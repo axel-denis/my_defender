@@ -63,8 +63,8 @@ void clone_turret(env_t *env, turret_t *turret, sfVector2f pos)
     actual->next->sprite = sfSprite_create();
     actual->next->texture = turret->texture;
     sfSprite_setTexture(actual->next->sprite, actual->next->texture, sfFalse);
-    sfSprite_setScale(actual->next->sprite, VC{.2, .2});
-    sfSprite_setOrigin(actual->next->sprite, VC{150, 250});
+    sfSprite_setScale(actual->next->sprite, VC{.9, .9});
+    sfSprite_setOrigin(actual->next->sprite, VC{40, 25});
     actual->next->position = VC{pos.x * 60 + 30, pos.y * 60 + 30};
     sfSprite_setPosition(actual->next->sprite, actual->next->position);
     actual->next->cooldown = 0;
