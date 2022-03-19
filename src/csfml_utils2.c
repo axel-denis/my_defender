@@ -23,10 +23,13 @@ object create_object(char *file, sfVector2f pos, sfVector2f scale)
 object create_textured_object(sfTexture *img, sfVector2f pos, sfVector2f scale)
 {
     object objet;
+    sfFloatRect rect;
 
     objet.sprite = sfSprite_create();
     objet.texture = img;
     sfSprite_setTexture(objet.sprite, objet.texture, sfFalse);
+    rect = sfSprite_getGlobalBounds(objet.sprite);
+    sfSprite_setOrigin(objet.sprite, VC{rect.width / 2, rect.height / 2});
     sfSprite_setScale(objet.sprite, scale);
     sfSprite_setPosition(objet.sprite, pos);
     return (objet);
