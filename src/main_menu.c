@@ -35,10 +35,10 @@ button *create_buttons_menu(env_t *e)
     button *b = malloc(sizeof(button) * 4);
     sfIntRect square = create_rect(0, 0, 6065 / 3, 833);
 
-    b[0] = create_button(VC{.2, .2}, VC{1258, 290}, sfTrue);
-    b[1] = create_button(VC{.2, .2}, VC{1258, 490}, sfTrue);
-    b[2] = create_button(VC{.2, .2}, VC{1258, 690}, sfTrue);
-    b[3] = create_button(VC{.2, .2}, VC{1258, 890}, sfTrue);
+    b[0] = create_button(VC{.2, .2}, VC{1258, 320}, sfTrue);
+    b[1] = create_button(VC{.2, .2}, VC{1258, 500}, sfTrue);
+    b[2] = create_button(VC{.2, .2}, VC{1258, 680}, sfTrue);
+    b[3] = create_button(VC{.2, .2}, VC{1258, 860}, sfTrue);
     for (int i = 0; i < 4; i++) {
         setup_button_texture(&(b[i]), &square, "img/Blue_button.png");
         setup_button_sounds(&(b[i]), "sounds/click.ogg", "sounds/hover.ogg", e);
@@ -80,7 +80,7 @@ void main_menu(sfRenderWindow *window, object mouse, env_t *env)
     object background = create_object("img/newbg.jpg", VC{0, 0}, VC{1, 1});
     text texte = setup_text("  Planet\nDefender", "font/o_driftbold.ttf", 150);
 
-    sfText_setPosition(texte.text, VC{1131, -50});
+    sfText_setPosition(texte.text, VC{1131, 0});
     while (sfRenderWindow_isOpen(window) && open) {
         sfRenderWindow_clear(window, sfBlack);
         sfRenderWindow_drawSprite(window, background.sprite, NULL);
