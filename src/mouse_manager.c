@@ -36,9 +36,13 @@ void update_mouse_cursor(sfRenderWindow *window, object mouse, sfClock *clock)
     sfVector2f mouse_pos = get_true_mouse_pos(window);
     sfIntRect rect;
     sfIntRect rect_current = sfSprite_getTextureRect(mouse.sprite);
+    static float cooldown = 0;
     float sec = fmod(sfTime_asSeconds(sfClock_getElapsedTime(clock)), 1);
 
-    if ((sec > 0.98 && sec < 1) || (sec > 0.48 && sec < 0.5)) {
+    if (sec < cooldown)
+        cooldown = 0;
+    if (sec - cooldown > .05) {
+        cooldown = sec;
         if (rect_current.left < 466 - 24)
             rect = create_rect(rect_current.left + 24, 0, 24, 24);
         else
