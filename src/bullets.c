@@ -57,6 +57,8 @@ bullet_t *create_bullet(enemy *target, turret_t *shooter, env_t *env)
     output->shooter = shooter;
     output->is_null = 0;
     output->type = 1;
+    if (shooter->type == 5)
+        output->type = 5;
     output->speed = 49;
     output->damage = shooter->damage_per_action;
     output->sprite = sfSprite_create();
