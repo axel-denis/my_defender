@@ -20,5 +20,6 @@ void update_player_data(env_t *env, sfClock *clock);
 void upgrade_display(SFWIN win, upgrade_menu_t menu, env_t *env);
 void upgrade_destroy(upgrade_menu_t menu);
 void set_menu_icons(upgrade_menu_t *menu);
+void display_colored_upgrades(SFWIN win, upgrade_menu_t menu);
 
 #endif
