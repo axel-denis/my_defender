@@ -20,6 +20,7 @@ void clone_base_e_data(enemy *to_clone, enemy *new)
     new->speed = to_clone->speed;
     new->type = to_clone->type;
     new->age = 0;
+    new->slowed_time = 0;
     new->offset = VC{rand() % 30 - 15, rand() % 30 - 15};
     new->sprite = sfSprite_create();
 }

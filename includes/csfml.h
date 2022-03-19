@@ -33,7 +33,7 @@
     #define SFTEXTFILE sfTexture_createFromFile
     #define SFTEXTU sfSprite_setTextureRect
     #define SFSPPOS sfSprite_setPosition
-
+    #define MSTIME(x) sfTime_asMilliseconds(sfClock_getElapsedTime(x))
     #define SFWIN sfRenderWindow *
 
     #include "structs.h"

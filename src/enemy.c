@@ -50,21 +50,23 @@ void evolve_enemy(env_t *env, enemy *mob)
 {
     sfVector2f pos = sfSprite_getPosition(mob->sprite);
     sfVector2f movement = {0, 0};
-    int mult = sfTime_asMilliseconds(sfClock_getElapsedTime(
-        env->tempo)) - mob->cooldown;
+    int mult = MSTIME(env->tempo) - mob->cooldown;
 
     if (mult < 13)
         return;
     mult = mult / 13;
-    mob->cooldown = sfTime_asMilliseconds(sfClock_getElapsedTime(env->tempo));
+    mob->cooldown = MSTIME(env->tempo);
     pos.x = pos.x - mob->offset.x - 30;
     pos.y = pos.y - mob->offset.y - 30;
     if (mob->disp.x == 0 && mob->disp.y == 0)
         point_enemy_toward_next_case(mob, pos, env);
-    movement.x = MIN(ABS(mob->disp.x), mob->speed * mult) * SIGN(mob->disp.x);
-    movement.y = MIN(ABS(mob->disp.y), mob->speed * mult) * SIGN(mob->disp.y);
+    movement.x = (MIN(ABS(mob->disp.x), (mob->speed * mult)
+        / (((mob->slowed_time > 0)) * 3 + 1)) * SIGN(mob->disp.x));
+    movement.y = (MIN(ABS(mob->disp.y), (mob->speed * mult)
+        / (((mob->slowed_time > 0)) * 3 + 1)) * SIGN(mob->disp.y));
     mob->disp.x -= movement.x;
     mob->disp.y -= movement.y;
+    mob->slowed_time -= (mob->slowed_time > 0);
     sfSprite_move(mob->sprite, movement);
 }
 
@@ -85,6 +87,29 @@ enemy *get_oldest(env_t *env, turret_t *turret)
         if (dist_two_points(act_pos, pos) < turret->range
             && actual->age > age) {
             age = actual->age;
+            output = actual;
+        }
+        actual = actual->next;
+    }
+    return output;
+}
+
+enemy *get_nearest(env_t *env, turret_t *turret)
+{
+    enemy *actual = env->c_game.enemies;
+    enemy *output = NULL;
+    sfVector2f pos = sfSprite_getPosition(turret->sprite);
+    int act_dist;
+    int dist = 2000;
+
+    while (actual != NULL) {
+        if (actual->type == 0) {
+            actual = actual->next;
+            continue;
+        }
+        act_dist = dist_two_points(sfSprite_getPosition(actual->sprite), pos);
+        if (act_dist < turret->range && act_dist < dist) {
+            dist = act_dist;
             output = actual;
         }
         actual = actual->next;

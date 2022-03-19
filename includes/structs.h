@@ -69,6 +69,7 @@ typedef struct enemy_s {
     int type;
     int age;
     int cooldown;
+    int slowed_time;
     sfVector2f offset;
     sfSprite *sprite;
     sfTexture *texture;

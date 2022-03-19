@@ -21,9 +21,12 @@ int bullet_collision(bullet_t *bullet, env_t *env)
             actual = actual->next;
             continue;
         }
-        if (DIST_ACTU < DIST_COLLISION) {
+        if (DIST_ACTU < DIST_COLLISION && bullet->shooter->type != 6) {
             actual->health -= bullet->damage;
             return 1;
+        }
+        if (DIST_ACTU < DIST_COLLISION * 6 && bullet->shooter->type == 6) {
+            actual->slowed_time += bullet->shooter->damage_per_action;
         }
         actual = actual->next;
     }
