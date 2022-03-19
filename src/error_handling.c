@@ -22,7 +22,7 @@ int error_file_turrets(char *titre)
             return_val += string_is_valid_nbr(buffer, 1);
         if (i != 0 && i != 3 && (i > 12 || i < 6))
             return_val += string_is_valid_nbr(buffer, 0);
-        if (i == 3 || i == 10 || i == 11)
+        if ((i == 3) && my_strcmp(buffer, "NULL\n") != 0)
             return_val += is_a_file(buffer);
     }
     fclose(fd);

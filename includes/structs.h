@@ -95,8 +95,8 @@ typedef struct turret_s {
     int steel_cost;
     int steel_per_s;
     struct turret_s *next;
-    char *name_upgrade1;
-    char *name_upgrade2;
+    struct turret_s *upgrade_1;
+    struct turret_s *upgrade_2;
     int is_base;
 } turret_t;
 

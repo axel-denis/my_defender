@@ -29,18 +29,28 @@ void get_tur_first_data(turret_t *out, int data_index, char *buf, char ***tex)
         out->type = my_get_nbr(buf);
 }
 
-void get_turret_last_data(turret_t *returned, int data_index, char *buffer)
+void get_turret_last_data(turret_t *returned, int indx, char *buffer, env_t *ev)
 {
-    if (data_index == 5)
+    turret_t next;
+    buffer[my_strlen(buffer) - 1] = '\0';
+
+    if (indx == 5)
         returned->range = my_get_nbr(buffer);
-    if (data_index == 6)
+    if (indx == 6)
         returned->energy_cost = my_get_nbr(buffer);
-    if (data_index == 7)
+    if (indx == 7)
         returned->steel_cost = my_get_nbr(buffer);
-    if (data_index == 8)
+    if (indx == 8)
         returned->energy_per_s = my_get_nbr(buffer);
-    if (data_index == 9)
+    if (indx == 9)
         returned->steel_per_s = my_get_nbr(buffer);
+    if (indx == 10 && my_strcmp(buffer, "NULL") != 0) {
+        next = create_turret_from_file(ev, buffer);
+        returned->upgrade_1 = &next;
+    } else if (indx == 11 && my_strcmp(buffer, "NULL") != 0) {
+        next = create_turret_from_file(ev, buffer);
+        returned->upgrade_2 = &next;
+    }
 }
 
 void setup_turret_data(env_t *env, char *file, turret_t *returned, char ***tex)
@@ -53,7 +63,7 @@ void setup_turret_data(env_t *env, char *file, turret_t *returned, char ***tex)
         if (env->langue[0] != 'E' && i == 0)
             returned->name = my_strdup(buffer);
         get_tur_first_data(returned, i, buffer, tex);
-        get_turret_last_data(returned, i, buffer);
+        get_turret_last_data(returned, i, buffer, env);
     }
     fclose(fd);
 }
@@ -61,11 +71,11 @@ void setup_turret_data(env_t *env, char *file, turret_t *returned, char ***tex)
 turret_t create_turret_from_file(env_t *env, char *titre)
 {
     char *file = malloc(sizeof(char) * (1 + my_strlen(titre) + 8));
-    my_strcpy(file, "turrets/");
     char **texture;
-    my_strcat(file, titre);
     turret_t returned;
 
+    my_strcpy(file, "turrets/");
+    my_strcat(file, titre);
     if (env->langue[0] == 'E')
         returned.name = my_strdup(titre);
     setup_turret_data(env, file, &returned, &texture);
