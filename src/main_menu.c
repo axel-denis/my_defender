@@ -55,9 +55,8 @@ int main_menu_button_gestion(SFWIN win, button *but, object mouse, env_t *env)
     for (int i = 0; i < 4; i++)
         display_button(win, &(but[i]), env->keys);
     update_mouse_cursor(win, mouse, env->tempo);
-    if (is_pressed(but[0], win, env->keys) == sfTrue) {
+    if (is_pressed(but[0], win, env->keys) == sfTrue)
         game(win, mouse, env);
-    }
     if (is_pressed(but[1], win, env->keys) == sfTrue) {
         options(win, mouse, env->keys, env);
         change_button_text(but, env);

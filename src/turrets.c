@@ -47,14 +47,17 @@ turret_t *template_turret(turret_t *turret)
     return output;
 }
 
-void set_turret_origin(turret_t *actual)
+void set_turret_origin_and_cost(turret_t *actual, env_t *env)
 {
     sfVector2u size = sfTexture_getSize(actual->texture);
 
     if (actual->type <= 10)
         sfSprite_setOrigin(actual->sprite, VC{40, 25});
-    else
+    else {
+        env->c_game.player_stats.energy_income += actual->energy_per_s;
+        env->c_game.player_stats.steel_income += actual->steel_per_s;
         sfSprite_setOrigin(actual->sprite, VC{size.x / 2, size.y / 2});
+    }
 }
 
 void clone_turret(env_t *env, turret_t *turret, sfVector2f pos)
@@ -76,7 +79,7 @@ void clone_turret(env_t *env, turret_t *turret, sfVector2f pos)
     sfSprite_setScale(actual->next->sprite, VC{.9, .9});
     actual->next->position = VC{pos.x * 60 + 30, pos.y * 60 + 30};
     sfSprite_setPosition(actual->next->sprite, actual->next->position);
-    set_turret_origin(actual->next);
+    set_turret_origin_and_cost(actual->next, env);
     actual->next->cooldown = 0;
     new_bullet(env, get_oldest(env, actual->next), actual->next);
 }
