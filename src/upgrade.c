@@ -37,23 +37,28 @@ void upgrade_menu_open(env_t *env, SFWIN window, upgrade_menu_t *menu, int pick)
 
 void upgrade_menu(env_t *env, SFWIN window, upgrade_menu_t *menu, int pick)
 {
+    sfVector2f pos = get_true_mouse_pos(window);
+
     if (menu->upgrading == NULL)
         upgrade_menu_open(env, window, menu, pick);
     else {
-        if (env->keys[leftMouse] == 3 &&
-            pos_in_square(get_true_mouse_pos(window),
+        if (env->keys[leftMouse] == 3 && pos_in_square(pos,
             sfSprite_getGlobalBounds(menu->close.sprite)) == sfTrue)
             menu->upgrading = NULL;
         if (menu->upgrading != NULL && menu->upgrading->upgrade_1 != NULL &&
-            pos_in_square(get_true_mouse_pos(window),
+            pos_in_square(pos,
             sfSprite_getGlobalBounds(menu->upgrading->upgrade_1->sprite))
-            == sfTrue && env->keys[leftMouse] == 3)
+            == sfTrue && env->keys[leftMouse] == 3) {
             menu->upgrading = NULL;
+            upgrade_turret(env, find_turret_by_pos(env, pos), 1);
+            }
         if (menu->upgrading != NULL && menu->upgrading->upgrade_2 != NULL &&
-            pos_in_square(get_true_mouse_pos(window),
+            pos_in_square(pos,
             sfSprite_getGlobalBounds(menu->upgrading->upgrade_2->sprite))
-            == sfTrue && env->keys[leftMouse] == 3)
+            == sfTrue && env->keys[leftMouse] == 3) {
             menu->upgrading = NULL;
+            upgrade_turret(env, find_turret_by_pos(env, pos), 2);
+            }
     }
     return;
 }

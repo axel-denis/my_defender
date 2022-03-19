@@ -50,6 +50,7 @@ SRC			=	src/ui.c 					\
 				src/enemies_chain.c			\
 				src/error_handling.c		\
 				src/turrets_parser.c		\
+				src/upgrade_turret.c		\
 				src/turrets_display.c		\
 				src/bullets_process.c		\
 				src/options_creation.c		\
