@@ -12,6 +12,7 @@
 #include "bullets.h"
 #include "map.h"
 #include "maths.h"
+#include "turrets.h"
 
 void d_range(sfVector2f mouse, turret_t *actua, SFWIN win, sfCircleShape *range)
 {
@@ -38,12 +39,13 @@ void turret_action(turret_t *turret, env_t *env)
     }
     if (sfTime_asMilliseconds(sfClock_getElapsedTime(env->tempo))
         - turret->cooldown >= turret->damage_speed * 10) {
-        new_bullet(env, nearest, turret);
+        if (turret->type <= 10)
+            new_bullet(env, nearest, turret);
         turret->cooldown =
             sfTime_asMilliseconds(sfClock_getElapsedTime(env->tempo));
         if (nearest != NULL) {
-            env->c_game.player_stats.steel -= turret->steel_per_s;
-            env->c_game.player_stats.energy -= turret->energy_per_s;
+            env->c_game.player_stats.steel -= turret->steel_per_s * GEN_TURR;
+            env->c_game.player_stats.energy -= turret->energy_per_s * GEN_TURR;
         }
     }
 }
