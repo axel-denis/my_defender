@@ -76,6 +76,8 @@ turret_t *create_malloc_turret_from_file(env_t *env, char *titre)
 
     my_strcpy(file, "turrets/");
     my_strcat(file, titre);
+    returned->upgrade_1 = NULL;
+    returned->upgrade_2 = NULL;
     if (env->langue[0] == 'E')
         returned->name = my_strdup(titre);
     setup_turret_data(env, file, returned, &texture);
@@ -96,6 +98,8 @@ turret_t create_turret_from_file(env_t *env, char *titre)
 
     my_strcpy(file, "turrets/");
     my_strcat(file, titre);
+    returned.upgrade_1 = NULL;
+    returned.upgrade_2 = NULL;
     if (env->langue[0] == 'E')
         returned.name = my_strdup(titre);
     setup_turret_data(env, file, &returned, &texture);
