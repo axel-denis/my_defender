@@ -43,6 +43,7 @@ SRC			=	src/ui.c 					\
 				src/csfml_utils2.c			\
 				src/enemy_parser.c			\
 				src/turret_reader.c			\
+				src/upgrade_setup.c			\
 				src/formating_hud.c			\
 				src/mouse_manager.c			\
 				src/enemy_display.c			\
