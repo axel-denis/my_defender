@@ -33,7 +33,6 @@ void clone_enemy_dimentions(env_t *env, enemy to_clone, enemy *act)
         env->c_game.starting_square.y * TILE_SIZE + act->next->offset.y + 30});
 }
 
-
 void clone_enemy(env_t *env, enemy to_clone)
 {
     enemy *actual = env->c_game.enemies;

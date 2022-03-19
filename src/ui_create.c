@@ -70,9 +70,8 @@ pop_button *create_turret_button_ui(env_t *env)
         VC{2, 2.2});
         create_icons(&button[i], i);
         button[i].icon = create_textured_object(turrets[i].texture,
-        VC{i * 180 + 90, 920 + 80}, VC{.2, .2});
+        VC{i * 180 + 90, 1020}, sfSprite_getScale(turrets[i].sprite));
         button[i].type = &(turrets[i]);
-        sfSprite_setOrigin(button[i].icon.sprite, VC{150, 270});
         sfSprite_setRotation(button[i].icon.sprite, 90);
     }
     button[i].onglet.sprite = NULL;

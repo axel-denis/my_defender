@@ -61,7 +61,7 @@ int main_menu_button_gestion(SFWIN win, button *but, object mouse, env_t *env)
     if (is_pressed(but[1], win, env->keys) == sfTrue) {
         options(win, mouse, env->keys, env);
         change_button_text(but, env);
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 4; i++) {
             sfSound_setVolume(but[i].click, env->volume);
             sfSound_setVolume(but[i].hover, env->volume / 1.4);
         }
