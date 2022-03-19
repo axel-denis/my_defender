@@ -23,7 +23,6 @@ sfCircleShape *range, sfVector2f mouse_pos);
 turret_t create_turret_from_file(env_t *env, char *titre);
 turret_t *create_turret_type(env_t *env);
 turret_t create_turret_from_file(env_t *env, char *titre);
-turret_t create_turret_from_recursive(env_t *env, char *titre);
-
+turret_t *create_malloc_turret_from_file(env_t *env, char *titre);
 
 #endif

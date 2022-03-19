@@ -17,5 +17,7 @@ char *formating_hud(int value);
 char *formating_hud_in(int value);
 hud update_hud(hud hud_player, env_t *env);
 void update_player_data(env_t *env, sfClock *clock);
+void upgrade_display(SFWIN win, upgrade_menu_t menu, env_t *env);
+void upgrade_destroy(upgrade_menu_t menu);
 
 #endif

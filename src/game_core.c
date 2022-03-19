@@ -76,9 +76,10 @@ void game_displays(SFWIN window, game_data_t *g_data, env_t *env, int *pick)
     display_turret(window, env, g_data->range, get_true_mouse_pos(window));
     display_enemies(window, env);
     sfRenderWindow_drawSprite(window, g_data->worm_hole2.sprite, NULL);
-    if (g_data->upgrade.upgrading == -1)
+    if (g_data->upgrade.upgrading == NULL)
         display_turret_button_ui(g_data->buttons, window, *pick, env);
-    upgrade_display(window, g_data->upgrade, env);
+    else
+        upgrade_display(window, g_data->upgrade, env);
 }
 
 void game_updates(SFWIN window, game_data_t *g_data, env_t *env, int *pick)
@@ -88,7 +89,7 @@ void game_updates(SFWIN window, game_data_t *g_data, env_t *env, int *pick)
     sfRenderWindow_clear(window, sfBlack);
     get_events(window, env->keys);
     upgrade_menu(env, window, &(g_data->upgrade), *pick);
-    if (g_data->upgrade.upgrading == -1)
+    if (g_data->upgrade.upgrading == NULL)
         *pick = pickup_turrets(g_data->buttons,
         get_true_mouse_pos(window), *pick, env);
     update_player_data(env, g_data->clock);

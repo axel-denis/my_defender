@@ -170,10 +170,10 @@ typedef struct current_game_s {
 } current_game_t;
 
 typedef struct upgrade_menu_s {
-    int upgrading;
+    turret_t *upgrading;
+    text name_1;
+    text name_2;
     object back;
-    object turret_1;
-    object turret_2;
     button close;
 } upgrade_menu_t;
 

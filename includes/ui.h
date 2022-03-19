@@ -20,7 +20,5 @@ void display_turret_icon(pop_button *bu, sfRenderWindow *window, int i);
 void display_picked_turret(int pickedup, pop_button *buttons, sfRenderWindow *);
 void upgrade_menu(env_t *env, sfRenderWindow *window, upgrade_menu_t *, int);
 upgrade_menu_t upgrade_create(env_t *env);
-void upgrade_display(sfRenderWindow *window, upgrade_menu_t menu, env_t *env);
-void upgrade_destroy(upgrade_menu_t menu);
 
 #endif

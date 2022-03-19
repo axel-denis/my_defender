@@ -42,8 +42,8 @@ turret_t *template_turret(turret_t *turret)
     output->energy_per_s = turret->energy_per_s;
     output->steel_per_s = turret->steel_per_s;
     output->is_base = turret->is_base;
-    output->name_upgrade1 = turret->name_upgrade1;
-    output->name_upgrade2 = turret->name_upgrade2;
+    output->upgrade_1 = turret->upgrade_1;
+    output->upgrade_2 = turret->upgrade_2;
     return output;
 }
 
