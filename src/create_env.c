@@ -36,7 +36,7 @@ env_t *create_env(void)
     env->data.ground_texture =
         sfTexture_createFromFile("img/grass.png", NULL);
     env->data.path_texture = sfTexture_createFromFile("img/dirt.png", NULL);
-    env->data.bullet_texture = sfTexture_createFromFile("img/base_arrow.png", NULL);
+    env->data.bullet_texture = SFTEXTFILE("img/base_arrow.png", NULL);
     create_env_playerstats(env);
     return env;
 }

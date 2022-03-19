@@ -30,6 +30,7 @@
     #define WINDOW_WIDTH 1920
     #define WINDOW_HEIGHT 1080
 
+    #define SFTEXTFILE sfTexture_createFromFile
     #define SFTEXTU sfSprite_setTextureRect
     #define SFSPPOS sfSprite_setPosition
 

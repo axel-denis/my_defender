@@ -13,7 +13,6 @@
 #include "button.h"
 #include "events.h"
 
-
 void setup_buttons(env_t *env, button *buttons)
 {
     sfIntRect square = create_rect(0, 0, 6065 / 3, 833);

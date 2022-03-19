@@ -37,7 +37,8 @@ void update_hud_playerstats(hud *hud_player, env_t *env)
 hud update_hud(hud hud_player, env_t *env)
 {
     char *w_txt = my_dec_to_base(env->c_game.player_stats.wave, "0123456789");
-    char *wave = malloc(sizeof(char) * (7 + (env->langue[0] == 'F') + my_strlen(w_txt)));
+    char *wave = malloc(sizeof(char) *
+        (7 + (env->langue[0] == 'F') + my_strlen(w_txt)));
 
     sfText_setString(hud_player.text_health.text,
         my_dec_to_base(env->c_game.player_stats.health, "0123456789"));

@@ -29,6 +29,7 @@ SRC			=	src/ui.c 					\
 				src/ui_display2.c 			\
 				src/csfml_utils.c 			\
 				src/map_display.c			\
+				src/clone_enemy.c			\
 				src/player_data.c			\
 				src/wave_create.c			\
 				src/display_hud.c			\

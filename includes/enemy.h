@@ -11,8 +11,8 @@
     #include "structs.h"
     #define TILE_SIZE 60
     #define SIGN(x) (x > 0 ? 1 : -1)
-    #define nextpath env->c_game.map[(int) pos.y / 60][(int) pos.x / 60].next_path
-    #define nextpath_type env->c_game.map[(int) pos.y / 60][(int) pos.x / 60].type
+    #define nextph env->c_game.map[(int) pos.y / 60][(int) pos.x / 60].next_path
+    #define nextph_type env->c_game.map[(int) pos.y / 60][(int) pos.x / 60].type
 
 enemy *create_null_enemy(void);
 void evolve_enemy(env_t *env, enemy *mob);

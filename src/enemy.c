@@ -33,55 +33,19 @@ enemy *last_e_link(enemy *first)
     return first;
 }
 
-void clone_base_e_data(enemy *to_clone, enemy *new)
-{
-    new->difficulty = to_clone->difficulty;
-    new->health = to_clone->health;
-    new->name = to_clone->name;
-    new->speed = to_clone->speed;
-    new->type = to_clone->type;
-    new->age = 0;
-    new->offset = VC{rand() % 30 - 15, rand() % 30 - 15};
-    new->sprite = sfSprite_create();
-}
-
-void clone_enemy(env_t *env, enemy to_clone)
-{
-    enemy *actual = env->c_game.enemies;
-
-    if (actual == NULL)
-        env->c_game.enemies = create_null_enemy();
-    actual = env->c_game.enemies;
-    actual = last_e_link(actual);
-    actual->next = malloc(sizeof(enemy));
-    clone_base_e_data(&to_clone, actual->next);
-    sfSprite_setScale(actual->next->sprite, sfSprite_getScale(to_clone.sprite));
-    sfSprite_setOrigin(actual->next->sprite, sfSprite_getOrigin(to_clone.sprite));
-    actual->next->disp = VC{0, 0};
-    sfSprite_setPosition(actual->next->sprite,
-        VC{env->c_game.starting_square.x * TILE_SIZE + actual->next->offset.x + 30,
-        env->c_game.starting_square.y * TILE_SIZE + actual->next->offset.y + 30});
-    actual->next->texture = to_clone.texture;
-    sfSprite_setTexture(actual->next->sprite, actual->next->texture, sfFalse);
-    sfSprite_setOrigin(actual->next->sprite,
-        VC{sfSprite_getGlobalBounds(actual->next->sprite).width / 2,
-        sfSprite_getGlobalBounds(actual->next->sprite).height / 2});
-    actual->next->cooldown = 0;
-    actual->next->next = NULL;
-}
-
 void point_enemy_toward_next_case(enemy *mob, sfVector2f pos, env_t *env)
 {
     mob->age++;
-    if (nextpath_type == 5) {
+    if (nextph_type == 5) {
         mob->disp.x = 512;
     } else {
-        mob->disp.x = ((nextpath.x * 60 > pos.x) -
-            (nextpath.x * 60 < pos.x)) * 60;
-        mob->disp.y = ((nextpath.y * 60 > pos.y) -
-            (nextpath.y * 60 < pos.y)) * 60;
+        mob->disp.x = ((nextph.x * 60 > pos.x) -
+            (nextph.x * 60 < pos.x)) * 60;
+        mob->disp.y = ((nextph.y * 60 > pos.y) -
+            (nextph.y * 60 < pos.y)) * 60;
     }
 }
+
 void evolve_enemy(env_t *env, enemy *mob)
 {
     sfVector2f pos = sfSprite_getPosition(mob->sprite);
