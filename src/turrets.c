@@ -47,6 +47,16 @@ turret_t *template_turret(turret_t *turret)
     return output;
 }
 
+void set_turret_origin(turret_t *actual)
+{
+    sfVector2u size = sfTexture_getSize(actual->next->texture);
+
+    if (actual->next->type <= 10)
+        sfSprite_setOrigin(actual->next->sprite, VC{40, 25});
+    else
+        sfSprite_setOrigin(actual->next->sprite, VC{size.x / 2, size.y / 2});
+}
+
 void clone_turret(env_t *env, turret_t *turret, sfVector2f pos)
 {
     turret_t *actual = env->c_game.turrets;
@@ -64,9 +74,9 @@ void clone_turret(env_t *env, turret_t *turret, sfVector2f pos)
     actual->next->texture = turret->texture;
     sfSprite_setTexture(actual->next->sprite, actual->next->texture, sfFalse);
     sfSprite_setScale(actual->next->sprite, VC{.9, .9});
-    sfSprite_setOrigin(actual->next->sprite, VC{40, 25});
     actual->next->position = VC{pos.x * 60 + 30, pos.y * 60 + 30};
     sfSprite_setPosition(actual->next->sprite, actual->next->position);
+    set_turret_origin(actual);
     actual->next->cooldown = 0;
     new_bullet(env, get_oldest(env, actual->next), actual->next);
 }
