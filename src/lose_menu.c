@@ -37,10 +37,8 @@ button *create_buttons_lose(env_t *env)
 {
     button *buttons = malloc(sizeof(button) * 2);
 
-    buttons[0] = create_button(VC{0.2, 0.2}, VC{WINDOW_WIDTH / 2
-        - ((6065/3)*0.2)/2, WINDOW_HEIGHT / 2 - 100}, sfTrue);
-    buttons[1] = create_button(VC{0.2, 0.2}, VC{WINDOW_WIDTH / 2
-        - ((6065/3)*0.2)/2, WINDOW_HEIGHT / 2 + 100}, sfTrue);
+    buttons[0] = create_button(VC{0.2, 0.2}, VC{758, 440}, sfTrue);
+    buttons[1] = create_button(VC{0.2, 0.2}, VC{758, 640}, sfTrue);
     setup_buttons(env, buttons);
     return (buttons);
 }

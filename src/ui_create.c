@@ -16,9 +16,9 @@
 void setup_popup_text(pop_button *bouton, turret_t turret, int i)
 {
     char *e_cost = formating_hud(turret.energy_cost);
-    char *e_per_s = formating_hud_in(turret.energy_per_s);
+    char *e_per_s = formating_hud(turret.energy_per_s);
     char *s_cost = formating_hud(turret.steel_cost);
-    char *s_per_s = formating_hud_in(turret.steel_per_s);
+    char *s_per_s = formating_hud(turret.steel_per_s);
 
     bouton->titre = setup_text(turret.name, "font/Xero.ttf", 17);
     bouton->energy_cost = setup_text(e_cost , "font/Xero.ttf", 17);

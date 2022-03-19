@@ -32,7 +32,7 @@ env_t *create_env(void)
     sfMusic_setLoop(env->data.music, sfTrue);
     env->volume = 100;
     sfMusic_setVolume(env->data.music, env->volume / 2);
-    env->langue = my_strdup("FR");
+    env->langue = my_strdup("EN");
     env->data.ground_texture =
         sfTexture_createFromFile("img/grass.png", NULL);
     env->data.path_texture = sfTexture_createFromFile("img/dirt.png", NULL);

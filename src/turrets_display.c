@@ -9,18 +9,19 @@
 #include "lib.h"
 #include "structs.h"
 #include "enemy.h"
+#include "bullets.h"
 #include "map.h"
 #include "maths.h"
 
-void d_range(sfVector2f mo, turret_t *ac, sfRenderWindow *win, sfCircleShape *r)
+void d_range(sfVector2f mouse, turret_t *actua, SFWIN win, sfCircleShape *range)
 {
-    sfVector2f pos = sfSprite_getPosition(ac->sprite);
+    sfVector2f pos = sfSprite_getPosition(actua->sprite);
 
-    if (pos_in_square(mo, (sfFloatRect){pos.x - 30, pos.y - 30, 60, 60})) {
-        sfCircleShape_setRadius(r, ac->range);
-        sfCircleShape_setOrigin(r, VC{ac->range, ac->range});
-        sfCircleShape_setPosition(r, VC{pos.x, pos.y});
-        sfRenderWindow_drawCircleShape(win, r, NULL);
+    if (pos_in_square(mouse, (sfFloatRect){pos.x - 30, pos.y - 30, 60, 60})) {
+        sfCircleShape_setRadius(range, actua->range);
+        sfCircleShape_setOrigin(range, VC{actua->range, actua->range});
+        sfCircleShape_setPosition(range, VC{pos.x, pos.y});
+        sfRenderWindow_drawCircleShape(win, range, NULL);
     }
 }
 
@@ -47,7 +48,7 @@ void turret_action(turret_t *turret, env_t *env)
     }
 }
 
-void display_turret(SFWIN win, env_t *env, sfCircleShape *range, sfVector2f mo)
+void display_turret(SFWIN win, env_t *env, sfCircleShape *range, sfVector2f mou)
 {
     turret_t *actu = env->c_game.turrets;
 
@@ -57,7 +58,7 @@ void display_turret(SFWIN win, env_t *env, sfCircleShape *range, sfVector2f mo)
             continue;
         }
         turret_action(actu, env);
-        d_range(mo, actu, win, range);
+        d_range(mou, actu, win, range);
         sfRenderWindow_drawSprite(win, actu->sprite, NULL);
         actu = actu->next;
     }

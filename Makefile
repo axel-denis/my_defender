@@ -9,6 +9,7 @@ MAIN		=	src/main.c					\
 
 SRC			=	src/ui.c 					\
 				src/range.c					\
+				src/howto.c					\
 				src/enemy.c					\
 				src/events.c				\
 				src/upgrade.c				\

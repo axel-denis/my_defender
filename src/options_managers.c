@@ -75,7 +75,7 @@ void volume_manager2(button *but, sfRenderWindow *window, int *keys, env_t *env)
     }
     for (int i = 0; i < 10; i++) {
         sfSound_setVolume(but[i].click, env->volume);
-        sfSound_setVolume(but[i].hover, env->volume/1.4);
+        sfSound_setVolume(but[i].hover, env->volume / 1.4);
     }
 }
 
