@@ -27,6 +27,7 @@ SRC			=	src/ui.c 					\
 				src/create_hud.c			\
 				src/update_hud.c			\
 				src/create_env.c			\
+				src/scoreboard.c			\
 				src/ui_display2.c 			\
 				src/csfml_utils.c 			\
 				src/map_display.c			\

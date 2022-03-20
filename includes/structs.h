@@ -211,4 +211,16 @@ typedef struct game_data {
     pop_button *buttons;
 } game_data_t;
 
+typedef struct scoreboard_s {
+    object back;
+    text title;
+} scoreboard_t;
+
+typedef struct menu_s {
+    button *buttons;
+    object background;
+    text texte;
+    scoreboard_t score;
+} menu_t;
+
 #endif

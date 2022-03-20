@@ -72,26 +72,36 @@ int main_menu_button_gestion(SFWIN win, button *but, object mouse, env_t *env)
     return 1;
 }
 
+menu_t create_main_menu(env_t *env)
+{
+    menu_t menu;
+
+    menu.buttons = create_buttons_menu(env);
+    menu.background = create_object("img/newbg.jpg", VC{0, 0}, VC{1, 1});
+    menu.texte = setup_text("  Planet\nDefender", "font/o_driftbold.ttf", 150);
+    menu.score = scoreboard_create();
+    sfText_setPosition(menu.texte.text, VC{1131, 0});
+    return (menu);
+}
+
 void main_menu(sfRenderWindow *window, object mouse, env_t *env)
 {
-    button *buttons = create_buttons_menu(env);
+    menu_t menu = create_main_menu(env);
     int open = 1;
-    object background = create_object("img/newbg.jpg", VC{0, 0}, VC{1, 1});
-    text texte = setup_text("  Planet\nDefender", "font/o_driftbold.ttf", 150);
 
-    sfText_setPosition(texte.text, VC{1131, 0});
     while (sfRenderWindow_isOpen(window) && open) {
         sfRenderWindow_clear(window, sfBlack);
-        sfRenderWindow_drawSprite(window, background.sprite, NULL);
+        sfRenderWindow_drawSprite(window, menu.background.sprite, NULL);
         get_events(window, env->keys);
-        sfRenderWindow_drawText(window, texte.text, NULL);
-        open = main_menu_button_gestion(window, buttons, mouse, env);
+        scoreboard_display(window, menu.score);
+        sfRenderWindow_drawText(window, menu.texte.text, NULL);
+        open = main_menu_button_gestion(window, menu.buttons, mouse, env);
         sfRenderWindow_display(window);
     }
-    sfSprite_destroy(background.sprite);
-    sfTexture_destroy(background.texture);
-    sfText_destroy(texte.text);
-    sfFont_destroy(texte.font);
+    sfSprite_destroy(menu.background.sprite);
+    sfTexture_destroy(menu.background.texture);
+    sfText_destroy(menu.texte.text);
+    sfFont_destroy(menu.texte.font);
     for (int i = 0; i < 4; i++)
-        destroy_button(buttons[i]);
+        destroy_button(menu.buttons[i]);
 }
