@@ -1,14 +1,14 @@
 Ralentisseur
-500
+200
 75
 img/slower_1.png
 6
 125
-50
 250
-0
+50
 1
-Fast
-Fast
-NULL
 0
+Fast slower
+NULL
+NULL
+1
