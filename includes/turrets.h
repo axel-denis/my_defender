@@ -16,6 +16,7 @@
     #define GEN_TURR ((turret->type > 10) * -1)
     #define UPGT menu->upgrading
 
+void execute_upgrade(env_t *env, sfVector2f pos, upgrade_menu_t *menu);
 turret_t *create_null_turret(void);
 turret_t *template_turret(int type, int dpa, int dmg_spd);
 void clone_turret(env_t *env, turret_t *turret, sfVector2f pos);

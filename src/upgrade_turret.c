@@ -15,6 +15,30 @@
 #include "button.h"
 #include "maths.h"
 
+void execute_upgrade(env_t *env, sfVector2f pos, upgrade_menu_t *menu)
+{
+    if (env->keys[leftMouse] == 3 && pos_in_square(pos,
+        sfSprite_getGlobalBounds(menu->close.sprite)) == sfTrue)
+        menu->upgrading = NULL;
+    if (menu->upgrading != NULL && UPGT->upgrade_1 != NULL &&
+        pos_in_square(pos,
+        sfSprite_getGlobalBounds(UPGT->upgrade_1->sprite))
+        == sfTrue && env->keys[leftMouse] == 3
+        && UPGT->upgrade_1->energy_cost <= env->c_game.player_stats.energy
+        && UPGT->upgrade_1->steel_cost <= env->c_game.player_stats.steel) {
+        upgrade_turret(UPGT, 1, env);
+        UPGT = NULL;
+    } else if (UPGT != NULL && UPGT->upgrade_2 != NULL &&
+        pos_in_square(pos,
+        sfSprite_getGlobalBounds(UPGT->upgrade_2->sprite))
+        == sfTrue && env->keys[leftMouse] == 3
+        && UPGT->upgrade_2->energy_cost <= env->c_game.player_stats.energy
+        && UPGT->upgrade_2->steel_cost <= env->c_game.player_stats.steel) {
+        upgrade_turret(UPGT, 2, env);
+        UPGT = NULL;
+    }
+}
+
 void copy_turret(turret_t *turret, turret_t *template)
 {
     turret->damage_per_action = template->damage_per_action;
