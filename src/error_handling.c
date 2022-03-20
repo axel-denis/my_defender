@@ -12,7 +12,7 @@ int error_file_turrets(char *titre)
     char *file = malloc(sizeof(char) * (1 + my_strlen(titre) + 8));
     my_strcpy(file, "turrets/");
     my_strcat(file, titre);
-    int return_val = has_correct_size(13, file);
+    int return_val = has_correct_size(14, file);
     size_t size = 0;
     char *buffer = NULL;
     FILE *fd = fopen(file, "r");
@@ -20,7 +20,7 @@ int error_file_turrets(char *titre)
     for (int i = 0; getline(&buffer, &size, fd) != -1; i++) {
         if (i <= 9 && i >= 6 && i == 2)
             return_val += string_is_valid_nbr(buffer, 1);
-        if (i != 0 && i != 2 && i != 3 && (i > 12 || i < 6))
+        if (i != 0 && i != 2 && i != 3 && (i > 13 || i < 6))
             return_val += string_is_valid_nbr(buffer, 0);
         if ((i == 3) && my_strcmp(buffer, "NULL\n") != 0)
             return_val += is_a_file(buffer);

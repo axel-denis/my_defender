@@ -27,6 +27,8 @@ void get_tur_first_data(turret_t *out, int data_index, char *buf, char ***tex)
     }
     if (data_index == 4)
         out->type = my_get_nbr(buf);
+    if (data_index == 13)
+        out->is_base = my_get_nbr(buf);
 }
 
 void get_turret_last_data(turret_t *returned, int indx, char *buffer, env_t *ev)
