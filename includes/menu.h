@@ -39,6 +39,9 @@ void game(sfRenderWindow *, object, env_t *, game_data_t *);
 void launch_game(sfRenderWindow *, object, env_t *);
 void how_to_menu(sfRenderWindow *window, object mouse, env_t *env);
 void scoreboard_display(SFWIN window, scoreboard_t score);
-scoreboard_t scoreboard_create(void);
+scoreboard_t scoreboard_create(env_t *env);
+void free_lose_menu(text texte, text score, button *buttons);
+void write_score_in_scoreboard(env_t *env);
+char **scores_to_array(void);
 
 #endif
