@@ -26,7 +26,7 @@ int create_game(env_t *env)
     env->c_game.bullets = NULL;
     env->c_game.enemies = NULL;
     env->c_game.clock = sfClock_create();
-    if (read_map(env, "map") == 1) {
+    if (read_map(env, env->map_name) == 1) {
         my_errorstr("Error on map\n");
         return 1;
     }

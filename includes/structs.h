@@ -193,6 +193,7 @@ typedef struct env_s {
     char *langue;
     int resolution;
     int *keys;
+    char *map_name;
     sfClock *tempo;
     game_data data;
     current_game_t c_game;
