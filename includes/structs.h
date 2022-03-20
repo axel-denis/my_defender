@@ -214,6 +214,7 @@ typedef struct game_data {
 typedef struct scoreboard_s {
     object back;
     text title;
+    text data;
 } scoreboard_t;
 
 typedef struct menu_s {

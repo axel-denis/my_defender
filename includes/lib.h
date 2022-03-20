@@ -19,7 +19,6 @@ void my_put_nbr(int nb);
 void my_putchar(char c);
 void my_putstr(char const *str);
 char *my_nbr_to_str(int nb);
-int lines_count(char *str, char separator);
 int line_len(char *str, char endline);
 char **my_split(char *str, char separator);
 char *fill_text(char const *text);
