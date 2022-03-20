@@ -5,7 +5,6 @@
 ** button_utils
 */
 
-
 #include "csfml.h"
 #include "button.h"
 #include "mouse.h"
