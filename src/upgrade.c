@@ -35,6 +35,27 @@ void upgrade_menu_open(env_t *env, SFWIN window, upgrade_menu_t *menu, int pick)
     }
 }
 
+void execute_upgrade(env_t *env, sfVector2f pos, upgrade_menu_t *menu)
+{
+    if (env->keys[leftMouse] == 3 && pos_in_square(pos,
+        sfSprite_getGlobalBounds(menu->close.sprite)) == sfTrue)
+        menu->upgrading = NULL;
+    if (menu->upgrading != NULL && menu->upgrading->upgrade_1 != NULL &&
+        pos_in_square(pos,
+        sfSprite_getGlobalBounds(menu->upgrading->upgrade_1->sprite))
+        == sfTrue && env->keys[leftMouse] == 3) {
+        upgrade_turret(menu->upgrading, 1, env);
+        menu->upgrading = NULL;
+        }
+    if (menu->upgrading != NULL && menu->upgrading->upgrade_2 != NULL &&
+        pos_in_square(pos,
+        sfSprite_getGlobalBounds(menu->upgrading->upgrade_2->sprite))
+        == sfTrue && env->keys[leftMouse] == 3) {
+        upgrade_turret(menu->upgrading, 2, env);
+        menu->upgrading = NULL;
+        }
+}
+
 void upgrade_menu(env_t *env, SFWIN window, upgrade_menu_t *menu, int pick)
 {
     sfVector2f pos = get_true_mouse_pos(window);
@@ -42,21 +63,7 @@ void upgrade_menu(env_t *env, SFWIN window, upgrade_menu_t *menu, int pick)
     if (menu->upgrading == NULL)
         upgrade_menu_open(env, window, menu, pick);
     else {
-        if (env->keys[leftMouse] == 3 && pos_in_square(pos,
-            sfSprite_getGlobalBounds(menu->close.sprite)) == sfTrue)
-        if (menu->upgrading != NULL && menu->upgrading->upgrade_1 != NULL &&
-            pos_in_square(pos,
-            sfSprite_getGlobalBounds(menu->upgrading->upgrade_1->sprite))
-            == sfTrue && env->keys[leftMouse] == 3) {
-            upgrade_turret(menu->upgrading, 1, env);
-            }
-        if (menu->upgrading != NULL && menu->upgrading->upgrade_2 != NULL &&
-            pos_in_square(pos,
-            sfSprite_getGlobalBounds(menu->upgrading->upgrade_2->sprite))
-            == sfTrue && env->keys[leftMouse] == 3) {
-            upgrade_turret(menu->upgrading, 2, env);
-            }
-        menu->upgrading = NULL;
+        execute_upgrade(env, pos, menu);
     }
     return;
 }
