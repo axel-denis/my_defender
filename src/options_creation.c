@@ -31,12 +31,12 @@ void set_textures_options(button *buttons)
 
     setup_button_texture(&(buttons[0]), &square, "img/arrow.png");
     setup_button_texture(&(buttons[1]), &square, "img/arrow.png");
-    setup_button_texture(&(buttons[2]), &square, "img/Blue_button.png");
-    setup_button_texture(&(buttons[3]), &square, "img/Blue_button.png");
-    setup_button_texture(&(buttons[4]), &square, "img/Blue_button.png");
-    setup_button_texture(&(buttons[5]), &square, "img/Blue_button.png");
-    setup_button_texture(&(buttons[6]), &square, "img/Blue_button.png");
-    setup_button_texture(&(buttons[7]), &square, "img/Blue_button.png");
+    setup_button_texture(&(buttons[2]), &square, "img/blue_button.png");
+    setup_button_texture(&(buttons[3]), &square, "img/blue_button.png");
+    setup_button_texture(&(buttons[4]), &square, "img/blue_button.png");
+    setup_button_texture(&(buttons[5]), &square, "img/blue_button.png");
+    setup_button_texture(&(buttons[6]), &square, "img/blue_button.png");
+    setup_button_texture(&(buttons[7]), &square, "img/blue_button.png");
     setup_button_texture(&(buttons[8]), &square2, "img/france.png");
     setup_button_texture(&(buttons[9]), &square2, "img/anglois.png");
 }

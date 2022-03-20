@@ -9,7 +9,7 @@
 
 sfRenderWindow *create_windows(env_t *env)
 {
-    sfImage *icon = sfImage_createFromFile("img/Elecricity.png");
+    sfImage *icon = sfImage_createFromFile("img/elecricity.png");
     sfVector2u size = sfImage_getSize(icon);
     sfVideoMode main_w = {env->resolution, env->resolution / 16 * 9, 24};
     sfRenderWindow *window;

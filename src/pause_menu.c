@@ -35,7 +35,7 @@ button *create_buttons_pause(env_t *e)
     b[1] = create_button(VC{0.2, 0.2}, VC{258, 1080 / 2 + 50}, sfTrue);
     b[2] = create_button(VC{0.2, 0.2}, VC{258, 1080 / 2 + 250}, sfTrue);
     for (int i = 0; i < 3; i++) {
-        setup_button_texture(&(b[i]), &square, "img/Blue_button.png");
+        setup_button_texture(&(b[i]), &square, "img/blue_button.png");
         setup_button_sounds(&(b[i]), "sounds/click.ogg", "sounds/hover.ogg", e);
     }
     setup_text_pause(b, e);

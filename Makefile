@@ -5,7 +5,7 @@
 ## Makefile
 ##
 
-MAIN		=	src/main.c					\
+MAIN		=	src/my_defender.c			\
 
 SRC			=	src/ui.c 					\
 				src/range.c					\

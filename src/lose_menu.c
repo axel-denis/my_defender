@@ -18,7 +18,7 @@ void setup_buttons(env_t *env, button *buttons)
     sfIntRect square = create_rect(0, 0, 6065 / 3, 833);
 
     for (int i = 0; i < 2; i++) {
-        setup_button_texture(&(buttons[i]), &square, "img/Blue_button.png");
+        setup_button_texture(&(buttons[i]), &square, "img/blue_button.png");
         setup_button_sounds(&(buttons[i]),
             "sounds/click.ogg", "sounds/hover.ogg", env);
     }

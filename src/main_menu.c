@@ -40,7 +40,7 @@ button *create_buttons_menu(env_t *e)
     b[2] = create_button(VC{.2, .2}, VC{1258, 680}, sfTrue);
     b[3] = create_button(VC{.2, .2}, VC{1258, 860}, sfTrue);
     for (int i = 0; i < 4; i++) {
-        setup_button_texture(&(b[i]), &square, "img/Blue_button.png");
+        setup_button_texture(&(b[i]), &square, "img/blue_button.png");
         setup_button_sounds(&(b[i]), "sounds/click.ogg", "sounds/hover.ogg", e);
     }
     setup_button_text(&(b[0]), "Start", "font/Xero.ttf", 40);

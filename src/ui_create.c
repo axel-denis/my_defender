@@ -38,19 +38,19 @@ void setup_popup_text(pop_button *bouton, turret_t turret, int i)
 
 void create_icons(pop_button *but, int i)
 {
-    but->energy = create_object("img/Elecricity.png",
+    but->energy = create_object("img/elecricity.png",
         VC{i * 180 + 12, 1001 + 80}, VC{.05, .05});
     but->steel = create_object("img/steel.png",
         VC{i * 180 + 12, 1021+ 80}, VC{.05, .05});
     but->energy_income_pos = create_object("img/green_arrow.png",
         VC{i * 180 + 12, 1121}, VC{.05, .05});
-    but->energy_income_neu = create_object("img/Neutral.png",
+    but->energy_income_neu = create_object("img/neutral.png",
         VC{i * 180 + 12, 1121}, VC{.05, .05});
     but->energy_income_neg = create_object("img/red_arrow.png",
         VC{i * 180 + 12, 1121}, VC{.05, .05});
     but->steel_income_pos = create_object("img/green_arrow.png",
         VC{i * 180 + 12, 1061 + 80}, VC{.05, .05});
-    but->steel_income_neu = create_object("img/Neutral.png",
+    but->steel_income_neu = create_object("img/neutral.png",
         VC{i * 180 + 12, 1061 + 80}, VC{.05, .05});
     but->steel_income_neg = create_object("img/red_arrow.png",
         VC{i * 180 + 12, 1061 + 80}, VC{.05, .05});

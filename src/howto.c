@@ -19,7 +19,7 @@ button create_buttons_how_to(env_t *env)
     sfIntRect square = create_rect(0, 0, 6065 / 3, 833);
 
     but = create_button(VC{0.2, 0.2}, VC{1920 - 410, 1080 - 170}, sfTrue);
-    setup_button_texture(&but, &square, "img/Blue_button.png");
+    setup_button_texture(&but, &square, "img/blue_button.png");
     setup_button_sounds(&but, "sounds/click.ogg", "sounds/hover.ogg", env);
     if (env->langue[0] == 'E')
         setup_button_text(&but, "Resume", "font/Xero.ttf", 40);

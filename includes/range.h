@@ -9,6 +9,6 @@
     #define RANGE_H
     #include "structs.h"
 
-sfCircleShape *create_range();
+sfCircleShape *create_range(void);
 
 #endif

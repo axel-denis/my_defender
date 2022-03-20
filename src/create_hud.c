@@ -20,11 +20,11 @@
 void set_hud_energy(hud *hud_object)
 {
     hud_object->icon_energy =
-        create_object("img/Elecricity.png", VC{1411, 85}, VC{.12, .12});
+        create_object("img/elecricity.png", VC{1411, 85}, VC{.12, .12});
     hud_object->icon_energy_income_pos =
         create_object("img/green_arrow.png", VC{1661, 85}, VC{.12, .12});
     hud_object->icon_energy_income_neu =
-        create_object("img/Neutral.png", VC{1661, 85}, VC{.12, .12});
+        create_object("img/neutral.png", VC{1661, 85}, VC{.12, .12});
     hud_object->icon_energy_income_neg =
         create_object("img/red_arrow.png", VC{1661, 85}, VC{.12, .12});
     hud_object->text_energy =
@@ -42,7 +42,7 @@ void set_hud_steel(hud *hud_object)
     hud_object->icon_steel_income_pos =
         create_object("img/green_arrow.png", VC{1661, 147}, VC{.12, .12});
     hud_object->icon_steel_income_neu =
-        create_object("img/Neutral.png", VC{1661, 147}, VC{.12, .12});
+        create_object("img/neutral.png", VC{1661, 147}, VC{.12, .12});
     hud_object->icon_steel_income_neg =
         create_object("img/red_arrow.png", VC{1661, 147}, VC{.12, .12});
     hud_object->text_steel =

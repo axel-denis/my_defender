@@ -11,7 +11,8 @@
     #include "csfml.h"
     #include "structs.h"
 
-    #define REAL_MAP_LEN 193 // je compte 192 pourtant, étrange
+    #define CASE_SIZE 60
+    #define REAL_MAP_LEN 193
     #define MAP_LEN 32
     #define MAP_HEIGHT 18
     #define SPRITE_SCALE (sfVector2f) {3.75, 3.75}

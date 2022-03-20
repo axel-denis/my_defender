@@ -13,8 +13,6 @@
 #include "events.h"
 #include "map.h"
 
-#define CASE_SIZE 60
-
 sfSprite *create_sprite(env_t *env, int type, sfVector2f pos)
 {
     sfSprite *sprite = sfSprite_create();

@@ -19,13 +19,13 @@ void set_menu_icons(upgrade_menu_t *menu)
     if (menu->upgrading->upgrade_1 == NULL)
         return;
     menu->icon_energy_1 =
-        create_object("img/Elecricity.png", VC{340, 960}, VC{.12, .12});
+        create_object("img/elecricity.png", VC{340, 960}, VC{.12, .12});
     menu->icon_steel_1 =
         create_object("img/steel.png", VC{340, 1000}, VC{.12, .12});
     if (menu->upgrading->upgrade_2 == NULL)
         return;
     menu->icon_energy_2 =
-        create_object("img/Elecricity.png", VC{1300, 960}, VC{.12, .12});
+        create_object("img/elecricity.png", VC{1300, 960}, VC{.12, .12});
     menu->icon_steel_2 =
         create_object("img/steel.png", VC{1300, 1000}, VC{.12, .12});
 }

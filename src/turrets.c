@@ -83,4 +83,3 @@ void clone_turret(env_t *env, turret_t *turret, sfVector2f pos)
     actual->next->cooldown = 0;
     new_bullet(env, get_oldest(env, actual->next), actual->next);
 }
-

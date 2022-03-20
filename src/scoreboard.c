@@ -12,8 +12,7 @@
 #include "mouse.h"
 #include "button.h"
 #include "events.h"
-//515
-//50
+
 scoreboard_t scoreboard_create(void)
 {
     scoreboard_t score;
