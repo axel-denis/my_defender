@@ -41,7 +41,7 @@ void button_update_state(sfVector2f mouse_pos, button *but, int *keys)
         SFTEXTU((*but).sprite, create_rect(size.x / 3, 0, size.x / 3, size.y));
     if (pos_in_square(mouse_pos, rect) == sfTrue && CLICKED)
         SFTEXTU((*but).sprite,
-            create_rect(size.x / 1.5 , 0, size.x / 3, size.y));
+            create_rect(1.5 , 0, size.x / 3, size.y));
 }
 
 void display_button(sfRenderWindow *window, button *but, int *keys)

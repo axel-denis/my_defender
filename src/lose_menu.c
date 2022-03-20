@@ -43,7 +43,7 @@ button *create_buttons_lose(env_t *env)
     return (buttons);
 }
 
-int render_loose_menu(SFWIN window, int *keys, button *buttons, env_t *env)
+int render_loose_menu(SFWIN window, int *keys, button *buttons)
 {
     int open = 1;
     object backfr = create_object("img/lose.jpg", VC{0, 0}, VC{1, 1});
@@ -91,7 +91,7 @@ void lose_menu(sfRenderWindow *window, object mouse, int *keys, env_t *env)
         texte = setup_text(" Defaite", "font/o_driftbold.ttf", 150);
     sfText_setPosition(texte.text, VC{670, 200});
     while (sfRenderWindow_isOpen(window) && open) {
-        open = render_loose_menu(window, keys, buttons, env);
+        open = render_loose_menu(window, keys, buttons);
         sfRenderWindow_drawText(window, texte.text, NULL);
         sfRenderWindow_drawText(window, score.text, NULL);
         update_mouse_cursor(window, mouse, env->tempo);
