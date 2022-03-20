@@ -14,6 +14,7 @@
 #ifndef TURRET_H
     #define TURRET_H
     #define GEN_TURR ((turret->type > 10) * -1)
+    #define UPGT menu->upgrading
 
 turret_t *create_null_turret(void);
 turret_t *template_turret(int type, int dpa, int dmg_spd);

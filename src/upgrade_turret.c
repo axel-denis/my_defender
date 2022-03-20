@@ -34,6 +34,17 @@ void copy_turret(turret_t *turret, turret_t *template)
     turret->upgrade_2 = template->upgrade_2;
 }
 
+void apply_upgrade_cost(env_t *env, turret_t *turret, int upgrade)
+{
+    if (upgrade == 1) {
+        env->c_game.player_stats.steel -= turret->upgrade_1->steel_cost;
+        env->c_game.player_stats.energy -= turret->upgrade_1->energy_cost;
+    } else {
+        env->c_game.player_stats.steel -= turret->upgrade_2->steel_cost;
+        env->c_game.player_stats.energy -= turret->upgrade_2->energy_cost;
+    }
+}
+
 void upgrade_turret(turret_t *turret, int upgrade, env_t *env)
 {
     sfVector2f pos;
@@ -44,10 +55,10 @@ void upgrade_turret(turret_t *turret, int upgrade, env_t *env)
         if (turret->upgrade_2 == NULL && upgrade > 1)
             return;
     } else {
-        printf("null\n");
         return;
     }
     pos = sfSprite_getPosition(turret->sprite);
+    apply_upgrade_cost(env, turret, upgrade);
     if (upgrade == 1)
         copy_turret(turret, turret->upgrade_1);
     else
@@ -69,7 +80,6 @@ turret_t *find_turret_by_pos(env_t *env, sfVector2f pos)
             actual = actual->next;
             continue;
         }
-        printf("testing for mouse is %f %f\n\t%f %f\n", pos.x, pos.y, sfSprite_getPosition(actual->sprite).x, sfSprite_getPosition(actual->sprite).y);
         act_dist = dist_two_points(sfSprite_getPosition(actual->sprite), pos);
         if (act_dist < dist) {
             dist = act_dist;
