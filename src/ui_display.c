@@ -26,17 +26,21 @@ void draw_text_ui(int stock, int cost, text text, sfRenderWindow *window)
 
 void draw_correct_arrow(pop_button pop, sfRenderWindow *window)
 {
-    if (pop.type->energy_per_s > 0)
+    if ((pop.type->energy_per_s > 0 && pop.type->type <= 10)
+        || (pop.type->energy_per_s < 0 && pop.type->type > 10))
         sfRenderWindow_drawSprite(window, pop.energy_income_neg.sprite, NULL);
     if (pop.type->energy_per_s == 0)
         sfRenderWindow_drawSprite(window, pop.energy_income_neu.sprite, NULL);
-    if (pop.type->energy_per_s < 0)
+    if ((pop.type->energy_per_s < 0 && pop.type->type <= 10)
+        || (pop.type->energy_per_s > 0 && pop.type->type > 10))
         sfRenderWindow_drawSprite(window, pop.energy_income_pos.sprite, NULL);
-    if (pop.type->steel_per_s > 0)
+    if ((pop.type->steel_per_s > 0 && pop.type->type <= 10)
+        || (pop.type->steel_per_s < 0 && pop.type->type > 10))
         sfRenderWindow_drawSprite(window, pop.steel_income_neg.sprite, NULL);
     if (pop.type->steel_per_s == 0)
         sfRenderWindow_drawSprite(window, pop.steel_income_neu.sprite, NULL);
-    if (pop.type->steel_per_s < 0)
+    if ((pop.type->steel_per_s < 0 && pop.type->type <= 10)
+        || (pop.type->steel_per_s > 0 && pop.type->type > 10))
         sfRenderWindow_drawSprite(window, pop.steel_income_pos.sprite, NULL);
 }
 

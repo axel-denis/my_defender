@@ -31,9 +31,6 @@ void turret_consume(turret_t *turret, env_t *env, enemy *nearest)
     if (nearest != NULL && turret->type <= 10) {
         env->c_game.player_stats.steel -= turret->steel_per_s;
         env->c_game.player_stats.energy -= turret->energy_per_s;
-    } else if (turret->type > 10) {
-        env->c_game.player_stats.steel += turret->steel_per_s;
-        env->c_game.player_stats.energy += turret->energy_per_s;
     }
 }
 
