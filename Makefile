@@ -26,6 +26,7 @@ SRC			=	src/ui.c 					\
 				src/math_utils.c			\
 				src/create_hud.c			\
 				src/update_hud.c			\
+				src/lose_utils.c			\
 				src/create_env.c			\
 				src/scoreboard.c			\
 				src/ui_display2.c 			\
