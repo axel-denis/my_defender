@@ -14,7 +14,6 @@
     #define ENGLISH (env->langue[0] == 'E')
 
 void main_menu(sfRenderWindow *, object, env_t *);
-void game(sfRenderWindow *window, object mouse, env_t *env);
 void options(sfRenderWindow *window, object mouse, int *keys, env_t *env);
 void options(sfRenderWindow *window, object mouse, int *keys, env_t *env);
 button *create_buttons_options(env_t *env);
@@ -33,10 +32,11 @@ void set_button_vsync_txt(button *buttons, env_t *env);
 void set_button_screen_txt(button *buttons, env_t *env);
 void screen_manager(button *but, sfRenderWindow *window, int *keys, env_t *env);
 void langue_manager(button *but, sfRenderWindow *window, int *keys, env_t *env);
-void create_game(env_t *env);
+int create_game(env_t *env);
 void lose_menu(sfRenderWindow *window, object mouse, int *keys, env_t *env);
 char *set_screen_txt(env_t *env);
-void game(sfRenderWindow *window, object mouse, env_t *env);
-void how_to_menu(sfRenderWindow *window, object mouse, env_t *env);
+void game(sfRenderWindow *, object, env_t *, game_data_t *);
+void launch_game(sfRenderWindow *, object, env_t *);
+
 
 #endif

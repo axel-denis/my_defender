@@ -42,17 +42,23 @@ int game_clock_gestion(env_t *env, SFWIN window, object mouse)
     return close;
 }
 
-game_data_t *create_gamedata(env_t *env)
+void create_base_game_data(env_t *env, game_data_t *game_data)
 {
-    game_data_t *game_data = malloc(sizeof(game_data_t));
-
-    create_game(env);
     game_data->enemies_type = create_enemies_type();
     game_data->wave = wave_create(env, game_data->enemies_type);
     game_data->upgrade = upgrade_create(env);
     game_data->clock = sfClock_create();
     env->c_game.wave_timer = sfClock_create();
     game_data->hud_player = create_hud();
+}
+
+game_data_t *create_gamedata(env_t *env)
+{
+    game_data_t *game_data = malloc(sizeof(game_data_t));
+
+    if (create_game(env))
+        return NULL;
+    create_base_game_data(env, game_data);
     game_data->background = create_object("img/background.jpg",
         VC{0, 0}, VC{1, 1});
     game_data->worm_hole = create_object("img/icon.png", VC{
@@ -96,27 +102,36 @@ void game_updates(SFWIN window, game_data_t *g_data, env_t *env, int *pick)
     update_hud(g_data->hud_player, env);
 }
 
-void game(sfRenderWindow *window, object mouse, env_t *env)
+void launch_game(sfRenderWindow *window, object mouse, env_t *env)
 {
+    game_data_t *game_data;
+
     if (error_handling() == 84)
         return;
-    game_data_t *game_data = create_gamedata(env);
+    game_data = create_gamedata(env);
+    if (game_data == NULL)
+        return;
+    game(window, mouse, env, game_data);
+}
+
+void game(sfRenderWindow *window, object mouse, env_t *env, game_data_t *game_d)
+{
     int open = 1;
     int pick = -1;
 
     setmap_opacity(env);
     sfClock_restart(env->c_game.clock);
     while (sfRenderWindow_isOpen(window) && open) {
-        game_updates(window, game_data, env, &pick);
-        game_displays(window, game_data, env, &pick);
-        display_picked_turret(pick, game_data->buttons, window);
+        game_updates(window, game_d, env, &pick);
+        game_displays(window, game_d, env, &pick);
+        display_picked_turret(pick, game_d->buttons, window);
         update_mouse_cursor(window, mouse, env->tempo);
         sfRenderWindow_display(window);
 
         evolve_all_enemies(env);
         open -= game_clock_gestion(env, window, mouse);
     }
-    upgrade_destroy(game_data->upgrade);
-    sfClock_destroy(game_data->clock);
+    upgrade_destroy(game_d->upgrade);
+    sfClock_destroy(game_d->clock);
     env->keys[sfKeyEscape] = 0;
 }

@@ -20,6 +20,7 @@ int main(void)
     env->keys = init_keys();
     sfRenderWindow *window = create_windows(env);
 
+    srand(get_true_mouse_pos(window).x * get_true_mouse_pos(window).y);
     main_menu(window, mouse, env);
     sfMusic_destroy(env->data.music);
     destroy_object(mouse);
