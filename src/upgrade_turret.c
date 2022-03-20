@@ -17,7 +17,6 @@
 
 void copy_turret(turret_t *turret, turret_t *template)
 {
-    turret->cooldown = template->cooldown;
     turret->damage_per_action = template->damage_per_action;
     turret->damage_speed = template->damage_speed;
     turret->energy_cost = template->energy_cost;
@@ -25,10 +24,11 @@ void copy_turret(turret_t *turret, turret_t *template)
     turret->is_base = template->is_base;
     turret->name = template->name;
     turret->range = template->range;
-    turret->sprite = template->sprite;
+    turret->texture = template->texture;
+    turret->sprite = sfSprite_create();
+    sfSprite_setTexture(turret->sprite, turret->texture, sfTrue);
     turret->steel_cost = template->steel_cost;
     turret->steel_per_s = template->steel_per_s;
-    turret->texture = template->texture;
     turret->type = template->type;
     turret->upgrade_1 = template->upgrade_1;
     turret->upgrade_2 = template->upgrade_2;
@@ -44,6 +44,7 @@ void upgrade_turret(turret_t *turret, int upgrade, env_t *env)
         if (turret->upgrade_2 == NULL && upgrade > 1)
             return;
     } else {
+        printf("null\n");
         return;
     }
     pos = sfSprite_getPosition(turret->sprite);
@@ -68,6 +69,7 @@ turret_t *find_turret_by_pos(env_t *env, sfVector2f pos)
             actual = actual->next;
             continue;
         }
+        printf("testing for mouse is %f %f\n\t%f %f\n", pos.x, pos.y, sfSprite_getPosition(actual->sprite).x, sfSprite_getPosition(actual->sprite).y);
         act_dist = dist_two_points(sfSprite_getPosition(actual->sprite), pos);
         if (act_dist < dist) {
             dist = act_dist;

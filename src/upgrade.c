@@ -44,21 +44,19 @@ void upgrade_menu(env_t *env, SFWIN window, upgrade_menu_t *menu, int pick)
     else {
         if (env->keys[leftMouse] == 3 && pos_in_square(pos,
             sfSprite_getGlobalBounds(menu->close.sprite)) == sfTrue)
-            menu->upgrading = NULL;
         if (menu->upgrading != NULL && menu->upgrading->upgrade_1 != NULL &&
             pos_in_square(pos,
             sfSprite_getGlobalBounds(menu->upgrading->upgrade_1->sprite))
             == sfTrue && env->keys[leftMouse] == 3) {
-            menu->upgrading = NULL;
-            upgrade_turret(find_turret_by_pos(env, pos), 1, env);
+            upgrade_turret(menu->upgrading, 1, env);
             }
         if (menu->upgrading != NULL && menu->upgrading->upgrade_2 != NULL &&
             pos_in_square(pos,
             sfSprite_getGlobalBounds(menu->upgrading->upgrade_2->sprite))
             == sfTrue && env->keys[leftMouse] == 3) {
-            menu->upgrading = NULL;
-            upgrade_turret(find_turret_by_pos(env, pos), 2, env);
+            upgrade_turret(menu->upgrading, 2, env);
             }
+        menu->upgrading = NULL;
     }
     return;
 }
