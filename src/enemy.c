@@ -12,20 +12,6 @@
 #include "map.h"
 #include "maths.h"
 
-enemy *create_null_enemy(void)
-{
-    enemy *output = malloc(sizeof(enemy));
-
-    output->disp = VC{0, 0};
-    output->health = 1;
-    output->speed = 0;
-    output->sprite = NULL;
-    output->texture = NULL;
-    output->type = 0;
-    output->next = NULL;
-    return output;
-}
-
 enemy *last_e_link(enemy *first)
 {
     while (first->next != NULL)

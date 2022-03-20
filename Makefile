@@ -19,8 +19,9 @@ SRC			=	src/ui.c 					\
 				src/get_enemy.c				\
 				src/lose_menu.c				\
 				src/ui_create.c 			\
-				src/game_core.c				\
 				src/main_menu.c				\
+				src/game_core.c				\
+				src/game_core2.c			\
 				src/ui_display.c 			\
 				src/pause_menu.c			\
 				src/map_reader.c			\

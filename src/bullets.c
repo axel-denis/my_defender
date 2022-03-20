@@ -48,6 +48,14 @@ bullet_t *null_bullet(void)
     return output;
 }
 
+void setup_bullet_sprite(bullet_t *output, env_t *env, sfVector2f shooter_pos)
+{
+    sfSprite_setTexture(output->sprite, env->data.bullet_texture, sfFalse);
+    sfSprite_setOrigin(output->sprite, VC{200, 200});
+    sfSprite_setPosition(output->sprite, shooter_pos);
+    sfSprite_setScale(output->sprite, VC{.1, .1});
+}
+
 bullet_t *create_bullet(enemy *target, turret_t *shooter, env_t *env)
 {
     bullet_t *output = malloc(sizeof(bullet_t));
@@ -65,10 +73,7 @@ bullet_t *create_bullet(enemy *target, turret_t *shooter, env_t *env)
     output->speed = 49;
     output->damage = shooter->damage_per_action;
     output->sprite = sfSprite_create();
-    sfSprite_setTexture(output->sprite, env->data.bullet_texture, sfFalse);
-    sfSprite_setOrigin(output->sprite, VC{200, 200});
-    sfSprite_setPosition(output->sprite, shooter_pos);
-    sfSprite_setScale(output->sprite, VC{.1, .1});
+    setup_bullet_sprite(output, env, shooter_pos);
     sfSprite_setRotation(output->sprite, angle);
     output->next = NULL;
     return output;
