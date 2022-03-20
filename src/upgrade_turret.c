@@ -51,9 +51,9 @@ void upgrade_turret(turret_t *turret, int upgrade, env_t *env)
         copy_turret(turret, turret->upgrade_1);
     else
         copy_turret(turret, turret->upgrade_2);
-    sfSprite_setPosition(turret->sprite, pos);
-    sfSprite_setScale(turret->sprite, VC{.9, .9});
     set_turret_origin_and_cost(turret, env);
+    sfSprite_setScale(turret->sprite, VC{.9, .9});
+    sfSprite_setPosition(turret->sprite, pos);
 }
 
 turret_t *find_turret_by_pos(env_t *env, sfVector2f pos)
