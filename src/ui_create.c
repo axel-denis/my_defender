@@ -59,12 +59,12 @@ void create_icons(pop_button *but, int i)
 int set_turret_in_button(turret_t *turrets, pop_button *button, int i, int j)
 {
     if (turrets[i].is_base == 1) {
-        setup_popup_text(&button[j], turrets[i], i);
-        button[j].onglet = create_object("img/onglet.png", VC{i * 180, 920},
+        setup_popup_text(&button[j], turrets[i], j);
+        button[j].onglet = create_object("img/onglet.png", VC{j * 180, 920},
         VC{2, 2.2});
-        create_icons(&button[j], i);
+        create_icons(&button[j], j);
         button[j].icon = create_textured_object(turrets[i].texture,
-        VC{i * 180 + 90, 1020}, sfSprite_getScale(turrets[i].sprite));
+        VC{j * 180 + 90, 1020}, sfSprite_getScale(turrets[i].sprite));
         button[j].type = &(turrets[i]);
         sfSprite_setRotation(button[j].icon.sprite, 90);
         return 1;
