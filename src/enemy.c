@@ -46,6 +46,19 @@ void point_enemy_toward_next_case(enemy *mob, sfVector2f pos, env_t *env)
     }
 }
 
+void move_rotate_enemy(enemy *mob, sfVector2f movement)
+{
+    sfSprite_move(mob->sprite, movement);
+    if (movement.y > 0)
+        sfSprite_setRotation(mob->sprite, 90);
+    if (movement.y < 0)
+        sfSprite_setRotation(mob->sprite, 270);
+    if (movement.x > 0)
+        sfSprite_setRotation(mob->sprite, 0);
+    if (movement.x < 0)
+        sfSprite_setRotation(mob->sprite, 180);
+}
+
 void evolve_enemy(env_t *env, enemy *mob)
 {
     sfVector2f pos = sfSprite_getPosition(mob->sprite);
@@ -67,52 +80,5 @@ void evolve_enemy(env_t *env, enemy *mob)
     mob->disp.x -= movement.x;
     mob->disp.y -= movement.y;
     mob->slowed_time -= (mob->slowed_time > 0);
-    sfSprite_move(mob->sprite, movement);
-}
-
-enemy *get_oldest(env_t *env, turret_t *turret)
-{
-    enemy *actual = env->c_game.enemies;
-    enemy *output = NULL;
-    sfVector2f pos = sfSprite_getPosition(turret->sprite);
-    sfVector2f act_pos;
-    int age = -1;
-
-    while (actual != NULL) {
-        if (actual->type == 0) {
-            actual = actual->next;
-            continue;
-        }
-        act_pos = sfSprite_getPosition(actual->sprite);
-        if (dist_two_points(act_pos, pos) < turret->range
-            && actual->age > age) {
-            age = actual->age;
-            output = actual;
-        }
-        actual = actual->next;
-    }
-    return output;
-}
-
-enemy *get_nearest(env_t *env, turret_t *turret)
-{
-    enemy *actual = env->c_game.enemies;
-    enemy *output = NULL;
-    sfVector2f pos = sfSprite_getPosition(turret->sprite);
-    int act_dist;
-    int dist = 2000;
-
-    while (actual != NULL) {
-        if (actual->type == 0) {
-            actual = actual->next;
-            continue;
-        }
-        act_dist = dist_two_points(sfSprite_getPosition(actual->sprite), pos);
-        if (act_dist < turret->range && act_dist < dist) {
-            dist = act_dist;
-            output = actual;
-        }
-        actual = actual->next;
-    }
-    return output;
+    move_rotate_enemy(mob, movement);
 }
