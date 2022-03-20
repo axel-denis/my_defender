@@ -48,5 +48,6 @@ object create_object(char *file, sfVector2f pos, sfVector2f scale);
 object create_textured_object(sfTexture *img, sfVector2f pos, sfVector2f scale);
 sfRenderWindow *create_windows(env_t *env);
 sfRenderWindow *create_windows(env_t *env);
+sfVector2f utofv2(sfVector2u vector);
 
 #endif

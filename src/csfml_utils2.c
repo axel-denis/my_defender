@@ -43,3 +43,12 @@ sfVector2i ftoiv2(sfVector2f vector)
     result.y = vector.y;
     return (result);
 }
+
+sfVector2f utofv2(sfVector2u vector)
+{
+    sfVector2f result;
+
+    result.x = vector.x;
+    result.y = vector.y;
+    return (result);
+}

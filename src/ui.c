@@ -58,7 +58,7 @@ int pick_the_turret(pop_button *but, sfVector2f mouse_pos, int pick, env_t *env)
             env->c_game.map[co.y][co.x].type = 3;
         }
         sfSprite_setPosition(but[pick].icon.sprite, VC{pick * 180 + 90,
-        sfSprite_getPosition(but[pick].onglet.sprite).y + 80});
+        sfSprite_getPosition(but[pick].onglet.sprite).y + 100});
     }
     return (returned);
 }
@@ -67,8 +67,6 @@ int pickup_turrets(pop_button *but, sfVector2f mouse_pos, int pick, env_t *env)
 {
     if (pick == -1) {
         return (detect_what_pickup(but, mouse_pos, env->keys));
-    } else {
+    } else
         return (pick_the_turret(but, mouse_pos, pick, env));
-    }
-    return -1;
 }

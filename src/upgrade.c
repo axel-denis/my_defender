@@ -41,10 +41,8 @@ void upgrade_menu(env_t *env, SFWIN window, upgrade_menu_t *menu, int pick)
 
     if (menu->upgrading == NULL)
         upgrade_menu_open(env, window, menu, pick);
-    else {
+    else
         execute_upgrade(env, pos, menu);
-    }
-    return;
 }
 
 upgrade_menu_t upgrade_create(env_t *env)
