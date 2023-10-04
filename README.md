@@ -24,8 +24,8 @@ make
 
 ## Authors
 
-- [Axel Denis](https://github.com/axel-denis)
 - [Arthur Aillet](https://github.com/Arthur-Aillet)
+- [Axel Denis](https://github.com/axel-denis)
 
 ## License
 
